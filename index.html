@@ -6069,6 +6069,30 @@
             <p style="color: var(--gray-500); font-size: 14px;">Export plans, manage data sources, and configure import/export settings</p>
           </div>
           
+          <!-- Storage Summary Cards - Top Section -->
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-md); margin-bottom: var(--space-lg);">
+            <div style="background: white; border-radius: var(--radius-lg); padding: var(--space-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); text-align: center;">
+              <div style="font-size: 36px; font-weight: 700; color: var(--gusto-teal);">1</div>
+              <div style="font-size: 13px; font-weight: 600; color: var(--gray-700); margin-top: 4px;">Working Plan</div>
+              <div style="font-size: 11px; color: var(--gray-400);">Current edits</div>
+            </div>
+            <div style="background: white; border-radius: var(--radius-lg); padding: var(--space-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); text-align: center;">
+              <div style="font-size: 36px; font-weight: 700; color: var(--success);">3</div>
+              <div style="font-size: 13px; font-weight: 600; color: var(--gray-700); margin-top: 4px;">Published Plans</div>
+              <div style="font-size: 11px; color: var(--gray-400);">of 12 max</div>
+            </div>
+            <div style="background: white; border-radius: var(--radius-lg); padding: var(--space-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); text-align: center;">
+              <div style="font-size: 36px; font-weight: 700; color: var(--gusto-coral);">4</div>
+              <div style="font-size: 13px; font-weight: 600; color: var(--gray-700); margin-top: 4px;">Scenarios</div>
+              <div style="font-size: 11px; color: var(--gray-400);">5 max per pillar</div>
+            </div>
+            <div style="background: white; border-radius: var(--radius-lg); padding: var(--space-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); text-align: center;">
+              <div style="font-size: 36px; font-weight: 700; color: var(--gray-600);">~8.5K</div>
+              <div style="font-size: 13px; font-weight: 600; color: var(--gray-700); margin-top: 4px;">Total Rows</div>
+              <div style="font-size: 11px; color: var(--gray-400);">across all tables</div>
+            </div>
+          </div>
+          
           <!-- Three Column Layout -->
           <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-lg);">
             
@@ -6283,40 +6307,6 @@
               <button onclick="syncAllData()" class="btn btn-secondary" style="width: 100%; padding: 10px; font-size: 13px;">
                 🔄 Sync All Data Sources
               </button>
-            </div>
-          </div>
-          
-          <!-- Bottom Section: Plan Storage Summary -->
-          <div style="margin-top: var(--space-lg); background: white; border-radius: var(--radius-lg); padding: var(--space-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200);">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-md);">
-              <h3 style="font-size: 16px; font-weight: 600; color: var(--gray-800); display: flex; align-items: center; gap: 8px;">
-                <span style="font-size: 20px;">💾</span> Storage Summary
-              </h3>
-              <button class="btn btn-secondary" style="font-size: 12px;" onclick="openArchiveManager()">
-                🗄️ Manage Archives
-              </button>
-            </div>
-            
-            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-md);">
-              <div style="background: var(--gray-50); border-radius: var(--radius-sm); padding: var(--space-md); text-align: center;">
-                <div style="font-size: 28px; font-weight: 700; color: var(--gusto-teal);">1</div>
-                <div style="font-size: 11px; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.5px;">Working Plan</div>
-              </div>
-              <div style="background: var(--gray-50); border-radius: var(--radius-sm); padding: var(--space-md); text-align: center;">
-                <div style="font-size: 28px; font-weight: 700; color: var(--success);">3</div>
-                <div style="font-size: 11px; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.5px;">Published Plans</div>
-                <div style="font-size: 10px; color: var(--gray-400);">of 12 max</div>
-              </div>
-              <div style="background: var(--gray-50); border-radius: var(--radius-sm); padding: var(--space-md); text-align: center;">
-                <div style="font-size: 28px; font-weight: 700; color: var(--gusto-coral);">4</div>
-                <div style="font-size: 11px; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.5px;">Scenarios</div>
-                <div style="font-size: 10px; color: var(--gray-400);">5 max per pillar</div>
-              </div>
-              <div style="background: var(--gray-50); border-radius: var(--radius-sm); padding: var(--space-md); text-align: center;">
-                <div style="font-size: 28px; font-weight: 700; color: var(--gray-600);">~8,500</div>
-                <div style="font-size: 11px; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.5px;">Total Rows</div>
-                <div style="font-size: 10px; color: var(--gray-400);">across all tables</div>
-              </div>
             </div>
           </div>
           
