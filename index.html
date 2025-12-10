@@ -6055,6 +6055,273 @@
         </section>
         
         </div><!-- END view-pillar -->
+        
+        <!-- ═══════════════════════════════════════════════════════════════════════
+             DATA & EXPORTS VIEW - Data Management, Import/Export, Architecture
+             ═══════════════════════════════════════════════════════════════════════ -->
+        <div id="view-exports" class="view-container" style="display: none;">
+          
+          <!-- Page Header -->
+          <div style="margin-bottom: var(--space-lg);">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+              <h1 style="font-size: 24px; font-weight: 600; color: var(--gray-800);">📤 Data & Exports</h1>
+            </div>
+            <p style="color: var(--gray-500); font-size: 14px;">Export plans, manage data sources, and configure import/export settings</p>
+          </div>
+          
+          <!-- Three Column Layout -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-lg);">
+            
+            <!-- COLUMN 1: Export Options -->
+            <div style="background: white; border-radius: var(--radius-lg); padding: var(--space-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200);">
+              <h3 style="font-size: 16px; font-weight: 600; color: var(--gray-800); margin-bottom: var(--space-md); display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 20px;">📊</span> Export Plan Data
+              </h3>
+              
+              <!-- Plan Selector -->
+              <div style="margin-bottom: var(--space-md);">
+                <label style="font-size: 12px; font-weight: 500; color: var(--gray-600); display: block; margin-bottom: 6px;">Select Plan to Export</label>
+                <select id="exportPlanSelect" class="form-select" style="width: 100%; padding: 10px; border: 1px solid var(--gray-200); border-radius: var(--radius-sm); font-size: 13px;">
+                  <option value="working">📝 Working Plan (Current)</option>
+                  <option value="published">📋 Published Plan v3.2 (Dec 2025)</option>
+                  <option value="pub-nov">📋 Published Plan v3.1 (Nov 2025)</option>
+                  <option value="scn-001">💾 Scenario: Jan Hiring Freeze</option>
+                  <option value="scn-002">💾 Scenario: 20hr OT Strategy</option>
+                </select>
+              </div>
+              
+              <!-- Pillar Selector -->
+              <div style="margin-bottom: var(--space-md);">
+                <label style="font-size: 12px; font-weight: 500; color: var(--gray-600); display: block; margin-bottom: 6px;">Pillar Scope</label>
+                <select id="exportPillarScope" class="form-select" style="width: 100%; padding: 10px; border: 1px solid var(--gray-200); border-radius: var(--radius-sm); font-size: 13px;">
+                  <option value="all">All Pillars (Customer Care All-In)</option>
+                  <option value="payroll">Payroll and Taxes</option>
+                  <option value="benefits">Benefits</option>
+                  <option value="members">Members</option>
+                  <option value="accountant">Accountant</option>
+                  <option value="money">Money</option>
+                  <option value="premier">Premier</option>
+                  <option value="pac">PAC</option>
+                  <option value="bac">BAC</option>
+                </select>
+              </div>
+              
+              <!-- Export Format Options -->
+              <div style="margin-bottom: var(--space-lg);">
+                <label style="font-size: 12px; font-weight: 500; color: var(--gray-600); display: block; margin-bottom: 8px;">Export Format</label>
+                
+                <div onclick="selectExportFormat('pillar-template')" id="export-pillar-template" style="background: var(--gusto-teal-light); border: 2px solid var(--gusto-teal); border-radius: var(--radius-sm); padding: 12px; margin-bottom: 8px; cursor: pointer;">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="font-size: 18px;">📋</span>
+                    <div>
+                      <div style="font-weight: 600; font-size: 13px; color: var(--gray-800);">Pillar Template Format</div>
+                      <div style="font-size: 11px; color: var(--gray-500);">Wide format with months as columns - editable in Sheets</div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div onclick="selectExportFormat('executive-summary')" id="export-executive-summary" style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-sm); padding: 12px; margin-bottom: 8px; cursor: pointer;">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="font-size: 18px;">📄</span>
+                    <div>
+                      <div style="font-weight: 600; font-size: 13px; color: var(--gray-800);">Executive Summary (PDF)</div>
+                      <div style="font-size: 11px; color: var(--gray-500);">Stakeholder-ready report with insights</div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div onclick="selectExportFormat('raw-data')" id="export-raw-data" style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-sm); padding: 12px; cursor: pointer;">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="font-size: 18px;">📊</span>
+                    <div>
+                      <div style="font-weight: 600; font-size: 13px; color: var(--gray-800);">Raw Data (CSV)</div>
+                      <div style="font-size: 11px; color: var(--gray-500);">Normalized tables for data analysis</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <button onclick="exportPlanData()" class="btn btn-primary" style="width: 100%; padding: 12px; font-size: 14px;">
+                📤 Export Selected Plan
+              </button>
+            </div>
+            
+            <!-- COLUMN 2: Import Options -->
+            <div style="background: white; border-radius: var(--radius-lg); padding: var(--space-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200);">
+              <h3 style="font-size: 16px; font-weight: 600; color: var(--gray-800); margin-bottom: var(--space-md); display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 20px;">📥</span> Import Data
+              </h3>
+              
+              <!-- Import Type -->
+              <div style="margin-bottom: var(--space-md);">
+                <label style="font-size: 12px; font-weight: 500; color: var(--gray-600); display: block; margin-bottom: 8px;">Import Type</label>
+                
+                <div onclick="selectImportType('baseline')" id="import-baseline" style="background: var(--gusto-teal-light); border: 2px solid var(--gusto-teal); border-radius: var(--radius-sm); padding: 12px; margin-bottom: 8px; cursor: pointer;">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="font-size: 18px;">📈</span>
+                    <div>
+                      <div style="font-weight: 600; font-size: 13px; color: var(--gray-800);">Baseline Forecast</div>
+                      <div style="font-size: 11px; color: var(--gray-500);">Monthly volume, AHT, SL targets from forecast engine</div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div onclick="selectImportType('active-hc')" id="import-active-hc" style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-sm); padding: 12px; margin-bottom: 8px; cursor: pointer;">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="font-size: 18px;">👥</span>
+                    <div>
+                      <div style="font-weight: 600; font-size: 13px; color: var(--gray-800);">Active Headcount</div>
+                      <div style="font-size: 11px; color: var(--gray-500);">Actual HC by site from HR systems</div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div onclick="selectImportType('pillar-template')" id="import-pillar-template" style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-sm); padding: 12px; cursor: pointer;">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="font-size: 18px;">📋</span>
+                    <div>
+                      <div style="font-weight: 600; font-size: 13px; color: var(--gray-800);">Pillar Template (Re-import)</div>
+                      <div style="font-size: 11px; color: var(--gray-500);">Import edits made offline in Sheets</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- File Upload Area -->
+              <div style="margin-bottom: var(--space-md);">
+                <label style="font-size: 12px; font-weight: 500; color: var(--gray-600); display: block; margin-bottom: 6px;">Source</label>
+                <div style="border: 2px dashed var(--gray-300); border-radius: var(--radius-sm); padding: 24px; text-align: center; background: var(--gray-50);">
+                  <div style="font-size: 32px; margin-bottom: 8px;">📁</div>
+                  <div style="font-size: 13px; color: var(--gray-600); margin-bottom: 8px;">Drag & drop file or</div>
+                  <button class="btn btn-secondary" style="font-size: 12px;">Browse Google Drive</button>
+                  <div style="font-size: 11px; color: var(--gray-400); margin-top: 8px;">Supports .csv, .xlsx, Google Sheets link</div>
+                </div>
+              </div>
+              
+              <button onclick="importData()" class="btn btn-primary" style="width: 100%; padding: 12px; font-size: 14px;" disabled>
+                📥 Import Data
+              </button>
+              
+              <div style="margin-top: var(--space-md); padding: 12px; background: var(--warning-bg); border-radius: var(--radius-sm);">
+                <div style="font-size: 12px; color: var(--warning); font-weight: 600;">⚠️ Import will update Working Plan</div>
+                <div style="font-size: 11px; color: var(--gray-600); margin-top: 4px;">Review changes before publishing</div>
+              </div>
+            </div>
+            
+            <!-- COLUMN 3: Data Sources & Architecture -->
+            <div style="background: white; border-radius: var(--radius-lg); padding: var(--space-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200);">
+              <h3 style="font-size: 16px; font-weight: 600; color: var(--gray-800); margin-bottom: var(--space-md); display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 20px;">🔗</span> Data Sources
+              </h3>
+              
+              <!-- Connected Sources -->
+              <div style="margin-bottom: var(--space-lg);">
+                <div style="font-size: 12px; font-weight: 500; color: var(--gray-600); margin-bottom: 8px;">Connected Sources</div>
+                
+                <div style="background: var(--success-bg); border-radius: var(--radius-sm); padding: 10px 12px; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between;">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="color: var(--success);">✓</span>
+                    <div>
+                      <div style="font-size: 12px; font-weight: 500;">Plans_Registry</div>
+                      <div style="font-size: 10px; color: var(--gray-500);">Last sync: 2 min ago</div>
+                    </div>
+                  </div>
+                  <button style="background: none; border: none; font-size: 12px; color: var(--gusto-teal); cursor: pointer;">🔄</button>
+                </div>
+                
+                <div style="background: var(--success-bg); border-radius: var(--radius-sm); padding: 10px 12px; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between;">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="color: var(--success);">✓</span>
+                    <div>
+                      <div style="font-size: 12px; font-weight: 500;">Plan_Inputs</div>
+                      <div style="font-size: 10px; color: var(--gray-500);">Last sync: 2 min ago</div>
+                    </div>
+                  </div>
+                  <button style="background: none; border: none; font-size: 12px; color: var(--gusto-teal); cursor: pointer;">🔄</button>
+                </div>
+                
+                <div style="background: var(--success-bg); border-radius: var(--radius-sm); padding: 10px 12px; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between;">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="color: var(--success);">✓</span>
+                    <div>
+                      <div style="font-size: 12px; font-weight: 500;">Plan_Outputs</div>
+                      <div style="font-size: 10px; color: var(--gray-500);">Last sync: 2 min ago</div>
+                    </div>
+                  </div>
+                  <button style="background: none; border: none; font-size: 12px; color: var(--gusto-teal); cursor: pointer;">🔄</button>
+                </div>
+                
+                <div style="background: var(--success-bg); border-radius: var(--radius-sm); padding: 10px 12px; display: flex; align-items: center; justify-content: space-between;">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="color: var(--success);">✓</span>
+                    <div>
+                      <div style="font-size: 12px; font-weight: 500;">Plan_Manual_Inputs</div>
+                      <div style="font-size: 10px; color: var(--gray-500);">Last sync: 2 min ago</div>
+                    </div>
+                  </div>
+                  <button style="background: none; border: none; font-size: 12px; color: var(--gusto-teal); cursor: pointer;">🔄</button>
+                </div>
+              </div>
+              
+              <!-- Quick Links -->
+              <div style="margin-bottom: var(--space-md);">
+                <div style="font-size: 12px; font-weight: 500; color: var(--gray-600); margin-bottom: 8px;">Quick Links</div>
+                <a href="https://docs.google.com/spreadsheets/d/1Jfm3Gv7xkaHtl5Vrf8qQpFtOElQu4MX-xl2OykBpuVs/edit" target="_blank" style="display: flex; align-items: center; gap: 8px; padding: 10px 12px; background: var(--gray-50); border-radius: var(--radius-sm); text-decoration: none; color: var(--gray-700); font-size: 12px; margin-bottom: 6px;">
+                  <span>📊</span> Open Source Spreadsheet
+                  <span style="margin-left: auto; color: var(--gray-400);">↗</span>
+                </a>
+                <a href="#" onclick="openDataDictionary(); return false;" style="display: flex; align-items: center; gap: 8px; padding: 10px 12px; background: var(--gray-50); border-radius: var(--radius-sm); text-decoration: none; color: var(--gray-700); font-size: 12px; margin-bottom: 6px;">
+                  <span>📖</span> Data Dictionary
+                  <span style="margin-left: auto; color: var(--gray-400);">→</span>
+                </a>
+                <a href="#" onclick="openArchitectureDocs(); return false;" style="display: flex; align-items: center; gap: 8px; padding: 10px 12px; background: var(--gray-50); border-radius: var(--radius-sm); text-decoration: none; color: var(--gray-700); font-size: 12px;">
+                  <span>🏗️</span> Architecture Docs
+                  <span style="margin-left: auto; color: var(--gray-400);">→</span>
+                </a>
+              </div>
+              
+              <button onclick="syncAllData()" class="btn btn-secondary" style="width: 100%; padding: 10px; font-size: 13px;">
+                🔄 Sync All Data Sources
+              </button>
+            </div>
+          </div>
+          
+          <!-- Bottom Section: Plan Storage Summary -->
+          <div style="margin-top: var(--space-lg); background: white; border-radius: var(--radius-lg); padding: var(--space-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-md);">
+              <h3 style="font-size: 16px; font-weight: 600; color: var(--gray-800); display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 20px;">💾</span> Storage Summary
+              </h3>
+              <button class="btn btn-secondary" style="font-size: 12px;" onclick="openArchiveManager()">
+                🗄️ Manage Archives
+              </button>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-md);">
+              <div style="background: var(--gray-50); border-radius: var(--radius-sm); padding: var(--space-md); text-align: center;">
+                <div style="font-size: 28px; font-weight: 700; color: var(--gusto-teal);">1</div>
+                <div style="font-size: 11px; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.5px;">Working Plan</div>
+              </div>
+              <div style="background: var(--gray-50); border-radius: var(--radius-sm); padding: var(--space-md); text-align: center;">
+                <div style="font-size: 28px; font-weight: 700; color: var(--success);">3</div>
+                <div style="font-size: 11px; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.5px;">Published Plans</div>
+                <div style="font-size: 10px; color: var(--gray-400);">of 12 max</div>
+              </div>
+              <div style="background: var(--gray-50); border-radius: var(--radius-sm); padding: var(--space-md); text-align: center;">
+                <div style="font-size: 28px; font-weight: 700; color: var(--gusto-coral);">4</div>
+                <div style="font-size: 11px; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.5px;">Scenarios</div>
+                <div style="font-size: 10px; color: var(--gray-400);">5 max per pillar</div>
+              </div>
+              <div style="background: var(--gray-50); border-radius: var(--radius-sm); padding: var(--space-md); text-align: center;">
+                <div style="font-size: 28px; font-weight: 700; color: var(--gray-600);">~8,500</div>
+                <div style="font-size: 11px; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.5px;">Total Rows</div>
+                <div style="font-size: 10px; color: var(--gray-400);">across all tables</div>
+              </div>
+            </div>
+          </div>
+          
+        </div><!-- END view-exports -->
+        
       </div>
     </main>
   </div>
@@ -6846,6 +7113,15 @@
       } else if (view === 'pillar') {
         dropdown.style.display = 'inline-block';
         comparisonToggle.style.display = 'flex';
+      } else if (view === 'exports' || view === 'published' || view === 'scenarios') {
+        dropdown.style.display = 'none';
+        comparisonToggle.style.display = 'none';
+        if (scenariosBtn) scenariosBtn.style.display = 'none';
+        // For published and scenarios, show the exports view (consolidated data section)
+        if (view === 'published' || view === 'scenarios') {
+          document.querySelectorAll('.view-container').forEach(v => v.style.display = 'none');
+          document.getElementById('view-exports').style.display = 'block';
+        }
       }
       
       // Update current view state
@@ -7387,6 +7663,89 @@
     
     function publishPlan() {
       openModal('publish');
+    }
+    
+    // ═══════════════════════════════════════════════════════════════════════
+    // EXPORT & DATA MANAGEMENT FUNCTIONS
+    // ═══════════════════════════════════════════════════════════════════════
+    
+    let selectedExportFormat = 'pillar-template';
+    let selectedImportType = 'baseline';
+    
+    function selectExportFormat(format) {
+      selectedExportFormat = format;
+      // Update UI
+      document.querySelectorAll('[id^="export-"]').forEach(el => {
+        if (el.id === 'export-' + format) {
+          el.style.background = 'var(--gusto-teal-light)';
+          el.style.border = '2px solid var(--gusto-teal)';
+        } else {
+          el.style.background = 'var(--gray-50)';
+          el.style.border = '1px solid var(--gray-200)';
+        }
+      });
+    }
+    
+    function selectImportType(type) {
+      selectedImportType = type;
+      // Update UI
+      document.querySelectorAll('[id^="import-"]').forEach(el => {
+        if (el.id === 'import-' + type) {
+          el.style.background = 'var(--gusto-teal-light)';
+          el.style.border = '2px solid var(--gusto-teal)';
+        } else {
+          el.style.background = 'var(--gray-50)';
+          el.style.border = '1px solid var(--gray-200)';
+        }
+      });
+    }
+    
+    function exportPlanData() {
+      const planSelect = document.getElementById('exportPlanSelect');
+      const pillarScope = document.getElementById('exportPillarScope');
+      const planName = planSelect.options[planSelect.selectedIndex].text;
+      const pillarName = pillarScope.options[pillarScope.selectedIndex].text;
+      
+      showToast('📤 Preparing export...', 'info');
+      
+      setTimeout(() => {
+        if (selectedExportFormat === 'pillar-template') {
+          showToast('✅ Pillar Template exported! Opening in Google Sheets...', 'success');
+          // In production: would generate and open a new Sheet with the template format
+          console.log('Exporting as Pillar Template:', { plan: planSelect.value, pillar: pillarScope.value });
+        } else if (selectedExportFormat === 'executive-summary') {
+          showToast('✅ Executive Summary generated! Downloading PDF...', 'success');
+          console.log('Exporting as Executive Summary:', { plan: planSelect.value, pillar: pillarScope.value });
+        } else {
+          showToast('✅ Raw data exported! Downloading CSV...', 'success');
+          console.log('Exporting as Raw Data:', { plan: planSelect.value, pillar: pillarScope.value });
+        }
+      }, 1500);
+    }
+    
+    function importData() {
+      showToast('📥 Import functionality coming soon!', 'info');
+    }
+    
+    function syncAllData() {
+      showToast('🔄 Syncing all data sources...', 'info');
+      setTimeout(() => {
+        showToast('✅ All data sources synced successfully!', 'success');
+      }, 2000);
+    }
+    
+    function openDataDictionary() {
+      showToast('📖 Data Dictionary - Coming soon!', 'info');
+    }
+    
+    function openArchitectureDocs() {
+      // Open the PRD we created
+      window.open('/Users/bunny.bates/Desktop/Planning Web Tool/PRODUCT_REQUIREMENTS.html', '_blank');
+      showToast('🏗️ Opening Architecture Documentation...', 'info');
+    }
+    
+    function openArchiveManager() {
+      showToast('🗄️ Archive Manager - Coming soon!', 'info');
     }
     
     function saveScenario() {
