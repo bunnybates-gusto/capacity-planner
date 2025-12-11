@@ -495,6 +495,19 @@
       margin-bottom: var(--space-md);
     }
     
+    /* Responsive Grid Utilities */
+    .responsive-grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-md);
+    }
+    
+    .responsive-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-lg);
+    }
+    
     .stat-card {
       background: var(--white);
       border-radius: var(--radius-md);
@@ -968,13 +981,13 @@
     
     .data-grid {
       overflow-x: auto;
-      overflow-y: auto;
-      max-height: 600px;
       position: relative;
     }
     
+    /* Only use scrollable class when truly needed (e.g., modals) */
     .data-grid.scrollable {
       max-height: 500px;
+      overflow-y: auto;
     }
     
     .data-table {
@@ -1024,10 +1037,15 @@
       background: var(--white);
       position: sticky;
       left: 0;
-      z-index: 5;
+      z-index: 10;
       border-right: 1px solid var(--gray-200);
-      min-width: 140px;
+      min-width: 180px;
+      max-width: 200px;
       font-size: 11px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      box-shadow: 2px 0 4px rgba(0,0,0,0.05);
     }
     
     .data-table tr:hover td {
@@ -1101,8 +1119,12 @@
     
     .compact-24 .data-table th:first-child,
     .compact-24 .data-table td:first-child {
-      min-width: 140px;
+      min-width: 180px;
+      max-width: 200px;
       font-size: 12px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     
     .compact-24 .data-table input,
@@ -1426,11 +1448,9 @@
       display: block;
     }
     
-    /* Remove nested scroll from channel tables */
+    /* Channel tables - horizontal scroll only, natural vertical */
     .channel-body .data-grid {
       overflow-x: auto;
-      overflow-y: auto;
-      max-height: 400px;
       position: relative;
       border: 2px solid var(--gusto-teal);
       border-radius: var(--radius-sm);
@@ -1465,9 +1485,14 @@
     
     .channel-body .data-table th:first-child,
     .channel-body .data-table td:first-child {
-      min-width: 140px;
-      max-width: 160px;
-      font-size: 10px;
+      min-width: 200px;
+      max-width: 220px;
+      font-size: 11px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      z-index: 10;
+      box-shadow: 2px 0 4px rgba(0,0,0,0.05);
     }
     
     .channel-body .data-table input[type="text"],
@@ -2168,9 +2193,10 @@
     }
     
     /* ═══════════════════════════════════════════════════════════════════════
-       RESPONSIVE
+       RESPONSIVE - Adapts to all screen sizes
        ═══════════════════════════════════════════════════════════════════════ */
     
+    /* Small screens / tablets */
     @media (max-width: 1024px) {
       .nav-sidebar {
         transform: translateX(-100%);
@@ -2182,6 +2208,147 @@
       
       .main-content {
         margin-left: 0;
+      }
+    }
+    
+    /* Large screens (1440px+) - Scale up content */
+    @media (min-width: 1440px) {
+      :root {
+        --space-md: 20px;
+        --space-lg: 32px;
+        --space-xl: 40px;
+        --space-2xl: 56px;
+      }
+      
+      .workspace {
+        padding: var(--space-xl) !important;
+      }
+      
+      /* Bigger cards */
+      .stat-card, .quick-stat-card {
+        padding: 24px 28px !important;
+      }
+      
+      .stat-value {
+        font-size: 32px !important;
+      }
+      
+      .stat-label {
+        font-size: 13px !important;
+      }
+      
+      /* Bigger section titles */
+      section h1, .section-title, .view-container h1 {
+        font-size: 28px !important;
+      }
+      
+      /* Bigger table text */
+      table th {
+        font-size: 13px !important;
+        padding: 14px 18px !important;
+      }
+      
+      table td {
+        font-size: 14px !important;
+        padding: 12px 18px !important;
+      }
+      
+      /* Bigger buttons */
+      .btn {
+        padding: 12px 20px !important;
+        font-size: 14px !important;
+      }
+      
+      /* Wider nav */
+      .nav-sidebar {
+        width: 260px;
+      }
+      
+      .main-content {
+        margin-left: 260px;
+      }
+      
+      .nav-sidebar.collapsed ~ .main-content {
+        margin-left: 72px;
+      }
+    }
+    
+    /* Extra large screens (1920px+) - Big desktop monitors */
+    @media (min-width: 1920px) {
+      :root {
+        --space-md: 24px;
+        --space-lg: 40px;
+        --space-xl: 48px;
+        --space-2xl: 64px;
+      }
+      
+      .workspace {
+        padding: var(--space-2xl) !important;
+        max-width: 1800px;
+        margin: 0 auto;
+      }
+      
+      /* Even bigger cards */
+      .stat-card, .quick-stat-card {
+        padding: 32px 36px !important;
+      }
+      
+      .stat-value {
+        font-size: 40px !important;
+      }
+      
+      .stat-label {
+        font-size: 14px !important;
+      }
+      
+      /* Bigger section titles */
+      section h1, .section-title, .view-container h1 {
+        font-size: 32px !important;
+      }
+      
+      /* Bigger page title */
+      .page-title h1 {
+        font-size: 26px !important;
+      }
+      
+      /* Bigger table text */
+      table th {
+        font-size: 14px !important;
+        padding: 16px 20px !important;
+      }
+      
+      table td {
+        font-size: 15px !important;
+        padding: 14px 20px !important;
+      }
+      
+      /* Bigger chart areas */
+      .chart-container, .chart-card {
+        min-height: 350px !important;
+      }
+      
+      /* Wider nav on big screens */
+      .nav-sidebar {
+        width: 280px;
+      }
+      
+      .main-content {
+        margin-left: 280px;
+      }
+    }
+    
+    /* Ultra-wide screens (2560px+) */
+    @media (min-width: 2560px) {
+      .workspace {
+        max-width: 2200px;
+      }
+      
+      .stat-value {
+        font-size: 48px !important;
+      }
+      
+      section h1, .section-title, .view-container h1 {
+        font-size: 36px !important;
       }
     }
   </style>
@@ -2251,17 +2418,21 @@
         <div class="nav-section">
           <div class="section-label">Data</div>
           <div class="nav-items">
-            <div class="nav-item" onclick="loadView('published')">
+            <div class="nav-item" onclick="loadView('overlays')" id="nav-overlays">
+              <span class="nav-icon">🎚️</span>
+              <span class="nav-text">Overlay Tracker</span>
+            </div>
+            <div class="nav-item" onclick="loadView('published')" id="nav-published">
               <span class="nav-icon">📋</span>
               <span class="nav-text">Published Plans</span>
             </div>
-            <div class="nav-item" onclick="loadView('scenarios')">
+            <div class="nav-item" onclick="loadView('scenarios')" id="nav-scenarios">
               <span class="nav-icon">💾</span>
               <span class="nav-text">Scenarios</span>
             </div>
-            <div class="nav-item" onclick="loadView('exports')">
-              <span class="nav-icon">📤</span>
-              <span class="nav-text">Exports</span>
+            <div class="nav-item" onclick="loadView('datamanagement')" id="nav-datamanagement">
+              <span class="nav-icon">🗄️</span>
+              <span class="nav-text">Data Management</span>
             </div>
           </div>
         </div>
@@ -2594,8 +2765,8 @@
                     <button class="btn btn-primary" onclick="openModal('createPillar')" style="font-size: 12px;">➕ Add Pillar</button>
                   </div>
                 </div>
-                <div class="data-grid" style="max-height: 320px; overflow-y: auto;">
-                  <table class="data-table" style="font-size: 13px;">
+                <div class="data-grid">
+                  <table class="data-table" style="font-size: 13px; width: 100%;">
                     <thead>
                       <tr>
                         <th style="width: 140px; text-align: center;">Pillar</th>
@@ -3061,7 +3232,32 @@
                 <button class="table-action-btn" data-tooltip="Export data">📥</button>
               </div>
             </div>
-            <div class="data-grid compact-24 scrollable" style="flex: 1; max-height: calc(100vh - 420px); min-height: 400px;">
+            
+            <!-- STICKY OVERLAY IMPACT BAR -->
+            <div id="overlayImpactBar" style="position: sticky; top: 0; z-index: 40; background: linear-gradient(135deg, var(--gusto-coral-light) 0%, #FFF5F3 100%); border: 1px solid var(--gusto-coral); border-radius: 8px; padding: 10px 16px; margin-bottom: 8px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 16px;">🎯</span>
+                <span style="font-weight: 600; font-size: 13px; color: var(--gray-800);">Active Overlays:</span>
+                <span style="background: var(--gusto-coral); color: white; padding: 2px 10px; border-radius: 12px; font-size: 12px; font-weight: 600;">12</span>
+              </div>
+              <div style="height: 20px; width: 1px; background: var(--gray-300);"></div>
+              <div style="display: flex; align-items: center; gap: 6px; font-size: 12px;">
+                <span style="color: var(--gray-600);">HC Impact:</span>
+                <span style="color: var(--error); font-weight: 700;">+38</span>
+              </div>
+              <div style="height: 20px; width: 1px; background: var(--gray-300);"></div>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <span style="background: var(--gusto-teal-light); color: var(--gusto-teal-dark); padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 500; cursor: pointer;" onclick="showPillarOverlays('Payroll')" title="Click to see details">Payroll +15</span>
+                <span style="background: var(--gusto-teal-light); color: var(--gusto-teal-dark); padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 500; cursor: pointer;" onclick="showPillarOverlays('Benefits')" title="Click to see details">Benefits +18</span>
+                <span style="background: #D1FAE5; color: #065F46; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 500; cursor: pointer;" onclick="showPillarOverlays('PAC')" title="Click to see details">PAC -5</span>
+                <span style="background: var(--gray-100); color: var(--gray-600); padding: 3px 10px; border-radius: 12px; font-size: 11px; cursor: pointer;" onclick="toggleOverlayPanel()">+3 more →</span>
+              </div>
+              <button onclick="toggleOverlayPanel()" style="margin-left: auto; background: white; border: 1px solid var(--gusto-coral); color: var(--gusto-coral); padding: 6px 12px; border-radius: 6px; font-size: 11px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 4px;">
+                📋 View All Overlays
+              </button>
+            </div>
+            
+            <div class="data-grid compact-24" style="flex: 1; min-height: 400px;">
               <table class="data-table">
                 <thead>
                   <!-- Quarter Row -->
@@ -3118,7 +3314,7 @@
                   <tr class="row-section-header collapsible" onclick="toggleAllInSection(this)" style="cursor: pointer;">
                     <td colspan="25">📈 Volume - Active (by Channel) <span style="float: right; font-size: 10px;">▼</span></td>
                   </tr>
-                  <tr class="allin-volume-section" style="font-weight: 700; background: var(--gusto-teal-light); cursor: pointer;" onclick="toggleSubsection(this, 'volume-channel')">
+                  <tr class="allin-volume-section" style="font-weight: 700; background: var(--gusto-teal-light); cursor: pointer;" onclick="toggleSubsection(this, 'volume-channel-sub')">
                     <td style="position: sticky; left: 0; background: var(--gusto-teal-light);"><strong>Volume - Total</strong> <span class="subsection-arrow" style="font-size: 10px; margin-left: 4px;">▼</span></td>
                     <td>202,950</td><td>188,577</td><td>215,728</td><td>199,358</td><td>216,728</td><td>235,582</td><td>220,170</td><td>304,892</td><td>375,464</td><td>285,587</td><td>269,387</td><td>262,407</td>
                     <td>209,830</td><td>195,000</td><td>222,900</td><td>205,900</td><td>223,800</td><td>243,200</td><td>227,400</td><td>314,900</td><td>387,700</td><td>295,000</td><td>278,200</td><td>271,000</td>
@@ -3143,7 +3339,7 @@
                   <tr class="row-section-header collapsible" onclick="toggleAllInSection(this)" style="cursor: pointer;">
                     <td colspan="25">⏱️ Weighted AHT (by Channel) <span style="float: right; font-size: 10px;">▼</span></td>
                   </tr>
-                  <tr class="allin-aht-section" style="font-weight: 700; background: var(--gusto-teal-light); cursor: pointer;" onclick="toggleSubsection(this, 'aht-channel')">
+                  <tr class="allin-aht-section" style="font-weight: 700; background: var(--gusto-teal-light); cursor: pointer;" onclick="toggleSubsection(this, 'aht-channel-sub')">
                     <td style="position: sticky; left: 0; background: var(--gusto-teal-light);"><strong>Weighted AHT - All In</strong> <span class="subsection-arrow" style="font-size: 10px; margin-left: 4px;">▼</span></td>
                     <td>1,090</td><td>1,082</td><td>1,132</td><td>1,118</td><td>1,079</td><td>1,119</td><td>1,115</td><td>1,103</td><td>1,077</td><td>1,078</td><td>1,099</td><td>1,078</td>
                     <td>1,095</td><td>1,088</td><td>1,138</td><td>1,124</td><td>1,085</td><td>1,125</td><td>1,121</td><td>1,109</td><td>1,083</td><td>1,084</td><td>1,105</td><td>1,084</td>
@@ -3168,7 +3364,7 @@
                   <tr class="row-section-header collapsible" onclick="toggleAllInSection(this)" style="cursor: pointer;">
                     <td colspan="25">🎯 Active HC Need (Inc Overlays) <span style="float: right; font-size: 10px;">▼</span></td>
                   </tr>
-                  <tr class="allin-hc-section" style="font-weight: 700; background: var(--gusto-teal-light); cursor: pointer;" onclick="toggleSubsection(this, 'hc-pillar')">
+                  <tr class="allin-hc-section" style="font-weight: 700; background: var(--gusto-teal-light); cursor: pointer;" onclick="toggleSubsection(this, 'hc-pillar-sub')">
                     <td style="position: sticky; left: 0; background: var(--gusto-teal-light);"><strong>Active HC Need - Total</strong> <span class="subsection-arrow" style="font-size: 10px; margin-left: 4px;">▼</span></td>
                     <td>541</td><td>535</td><td>574</td><td>577</td><td>613</td><td>635</td><td>779</td><td>817</td><td>1,056</td><td>929</td><td>802</td><td>795</td>
                     <td>559</td><td>553</td><td>593</td><td>596</td><td>633</td><td>656</td><td>805</td><td>844</td><td>1,091</td><td>960</td><td>829</td><td>822</td>
@@ -3260,7 +3456,7 @@
                 </div>
               </div>
             </div>
-            <div id="overlaysSummaryContent" style="max-height: 400px; overflow-y: auto;">
+            <div id="overlaysSummaryContent">
               
               <!-- ACCOUNTANT - On-Demand -->
               <div class="overlay-pillar-group overlay-ondemand" style="border-bottom: 1px solid var(--gray-200);">
@@ -3413,10 +3609,10 @@
           </div>
           
           <!-- Top Section: 3-Column Grid (like other views) -->
-          <div class="dashboard-summary-grid" style="display: grid; grid-template-columns: 1fr 1.5fr 1fr; gap: 16px; margin-bottom: 16px; min-height: 180px;">
+          <div class="dashboard-summary-grid" style="display: grid; grid-template-columns: 1fr 1.8fr 1fr; gap: 20px; margin-bottom: 24px; min-height: 220px;">
             
             <!-- SECTION 1: Filters & Controls -->
-            <div class="summary-section" style="background: white; border-radius: 12px; padding: 16px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column;">
+            <div class="summary-section" style="background: white; border-radius: 12px; padding: 20px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column;">
               <div class="summary-header" style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
                 <span style="font-size: 16px;">🎛️</span>
                 <span style="font-weight: 600; font-size: 13px; color: var(--gray-700);">Filters</span>
@@ -3456,33 +3652,32 @@
             </div>
             
             <!-- SECTION 2: Quick Stats -->
-            <div class="summary-section" style="background: white; border-radius: 12px; padding: 16px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column;">
+            <div class="summary-section" style="background: white; border-radius: 12px; padding: 20px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column;">
               <div class="summary-header" style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
                 <span style="font-size: 16px;">📊</span>
                 <span style="font-weight: 600; font-size: 13px; color: var(--gray-700);">Key Metrics</span>
                 <span style="font-size: 10px; color: var(--gray-400); margin-left: auto;">Dec 2024</span>
               </div>
               
-              <div style="flex: 1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; align-content: center;">
-                <div style="background: var(--gusto-teal-light); padding: 12px; border-radius: 8px; text-align: center;">
-                  <div style="font-size: 10px; color: var(--gusto-teal-dark); text-transform: uppercase;">Total HC</div>
-                  <div style="font-size: 24px; font-weight: 700; color: var(--gusto-teal);">342</div>
-                  <div style="font-size: 10px; color: var(--success);">↑ 3% MoM</div>
+              <div style="flex: 1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; align-content: center;">
+                <div style="background: var(--gusto-teal-light); padding: 16px; border-radius: 10px; text-align: center;">
+                  <div style="font-size: 11px; color: var(--gusto-teal-dark); text-transform: uppercase; margin-bottom: 4px;">Total HC</div>
+                  <div style="font-size: 28px; font-weight: 700; color: var(--gusto-teal);">342</div>
+                  <div style="font-size: 11px; color: var(--success); margin-top: 4px;">↑ 3% MoM</div>
                 </div>
-                <div style="background: var(--gusto-coral-light); padding: 12px; border-radius: 8px; text-align: center;">
-                  <div style="font-size: 10px; color: #9A3412; text-transform: uppercase;">Gap</div>
-                  <div style="font-size: 24px; font-weight: 700; color: var(--gusto-coral);">-26</div>
-                  <div style="font-size: 10px; color: #DC2626;">Understaffed</div>
+                <div style="background: var(--gusto-coral-light); padding: 16px; border-radius: 10px; text-align: center;">
+                  <div style="font-size: 11px; color: #9A3412; text-transform: uppercase; margin-bottom: 4px;">Gap</div>
+                  <div style="font-size: 28px; font-weight: 700; color: var(--gusto-coral);">-26</div>
+                  <div style="font-size: 11px; color: #DC2626; margin-top: 4px;">Understaffed</div>
                 </div>
-                <div style="background: #EDE9FE; padding: 12px; border-radius: 8px; text-align: center;">
-                  <div style="font-size: 10px; color: #5B21B6; text-transform: uppercase;">Volume</div>
-                  <div style="font-size: 24px; font-weight: 700; color: #7C3AED;">78K</div>
-                  <div style="font-size: 10px; color: var(--gray-500);">Contacts</div>
+                <div style="background: #EDE9FE; padding: 16px; border-radius: 10px; text-align: center;">
+                  <div style="font-size: 11px; color: #5B21B6; text-transform: uppercase; margin-bottom: 4px;">Volume</div>
+                  <div style="font-size: 28px; font-weight: 700; color: #7C3AED;">78K</div>
+                  <div style="font-size: 11px; color: var(--gray-500); margin-top: 4px;">Contacts</div>
                 </div>
-                <div style="background: #FEF3C7; padding: 12px; border-radius: 8px; text-align: center;">
-                  <div style="font-size: 10px; color: #92400E; text-transform: uppercase;">OT Hours</div>
-                  <div style="font-size: 24px; font-weight: 700; color: #D97706;">480</div>
-                  <div style="font-size: 10px; color: #DC2626;">↑ 12%</div>
+                <div style="background: #FEF3C7; padding: 16px; border-radius: 10px; text-align: center;">
+                  <div style="font-size: 28px; font-weight: 700; color: #D97706;">480</div>
+                  <div style="font-size: 11px; color: #DC2626; margin-top: 4px;">↑ 12%</div>
                 </div>
               </div>
             </div>
@@ -3517,7 +3712,7 @@
           </div>
           
           <!-- Charts Grid - Modernized -->
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;">
             
             <!-- Chart 1: HC Need vs Actual Trend - MODERNIZED -->
             <div style="background: white; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); overflow: hidden; border: 1px solid var(--gray-200);">
@@ -3531,9 +3726,9 @@
                   <span style="display: flex; align-items: center; gap: 4px; color: var(--gray-600);"><span style="width: 12px; height: 3px; background: #F59E0B; border-radius: 2px;"></span>Actual</span>
                 </div>
               </div>
-              <div style="padding: 20px;">
+              <div style="padding: 24px;">
                 <!-- Chart with proper axes -->
-                <div style="position: relative; height: 160px; margin-left: 35px; margin-bottom: 28px;">
+                <div style="position: relative; height: 200px; margin-left: 40px; margin-bottom: 32px;">
                   <!-- Y-axis -->
                   <div style="position: absolute; left: -35px; top: 0; bottom: 0; display: flex; flex-direction: column; justify-content: space-between; font-size: 9px; color: var(--gray-400); text-align: right; width: 30px;">
                     <span>400</span>
@@ -3626,9 +3821,9 @@
                   <span style="font-weight: 600; font-size: 13px; color: var(--gray-800);">HC by Pillar (Trend)</span>
                 </div>
               </div>
-              <div style="padding: 20px;">
+              <div style="padding: 24px;">
                 <!-- Stacked bar chart -->
-                <div style="position: relative; height: 180px; margin-left: 40px; margin-bottom: 30px;">
+                <div style="position: relative; height: 200px; margin-left: 40px; margin-bottom: 32px;">
                   <!-- Y-axis -->
                   <div style="position: absolute; left: -40px; top: 0; bottom: 0; display: flex; flex-direction: column; justify-content: space-between; font-size: 10px; color: var(--gray-400); text-align: right; width: 35px;">
                     <span>400</span>
@@ -4235,15 +4430,15 @@
           <div id="comparisonStoryView">
           
           <!-- 1️⃣ VOLUME IMPACT -->
-          <div class="table-section" style="margin-bottom: 16px;">
-            <div class="table-header" style="background: var(--gusto-teal-light);">
+          <div class="table-section" style="margin-bottom: 12px;">
+            <div class="table-header" style="background: var(--gusto-teal-light); padding: 8px 12px;">
               <div class="table-title">
                 <div class="table-title-icon">1️⃣</div>
                 <span>Volume Impact</span>
                 <span style="font-size: 11px; color: var(--gray-500); font-weight: normal; margin-left: 8px;">How demand changed</span>
               </div>
             </div>
-            <div class="data-grid scrollable" style="max-height: 140px;">
+            <div class="data-grid">
               <table class="data-table" style="font-size: 12px;">
                 <thead>
                   <tr style="background: var(--gusto-teal); color: white;">
@@ -4260,16 +4455,16 @@
             </div>
           </div>
           
-          <!-- 3️⃣ HC NEED -->
-          <div class="table-section" style="margin-bottom: 16px;">
-            <div class="table-header" style="background: #EDE9FE;">
+          <!-- 2️⃣ HC NEED -->
+          <div class="table-section" style="margin-bottom: 12px;">
+            <div class="table-header" style="background: #EDE9FE; padding: 8px 12px;">
               <div class="table-title">
                 <div class="table-title-icon">2️⃣</div>
                 <span>HC Need</span>
                 <span style="font-size: 11px; color: var(--gray-500); font-weight: normal; margin-left: 8px;">Staff required to meet demand</span>
               </div>
             </div>
-            <div class="data-grid scrollable" style="max-height: 140px;">
+            <div class="data-grid">
               <table class="data-table" style="font-size: 12px;">
                 <thead>
                   <tr style="background: #7C3AED; color: white;">
@@ -4286,16 +4481,16 @@
             </div>
           </div>
           
-          <!-- 4️⃣ STAFFING GAP -->
-          <div class="table-section" style="margin-bottom: 16px;">
-            <div class="table-header" style="background: var(--gusto-coral-light);">
+          <!-- 3️⃣ STAFFING GAP -->
+          <div class="table-section" style="margin-bottom: 12px;">
+            <div class="table-header" style="background: var(--gusto-coral-light); padding: 8px 12px;">
               <div class="table-title">
                 <div class="table-title-icon">3️⃣</div>
                 <span>Staffing Gap</span>
                 <span style="font-size: 11px; color: var(--gray-500); font-weight: normal; margin-left: 8px;">Current HC vs Need (negative = short)</span>
               </div>
             </div>
-            <div class="data-grid scrollable" style="max-height: 140px;">
+            <div class="data-grid">
               <table class="data-table" style="font-size: 12px;">
                 <thead>
                   <tr style="background: var(--gusto-coral); color: white;">
@@ -4312,16 +4507,16 @@
             </div>
           </div>
           
-          <!-- 5️⃣ OT COVERAGE -->
-          <div class="table-section" style="margin-bottom: 16px;">
-            <div class="table-header" style="background: #FEF3C7;">
+          <!-- 4️⃣ OT COVERAGE -->
+          <div class="table-section" style="margin-bottom: 12px;">
+            <div class="table-header" style="background: #FEF3C7; padding: 8px 12px;">
               <div class="table-title">
                 <div class="table-title-icon">4️⃣</div>
                 <span>OT Coverage</span>
                 <span style="font-size: 11px; color: var(--gray-500); font-weight: normal; margin-left: 8px;">Hours to cover the gap</span>
               </div>
             </div>
-            <div class="data-grid scrollable" style="max-height: 140px;">
+            <div class="data-grid">
               <table class="data-table" style="font-size: 12px;">
                 <thead>
                   <tr style="background: #D97706; color: white;">
@@ -4338,9 +4533,9 @@
             </div>
           </div>
           
-          <!-- 6️⃣ FINAL POSITION - THE BOTTOM LINE -->
-          <div class="table-section" style="margin-bottom: 16px; border: 3px solid #10B981;">
-            <div class="table-header" style="background: #D1FAE5;">
+          <!-- 5️⃣ FINAL POSITION - THE BOTTOM LINE -->
+          <div class="table-section" style="margin-bottom: 12px; border: 3px solid #10B981;">
+            <div class="table-header" style="background: #D1FAE5; padding: 8px 12px;">
               <div class="table-title">
                 <div class="table-title-icon">5️⃣</div>
                 <span>Final Position</span>
@@ -4348,7 +4543,7 @@
                 <span style="font-size: 11px; color: var(--gray-500); font-weight: normal; margin-left: 8px;">Gap after OT • Closer to 0 = better</span>
               </div>
             </div>
-            <div class="data-grid scrollable" style="max-height: 160px;">
+            <div class="data-grid">
               <table class="data-table" style="font-size: 13px;">
                 <thead>
                   <tr style="background: #10B981; color: white;">
@@ -4904,7 +5099,7 @@
             </div>
           </div>
           
-          <div class="data-grid table-body" style="max-height: 600px; overflow: auto; position: relative;">
+          <div class="data-grid table-body" style="overflow-x: auto; position: relative;">
             <table class="data-table" style="border-collapse: separate; border-spacing: 0;">
               <thead>
                 <tr style="background: var(--gray-200); position: sticky; top: 0; z-index: 50;">
@@ -4932,17 +5127,17 @@
                   <td colspan="25" style="padding-left: 24px;">└ By Channel ▼</td>
                 </tr>
                 <tr class="subsection-row workload-section volume-channels channel-sub">
-                  <td style="position: sticky; left: 0; background: rgba(10,128,128,0.08);">→ Phone</td>
+                  <td style="position: sticky; left: 0; background: #E6F7F5;">→ Phone</td>
                   <td>9,696</td><td>9,424</td><td>9,961</td><td>10,300</td><td>9,800</td><td>9,600</td><td>9,300</td><td>9,500</td><td>9,900</td><td>10,200</td><td>10,500</td><td>10,800</td>
                   <td>11,100</td><td>10,000</td><td>10,500</td><td>10,900</td><td>10,400</td><td>10,100</td><td>9,900</td><td>10,100</td><td>10,500</td><td>10,800</td><td>11,100</td><td>11,400</td>
                 </tr>
                 <tr class="subsection-row workload-section volume-channels channel-sub">
-                  <td style="position: sticky; left: 0; background: rgba(10,128,128,0.08);">→ Email</td>
+                  <td style="position: sticky; left: 0; background: #E6F7F5;">→ Email</td>
                   <td>9,667</td><td>9,398</td><td>9,934</td><td>10,300</td><td>9,800</td><td>9,500</td><td>9,200</td><td>9,500</td><td>9,900</td><td>10,300</td><td>10,600</td><td>10,900</td>
                   <td>11,200</td><td>10,100</td><td>10,600</td><td>11,000</td><td>10,500</td><td>10,200</td><td>10,000</td><td>10,200</td><td>10,600</td><td>10,900</td><td>11,200</td><td>11,500</td>
                 </tr>
                 <tr class="subsection-row workload-section volume-channels channel-sub">
-                  <td style="position: sticky; left: 0; background: rgba(10,128,128,0.08);">→ Chat</td>
+                  <td style="position: sticky; left: 0; background: #E6F7F5;">→ Chat</td>
                   <td>5,200</td><td>5,069</td><td>5,339</td><td>5,500</td><td>5,200</td><td>5,100</td><td>5,000</td><td>5,100</td><td>5,200</td><td>5,300</td><td>5,400</td><td>5,500</td>
                   <td>5,500</td><td>5,000</td><td>5,300</td><td>5,600</td><td>5,300</td><td>5,300</td><td>5,000</td><td>5,200</td><td>5,300</td><td>5,500</td><td>5,700</td><td>5,900</td>
                 </tr>
@@ -4955,17 +5150,17 @@
                   <td colspan="25" style="padding-left: 24px;">└ By Channel ▼</td>
                 </tr>
                 <tr class="subsection-row workload-section aht-channels channel-sub">
-                  <td style="position: sticky; left: 0; background: rgba(10,128,128,0.08);">→ Phone AHT</td>
+                  <td style="position: sticky; left: 0; background: #E6F7F5;">→ Phone AHT</td>
                   <td>828</td><td>825</td><td>830</td><td>835</td><td>830</td><td>825</td><td>820</td><td>825</td><td>828</td><td>830</td><td>832</td><td>835</td>
                   <td>838</td><td>826</td><td>832</td><td>840</td><td>833</td><td>828</td><td>822</td><td>827</td><td>830</td><td>833</td><td>836</td><td>840</td>
                 </tr>
                 <tr class="subsection-row workload-section aht-channels channel-sub">
-                  <td style="position: sticky; left: 0; background: rgba(10,128,128,0.08);">→ Email AHT</td>
+                  <td style="position: sticky; left: 0; background: #E6F7F5;">→ Email AHT</td>
                   <td>1,122</td><td>1,118</td><td>1,125</td><td>1,130</td><td>1,120</td><td>1,115</td><td>1,110</td><td>1,115</td><td>1,120</td><td>1,125</td><td>1,128</td><td>1,130</td>
                   <td>1,132</td><td>1,120</td><td>1,128</td><td>1,135</td><td>1,125</td><td>1,118</td><td>1,112</td><td>1,118</td><td>1,122</td><td>1,128</td><td>1,132</td><td>1,135</td>
                 </tr>
                 <tr class="subsection-row workload-section aht-channels channel-sub">
-                  <td style="position: sticky; left: 0; background: rgba(10,128,128,0.08);">→ Chat AHT</td>
+                  <td style="position: sticky; left: 0; background: #E6F7F5;">→ Chat AHT</td>
                   <td>1,100</td><td>1,095</td><td>1,102</td><td>1,108</td><td>1,100</td><td>1,095</td><td>1,090</td><td>1,095</td><td>1,100</td><td>1,105</td><td>1,108</td><td>1,110</td>
                   <td>1,112</td><td>1,098</td><td>1,105</td><td>1,112</td><td>1,104</td><td>1,098</td><td>1,092</td><td>1,098</td><td>1,102</td><td>1,108</td><td>1,112</td><td>1,115</td>
                 </tr>
@@ -4987,17 +5182,17 @@
                   <td colspan="25">└ By Channel ▼</td>
                 </tr>
                 <tr class="subsection-row hcneed-channels channel-sub hidden">
-                  <td style="position: sticky; left: 0; background: rgba(10,128,128,0.08);">→ Phone HC Need</td>
+                  <td style="position: sticky; left: 0; background: #E6F7F5;">→ Phone HC Need</td>
                   <td>25</td><td>24</td><td>26</td><td>28</td><td>26</td><td>25</td><td>24</td><td>25</td><td>26</td><td>27</td><td>29</td><td>30</td>
                   <td>31</td><td>27</td><td>28</td><td>30</td><td>28</td><td>26</td><td>25</td><td>26</td><td>28</td><td>29</td><td>31</td><td>32</td>
                 </tr>
                 <tr class="subsection-row hcneed-channels channel-sub hidden">
-                  <td style="position: sticky; left: 0; background: rgba(10,128,128,0.08);">→ Email HC Need</td>
+                  <td style="position: sticky; left: 0; background: #E6F7F5;">→ Email HC Need</td>
                   <td>18</td><td>17</td><td>18</td><td>19</td><td>18</td><td>17</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td>
                   <td>22</td><td>18</td><td>20</td><td>21</td><td>19</td><td>18</td><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td>
                 </tr>
                 <tr class="subsection-row hcneed-channels channel-sub hidden">
-                  <td style="position: sticky; left: 0; background: rgba(10,128,128,0.08);">→ Chat HC Need</td>
+                  <td style="position: sticky; left: 0; background: #E6F7F5;">→ Chat HC Need</td>
                   <td>8</td><td>8</td><td>9</td><td>9</td><td>8</td><td>8</td><td>8</td><td>8</td><td>8</td><td>9</td><td>9</td><td>9</td>
                   <td>9</td><td>9</td><td>9</td><td>10</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>10</td><td>10</td><td>11</td>
                 </tr>
@@ -5012,17 +5207,17 @@
                   <td colspan="25">└ By Site ▼</td>
                 </tr>
                 <tr class="subsection-row actual-sites channel-sub hidden">
-                  <td style="position: sticky; left: 0; background: rgba(10,128,128,0.08);">→ Gusto</td>
+                  <td style="position: sticky; left: 0; background: #E6F7F5;">→ Gusto</td>
                   <td>12</td><td>13</td><td>15</td><td>17</td><td>19</td><td>20</td><td>21</td><td>22</td><td>24</td><td>26</td><td>27</td><td>28</td>
                   <td>29</td><td>30</td><td>31</td><td>32</td><td>33</td><td>34</td><td>34</td><td>35</td><td>35</td><td>36</td><td>37</td><td>37</td>
                 </tr>
                 <tr class="subsection-row actual-sites channel-sub hidden">
-                  <td style="position: sticky; left: 0; background: rgba(10,128,128,0.08);">→ Teleperformance</td>
+                  <td style="position: sticky; left: 0; background: #E6F7F5;">→ Teleperformance</td>
                   <td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td>
                   <td>16</td><td>17</td><td>18</td><td>18</td><td>19</td><td>19</td><td>20</td><td>20</td><td>21</td><td>21</td><td>21</td><td>22</td>
                 </tr>
                 <tr class="subsection-row actual-sites channel-sub hidden">
-                  <td style="position: sticky; left: 0; background: rgba(10,128,128,0.08);">→ TaskUs</td>
+                  <td style="position: sticky; left: 0; background: #E6F7F5;">→ TaskUs</td>
                   <td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td>
                   <td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td>
                 </tr>
@@ -5086,7 +5281,7 @@
                   <td colspan="25">└ By Site ▼</td>
                 </tr>
                 <tr class="subsection-row manual-inputs-section newhire-sites channel-sub hidden">
-                  <td style="position: sticky; left: 0; background: rgba(10,128,128,0.08);">→ Gusto</td>
+                  <td style="position: sticky; left: 0; background: #E6F7F5;">→ Gusto</td>
                   <td><input type="number" value="2" style="width: 44px;"></td><td><input type="number" value="3" style="width: 44px;"></td><td><input type="number" value="3" style="width: 44px;"></td>
                   <td><input type="number" value="2" style="width: 44px;"></td><td><input type="number" value="3" style="width: 44px;"></td><td><input type="number" value="2" style="width: 44px;"></td>
                   <td><input type="number" value="1" style="width: 44px;"></td><td><input type="number" value="2" style="width: 44px;"></td><td><input type="number" value="2" style="width: 44px;"></td>
@@ -5097,7 +5292,7 @@
                   <td><input type="number" value="1" style="width: 44px;"></td><td><input type="number" value="1" style="width: 44px;"></td><td><input type="number" value="1" style="width: 44px;"></td>
                 </tr>
                 <tr class="subsection-row manual-inputs-section newhire-sites channel-sub hidden">
-                  <td style="position: sticky; left: 0; background: rgba(10,128,128,0.08);">→ Teleperformance</td>
+                  <td style="position: sticky; left: 0; background: #E6F7F5;">→ Teleperformance</td>
                   <td><input type="number" value="1" style="width: 44px;"></td><td><input type="number" value="1" style="width: 44px;"></td><td><input type="number" value="1" style="width: 44px;"></td>
                   <td><input type="number" value="1" style="width: 44px;"></td><td><input type="number" value="1" style="width: 44px;"></td><td><input type="number" value="1" style="width: 44px;"></td>
                   <td><input type="number" value="1" style="width: 44px;"></td><td><input type="number" value="1" style="width: 44px;"></td><td><input type="number" value="1" style="width: 44px;"></td>
@@ -5108,7 +5303,7 @@
                   <td><input type="number" value="1" style="width: 44px;"></td><td><input type="number" value="1" style="width: 44px;"></td><td><input type="number" value="1" style="width: 44px;"></td>
                 </tr>
                 <tr class="subsection-row manual-inputs-section newhire-sites channel-sub hidden">
-                  <td style="position: sticky; left: 0; background: rgba(10,128,128,0.08);">→ TaskUs</td>
+                  <td style="position: sticky; left: 0; background: #E6F7F5;">→ TaskUs</td>
                   <td><input type="number" value="0" style="width: 44px;"></td><td><input type="number" value="0" style="width: 44px;"></td><td><input type="number" value="1" style="width: 44px;"></td>
                   <td><input type="number" value="0" style="width: 44px;"></td><td><input type="number" value="0" style="width: 44px;"></td><td><input type="number" value="0" style="width: 44px;"></td>
                   <td><input type="number" value="0" style="width: 44px;"></td><td><input type="number" value="0" style="width: 44px;"></td><td><input type="number" value="1" style="width: 44px;"></td>
@@ -5266,7 +5461,7 @@
             </div>
             <div class="channel-body">
               <!-- Full Channel Staffing Table -->
-              <div class="data-grid" style="max-height: 500px; overflow-x: auto;">
+              <div class="data-grid" style="overflow-x: auto;">
                 <table class="data-table" style="font-size: 12px;">
                   <thead>
                     <tr>
@@ -5596,7 +5791,7 @@
             </div>
             <div class="channel-body">
               <!-- Full Channel Staffing Table for Email - 24 months -->
-              <div class="data-grid" style="max-height: 500px; overflow-x: auto;">
+              <div class="data-grid" style="overflow-x: auto;">
                 <table class="data-table" style="font-size: 12px;">
                   <thead>
                     <tr>
@@ -6057,14 +6252,14 @@
         </div><!-- END view-pillar -->
         
         <!-- ═══════════════════════════════════════════════════════════════════════
-             DATA & EXPORTS VIEW - Data Management, Import/Export, Architecture
+             DATA MANAGEMENT VIEW - Import/Export, Storage, Architecture
              ═══════════════════════════════════════════════════════════════════════ -->
-        <div id="view-exports" class="view-container" style="display: none;">
+        <div id="view-datamanagement" class="view-container" style="display: none;">
           
           <!-- Page Header -->
           <div style="margin-bottom: var(--space-lg);">
             <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
-              <h1 style="font-size: 24px; font-weight: 600; color: var(--gray-800);">📤 Data & Exports</h1>
+              <h1 style="font-size: 24px; font-weight: 600; color: var(--gray-800);">🗄️ Data Management</h1>
             </div>
             <p style="color: var(--gray-500); font-size: 14px;">Export plans, manage data sources, and configure import/export settings</p>
           </div>
@@ -6310,11 +6505,702 @@
             </div>
           </div>
           
-        </div><!-- END view-exports -->
+        </div><!-- END view-datamanagement -->
+        
+        <!-- ═══════════════════════════════════════════════════════════════════════
+             PUBLISHED PLANS VIEW - Archive of all published plans
+             ═══════════════════════════════════════════════════════════════════════ -->
+        <div id="view-published" class="view-container" style="display: none;">
+          
+          <!-- Page Header -->
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: var(--space-lg);">
+            <div>
+              <h1 style="font-size: 24px; font-weight: 600; color: var(--gray-800);">📋 Published Plans</h1>
+              <p style="color: var(--gray-500); font-size: 14px;">Archive of finalized capacity plans by month</p>
+            </div>
+            <div style="display: flex; gap: var(--space-sm);">
+              <button class="btn btn-secondary" onclick="filterPublishedPlans('all')">All</button>
+              <button class="btn btn-secondary" onclick="filterPublishedPlans('2025')">2025</button>
+              <button class="btn btn-secondary" onclick="filterPublishedPlans('2026')">2026</button>
+            </div>
+          </div>
+          
+          <!-- Published Plans Table -->
+          <div style="background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); overflow: hidden;">
+            <table style="width: 100%; border-collapse: collapse;">
+              <thead>
+                <tr style="background: linear-gradient(180deg, var(--gusto-teal) 0%, var(--gusto-teal-dark) 100%);">
+                  <th style="padding: 14px 16px; text-align: left; color: white; font-size: 12px; font-weight: 600;">Plan Name</th>
+                  <th style="padding: 14px 16px; text-align: center; color: white; font-size: 12px; font-weight: 600;">Period</th>
+                  <th style="padding: 14px 16px; text-align: center; color: white; font-size: 12px; font-weight: 600;">Published</th>
+                  <th style="padding: 14px 16px; text-align: center; color: white; font-size: 12px; font-weight: 600;">Published By</th>
+                  <th style="padding: 14px 16px; text-align: center; color: white; font-size: 12px; font-weight: 600;">Pillars</th>
+                  <th style="padding: 14px 16px; text-align: center; color: white; font-size: 12px; font-weight: 600;">Total HC</th>
+                  <th style="padding: 14px 16px; text-align: center; color: white; font-size: 12px; font-weight: 600;">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="background: var(--success-bg);">
+                  <td style="padding: 14px 16px; font-weight: 600; border-bottom: 1px solid var(--gray-200);">
+                    <span style="display: flex; align-items: center; gap: 8px;">
+                      <span style="background: var(--success); color: white; padding: 2px 8px; border-radius: 10px; font-size: 10px;">CURRENT</span>
+                      December 2025 Plan
+                    </span>
+                  </td>
+                  <td style="padding: 14px 16px; text-align: center; border-bottom: 1px solid var(--gray-200);">Dec 2025 → Nov 2026</td>
+                  <td style="padding: 14px 16px; text-align: center; border-bottom: 1px solid var(--gray-200);">Dec 6, 2025</td>
+                  <td style="padding: 14px 16px; text-align: center; border-bottom: 1px solid var(--gray-200);">B. Bates</td>
+                  <td style="padding: 14px 16px; text-align: center; border-bottom: 1px solid var(--gray-200);">9</td>
+                  <td style="padding: 14px 16px; text-align: center; border-bottom: 1px solid var(--gray-200); font-weight: 600;">384</td>
+                  <td style="padding: 14px 16px; text-align: center; border-bottom: 1px solid var(--gray-200);">
+                    <button style="background: none; border: none; cursor: pointer; font-size: 14px;" title="View">👁️</button>
+                    <button style="background: none; border: none; cursor: pointer; font-size: 14px;" title="Export">📥</button>
+                    <button style="background: none; border: none; cursor: pointer; font-size: 14px;" title="Compare">⚖️</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 14px 16px; font-weight: 500; border-bottom: 1px solid var(--gray-200);">November 2025 Plan</td>
+                  <td style="padding: 14px 16px; text-align: center; border-bottom: 1px solid var(--gray-200);">Nov 2025 → Oct 2026</td>
+                  <td style="padding: 14px 16px; text-align: center; border-bottom: 1px solid var(--gray-200);">Nov 5, 2025</td>
+                  <td style="padding: 14px 16px; text-align: center; border-bottom: 1px solid var(--gray-200);">B. Bates</td>
+                  <td style="padding: 14px 16px; text-align: center; border-bottom: 1px solid var(--gray-200);">9</td>
+                  <td style="padding: 14px 16px; text-align: center; border-bottom: 1px solid var(--gray-200); font-weight: 600;">378</td>
+                  <td style="padding: 14px 16px; text-align: center; border-bottom: 1px solid var(--gray-200);">
+                    <button style="background: none; border: none; cursor: pointer; font-size: 14px;" title="View">👁️</button>
+                    <button style="background: none; border: none; cursor: pointer; font-size: 14px;" title="Export">📥</button>
+                    <button style="background: none; border: none; cursor: pointer; font-size: 14px;" title="Compare">⚖️</button>
+                  </td>
+                </tr>
+                <tr style="background: var(--gray-50);">
+                  <td style="padding: 14px 16px; font-weight: 500; border-bottom: 1px solid var(--gray-200);">October 2025 Plan</td>
+                  <td style="padding: 14px 16px; text-align: center; border-bottom: 1px solid var(--gray-200);">Oct 2025 → Sep 2026</td>
+                  <td style="padding: 14px 16px; text-align: center; border-bottom: 1px solid var(--gray-200);">Oct 4, 2025</td>
+                  <td style="padding: 14px 16px; text-align: center; border-bottom: 1px solid var(--gray-200);">B. Bates</td>
+                  <td style="padding: 14px 16px; text-align: center; border-bottom: 1px solid var(--gray-200);">8</td>
+                  <td style="padding: 14px 16px; text-align: center; border-bottom: 1px solid var(--gray-200); font-weight: 600;">365</td>
+                  <td style="padding: 14px 16px; text-align: center; border-bottom: 1px solid var(--gray-200);">
+                    <button style="background: none; border: none; cursor: pointer; font-size: 14px;" title="View">👁️</button>
+                    <button style="background: none; border: none; cursor: pointer; font-size: 14px;" title="Export">📥</button>
+                    <button style="background: none; border: none; cursor: pointer; font-size: 14px;" title="Compare">⚖️</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 14px 16px; font-weight: 500; border-bottom: 1px solid var(--gray-200);">September 2025 Plan</td>
+                  <td style="padding: 14px 16px; text-align: center; border-bottom: 1px solid var(--gray-200);">Sep 2025 → Aug 2026</td>
+                  <td style="padding: 14px 16px; text-align: center; border-bottom: 1px solid var(--gray-200);">Sep 3, 2025</td>
+                  <td style="padding: 14px 16px; text-align: center; border-bottom: 1px solid var(--gray-200);">B. Bates</td>
+                  <td style="padding: 14px 16px; text-align: center; border-bottom: 1px solid var(--gray-200);">8</td>
+                  <td style="padding: 14px 16px; text-align: center; border-bottom: 1px solid var(--gray-200); font-weight: 600;">358</td>
+                  <td style="padding: 14px 16px; text-align: center; border-bottom: 1px solid var(--gray-200);">
+                    <button style="background: none; border: none; cursor: pointer; font-size: 14px;" title="View">👁️</button>
+                    <button style="background: none; border: none; cursor: pointer; font-size: 14px;" title="Export">📥</button>
+                    <button style="background: none; border: none; cursor: pointer; font-size: 14px;" title="Compare">⚖️</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <!-- Archive Notice -->
+          <div style="margin-top: var(--space-lg); background: var(--gray-50); border-radius: var(--radius-md); padding: var(--space-md); border: 1px solid var(--gray-200); display: flex; align-items: center; gap: 12px;">
+            <span style="font-size: 20px;">📦</span>
+            <div>
+              <strong style="color: var(--gray-700);">Archive:</strong>
+              <span style="color: var(--gray-500);"> Plans older than 12 months are moved to the archive. <a href="#" onclick="showToast('📦 Archive view coming soon!', 'info'); return false;" style="color: var(--gusto-teal);">View Archive →</a></span>
+            </div>
+          </div>
+          
+        </div><!-- END view-published -->
+        
+        <!-- ═══════════════════════════════════════════════════════════════════════
+             SCENARIOS VIEW - Saved what-if scenarios
+             ═══════════════════════════════════════════════════════════════════════ -->
+        <div id="view-scenarios" class="view-container" style="display: none;">
+          
+          <!-- Page Header -->
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: var(--space-lg);">
+            <div>
+              <h1 style="font-size: 24px; font-weight: 600; color: var(--gray-800);">💾 Saved Scenarios</h1>
+              <p style="color: var(--gray-500); font-size: 14px;">What-if analysis scenarios for capacity planning</p>
+            </div>
+            <div style="display: flex; gap: var(--space-sm);">
+              <select class="form-select" style="padding: 8px 12px; font-size: 13px;">
+                <option>All Pillars</option>
+                <option>Payroll</option>
+                <option>Benefits</option>
+                <option>Members</option>
+              </select>
+              <button class="btn btn-primary" onclick="showToast('✨ Create new scenario', 'info')">+ New Scenario</button>
+            </div>
+          </div>
+          
+          <!-- Scenario Cards -->
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-lg);">
+            
+            <!-- Scenario 1 -->
+            <div style="background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); overflow: hidden;">
+              <div style="padding: var(--space-md); border-bottom: 1px solid var(--gray-100); display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                  <div style="font-weight: 600; font-size: 15px; color: var(--gray-800);">+10% Volume Increase</div>
+                  <div style="font-size: 12px; color: var(--gray-500);">Payroll • Created Dec 8, 2025</div>
+                </div>
+                <span style="background: var(--warning-bg); color: var(--warning); padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600;">Draft</span>
+              </div>
+              <div style="padding: var(--space-md);">
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-sm); margin-bottom: var(--space-md);">
+                  <div style="text-align: center;">
+                    <div style="font-size: 20px; font-weight: 700; color: var(--gusto-coral);">+5</div>
+                    <div style="font-size: 10px; color: var(--gray-500);">HC Need Δ</div>
+                  </div>
+                  <div style="text-align: center;">
+                    <div style="font-size: 20px; font-weight: 700; color: var(--error);">-42</div>
+                    <div style="font-size: 10px; color: var(--gray-500);">Staffing Gap</div>
+                  </div>
+                  <div style="text-align: center;">
+                    <div style="font-size: 20px; font-weight: 700; color: var(--warning);">+65</div>
+                    <div style="font-size: 10px; color: var(--gray-500);">OT Hours</div>
+                  </div>
+                </div>
+                <div style="display: flex; gap: 8px;">
+                  <button class="btn btn-secondary" style="flex: 1; font-size: 12px;" onclick="loadView('comparison')">Compare</button>
+                  <button class="btn btn-primary" style="flex: 1; font-size: 12px;" onclick="showToast('📋 Publishing scenario...', 'info')">Publish</button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Scenario 2 -->
+            <div style="background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); overflow: hidden;">
+              <div style="padding: var(--space-md); border-bottom: 1px solid var(--gray-100); display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                  <div style="font-weight: 600; font-size: 15px; color: var(--gray-800);">-15% AHT Reduction</div>
+                  <div style="font-size: 12px; color: var(--gray-500);">Benefits • Created Dec 6, 2025</div>
+                </div>
+                <span style="background: var(--success-bg); color: var(--success); padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600;">Ready</span>
+              </div>
+              <div style="padding: var(--space-md);">
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-sm); margin-bottom: var(--space-md);">
+                  <div style="text-align: center;">
+                    <div style="font-size: 20px; font-weight: 700; color: var(--success);">-8</div>
+                    <div style="font-size: 10px; color: var(--gray-500);">HC Need Δ</div>
+                  </div>
+                  <div style="text-align: center;">
+                    <div style="font-size: 20px; font-weight: 700; color: var(--warning);">-18</div>
+                    <div style="font-size: 10px; color: var(--gray-500);">Staffing Gap</div>
+                  </div>
+                  <div style="text-align: center;">
+                    <div style="font-size: 20px; font-weight: 700; color: var(--success);">-120</div>
+                    <div style="font-size: 10px; color: var(--gray-500);">OT Hours</div>
+                  </div>
+                </div>
+                <div style="display: flex; gap: 8px;">
+                  <button class="btn btn-secondary" style="flex: 1; font-size: 12px;" onclick="loadView('comparison')">Compare</button>
+                  <button class="btn btn-primary" style="flex: 1; font-size: 12px;" onclick="showToast('📋 Publishing scenario...', 'info')">Publish</button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Scenario 3 -->
+            <div style="background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); overflow: hidden;">
+              <div style="padding: var(--space-md); border-bottom: 1px solid var(--gray-100); display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                  <div style="font-weight: 600; font-size: 15px; color: var(--gray-800);">Q2 Hiring Freeze</div>
+                  <div style="font-size: 12px; color: var(--gray-500);">All Pillars • Created Dec 4, 2025</div>
+                </div>
+                <span style="background: var(--error-bg); color: var(--error); padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600;">⚠️ Risk</span>
+              </div>
+              <div style="padding: var(--space-md);">
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-sm); margin-bottom: var(--space-md);">
+                  <div style="text-align: center;">
+                    <div style="font-size: 20px; font-weight: 700; color: var(--gray-600);">0</div>
+                    <div style="font-size: 10px; color: var(--gray-500);">HC Need Δ</div>
+                  </div>
+                  <div style="text-align: center;">
+                    <div style="font-size: 20px; font-weight: 700; color: var(--error);">-65</div>
+                    <div style="font-size: 10px; color: var(--gray-500);">Staffing Gap</div>
+                  </div>
+                  <div style="text-align: center;">
+                    <div style="font-size: 20px; font-weight: 700; color: var(--error);">+340</div>
+                    <div style="font-size: 10px; color: var(--gray-500);">OT Hours</div>
+                  </div>
+                </div>
+                <div style="display: flex; gap: 8px;">
+                  <button class="btn btn-secondary" style="flex: 1; font-size: 12px;" onclick="loadView('comparison')">Compare</button>
+                  <button class="btn btn-secondary" style="flex: 1; font-size: 12px;" onclick="showToast('🗑️ Deleting scenario...', 'info')">Delete</button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Add New Scenario Card -->
+            <div style="background: var(--gray-50); border-radius: var(--radius-lg); border: 2px dashed var(--gray-300); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: var(--space-xl); cursor: pointer; transition: all 0.2s;" onclick="showToast('✨ Create new scenario', 'info')" onmouseover="this.style.borderColor='var(--gusto-teal)'; this.style.background='var(--gusto-teal-light)';" onmouseout="this.style.borderColor='var(--gray-300)'; this.style.background='var(--gray-50)';">
+              <span style="font-size: 32px; margin-bottom: 8px;">➕</span>
+              <span style="font-weight: 600; color: var(--gray-600);">Create New Scenario</span>
+              <span style="font-size: 12px; color: var(--gray-400); margin-top: 4px;">Start a what-if analysis</span>
+            </div>
+            
+          </div>
+          
+          <!-- Scenario Limit Notice -->
+          <div style="margin-top: var(--space-lg); background: var(--info-bg); border-radius: var(--radius-md); padding: var(--space-md); border: 1px solid var(--info); display: flex; align-items: center; gap: 12px;">
+            <span style="font-size: 20px;">💡</span>
+            <div>
+              <strong style="color: var(--gray-700);">Scenario Limit:</strong>
+              <span style="color: var(--gray-500);"> You can save up to 5 scenarios per pillar. Delete unused scenarios to create new ones.</span>
+            </div>
+          </div>
+          
+        </div><!-- END view-scenarios -->
+        
+        <!-- ═══════════════════════════════════════════════════════════════════════
+             OVERLAY TRACKER VIEW - Track and manage all overlays
+             ═══════════════════════════════════════════════════════════════════════ -->
+        <div id="view-overlays" class="view-container" style="display: none;">
+          
+          <!-- Page Header -->
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: var(--space-lg);">
+            <div>
+              <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+                <h1 style="font-size: 24px; font-weight: 600; color: var(--gray-800);">🎚️ Overlay Tracker</h1>
+                <span style="background: var(--gusto-teal-light); color: var(--gusto-teal-dark); padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600;">6 Active</span>
+              </div>
+              <p style="color: var(--gray-500); font-size: 14px;">Track business requests and adjustments layered on top of baseline forecasts</p>
+            </div>
+            <div style="display: flex; gap: var(--space-sm);">
+              <button class="btn btn-secondary" onclick="filterOverlays('all')">All</button>
+              <button class="btn btn-secondary" onclick="filterOverlays('active')" style="background: var(--success-bg); border-color: var(--success); color: var(--success);">Active</button>
+              <button class="btn btn-secondary" onclick="filterOverlays('pending')">Pending</button>
+              <button class="btn btn-primary" onclick="openModal('addOverlay')">+ Add Overlay</button>
+            </div>
+          </div>
+          
+          <!-- Summary Cards -->
+          <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--space-md); margin-bottom: var(--space-lg);">
+            <div style="background: white; border-radius: var(--radius-lg); padding: var(--space-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); text-align: center; border-top: 3px solid var(--success);">
+              <div style="font-size: 32px; font-weight: 700; color: var(--success);">6</div>
+              <div style="font-size: 12px; font-weight: 600; color: var(--gray-700);">Active</div>
+            </div>
+            <div style="background: white; border-radius: var(--radius-lg); padding: var(--space-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); text-align: center; border-top: 3px solid var(--warning);">
+              <div style="font-size: 32px; font-weight: 700; color: var(--warning);">2</div>
+              <div style="font-size: 12px; font-weight: 600; color: var(--gray-700);">Pending</div>
+            </div>
+            <div style="background: white; border-radius: var(--radius-lg); padding: var(--space-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); text-align: center; border-top: 3px solid var(--error);">
+              <div style="font-size: 32px; font-weight: 700; color: var(--error);">3</div>
+              <div style="font-size: 12px; font-weight: 600; color: var(--gray-700);">Rejected</div>
+            </div>
+            <div style="background: white; border-radius: var(--radius-lg); padding: var(--space-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); text-align: center; border-top: 3px solid var(--gusto-teal);">
+              <div style="font-size: 32px; font-weight: 700; color: var(--gusto-teal);">+42</div>
+              <div style="font-size: 12px; font-weight: 600; color: var(--gray-700);">Net HC Impact</div>
+            </div>
+            <div style="background: white; border-radius: var(--radius-lg); padding: var(--space-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); text-align: center; border-top: 3px solid var(--gray-400);">
+              <div style="font-size: 32px; font-weight: 700; color: var(--gray-600);">5</div>
+              <div style="font-size: 12px; font-weight: 600; color: var(--gray-700);">Pillars Affected</div>
+            </div>
+          </div>
+          
+          <!-- Overlay Table -->
+          <div style="background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); overflow: hidden;">
+            <div style="padding: var(--space-md) var(--space-lg); border-bottom: 1px solid var(--gray-200); display: flex; justify-content: space-between; align-items: center;">
+              <h3 style="font-size: 16px; font-weight: 600; color: var(--gray-800);">All Overlays</h3>
+              <div style="display: flex; gap: var(--space-sm); align-items: center;">
+                <button onclick="toggleUnquantifiedSection()" style="background: var(--warning-bg); border: 1px solid var(--warning); color: var(--warning); padding: 6px 12px; border-radius: var(--radius-sm); font-size: 11px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+                  📝 Unquantified <span id="unquantified-count" style="background: var(--warning); color: white; padding: 2px 6px; border-radius: 8px; font-size: 10px;">2</span>
+                </button>
+                <select class="form-select" style="padding: 8px 12px; font-size: 12px; border-radius: var(--radius-sm);">
+                  <option>All Pillars</option>
+                  <option>Payroll and Taxes</option>
+                  <option>Benefits</option>
+                  <option>Members</option>
+                  <option>Accountant</option>
+                  <option>PAC</option>
+                </select>
+                <select class="form-select" style="padding: 8px 12px; font-size: 12px; border-radius: var(--radius-sm);">
+                  <option>All Categories</option>
+                  <option>Volume</option>
+                  <option>AHT</option>
+                  <option>SL Target</option>
+                  <option>Shrinkage</option>
+                  <option>Occupancy</option>
+                </select>
+              </div>
+            </div>
+            
+            <div style="overflow-x: auto;">
+              <table style="width: 100%; border-collapse: collapse; min-width: 1200px;">
+                <thead>
+                  <tr style="background: linear-gradient(180deg, var(--gusto-teal) 0%, var(--gusto-teal-dark) 100%);">
+                    <th style="padding: 14px 16px; text-align: left; color: white; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Pillar</th>
+                    <th style="padding: 14px 16px; text-align: left; color: white; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Impact Description</th>
+                    <th style="padding: 14px 16px; text-align: center; color: white; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Category</th>
+                    <th style="padding: 14px 16px; text-align: left; color: white; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Channel</th>
+                    <th style="padding: 14px 16px; text-align: center; color: white; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">% Change</th>
+                    <th style="padding: 14px 16px; text-align: center; color: white; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Value</th>
+                    <th style="padding: 14px 16px; text-align: center; color: white; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Status</th>
+                    <th style="padding: 14px 16px; text-align: center; color: white; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Effective</th>
+                    <th style="padding: 14px 16px; text-align: center; color: white; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Horizon</th>
+                    <th style="padding: 14px 16px; text-align: center; color: white; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Confidence</th>
+                    <th style="padding: 14px 16px; text-align: center; color: white; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Active Overlays -->
+                  <tr style="background: var(--success-bg);">
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); font-weight: 600;">Payroll and Taxes</td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200);">Q1 Volume increase from new product launch</td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center;"><span style="background: #DBEAFE; color: #1E40AF; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600;">Volume</span></td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200);">Phone, Chat</td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center; color: var(--error); font-weight: 600;">+15%</td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center;">+12 HC</td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center;"><span style="background: var(--success); color: white; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600;">Active</span></td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center;">Jan-26</td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center;"><span style="background: var(--gusto-coral-light); color: var(--gusto-coral); padding: 4px 8px; border-radius: 8px; font-size: 10px;">Strategic</span></td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center;"><span style="color: var(--success); font-weight: 600;">High</span></td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center;">
+                      <button style="background: none; border: none; cursor: pointer; font-size: 14px;" title="Edit">✏️</button>
+                      <button style="background: none; border: none; cursor: pointer; font-size: 14px;" title="Apply to Plan">📥</button>
+                    </td>
+                  </tr>
+                  <tr style="background: var(--success-bg);">
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); font-weight: 600;">Benefits</td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200);">Open enrollment season spike</td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center;"><span style="background: #DBEAFE; color: #1E40AF; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600;">Volume</span></td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200);">All Channels</td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center; color: var(--error); font-weight: 600;">+25%</td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center;">+18 HC</td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center;"><span style="background: var(--success); color: white; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600;">Active</span></td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center;">Jan-26</td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center;"><span style="background: var(--gusto-teal-light); color: var(--gusto-teal); padding: 4px 8px; border-radius: 8px; font-size: 10px;">Tactical</span></td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center;"><span style="color: var(--success); font-weight: 600;">High</span></td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center;">
+                      <button style="background: none; border: none; cursor: pointer; font-size: 14px;" title="Edit">✏️</button>
+                      <button style="background: none; border: none; cursor: pointer; font-size: 14px;" title="Apply to Plan">📥</button>
+                    </td>
+                  </tr>
+                  <tr style="background: var(--success-bg);">
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); font-weight: 600;">PAC</td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200);">Process improvement - reduced handle time</td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center;"><span style="background: #FEF3C7; color: #92400E; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600;">AHT</span></td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200);">Chat</td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center; color: var(--success); font-weight: 600;">-20%</td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center;">-4 HC</td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center;"><span style="background: var(--success); color: white; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600;">Active</span></td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center;">Jan-26</td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center;"><span style="background: var(--gusto-coral-light); color: var(--gusto-coral); padding: 4px 8px; border-radius: 8px; font-size: 10px;">Strategic</span></td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center;"><span style="color: var(--success); font-weight: 600;">High</span></td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center;">
+                      <button style="background: none; border: none; cursor: pointer; font-size: 14px;" title="Edit">✏️</button>
+                      <button style="background: none; border: none; cursor: pointer; font-size: 14px;" title="Apply to Plan">📥</button>
+                    </td>
+                  </tr>
+                  
+                  <!-- Pending Overlays -->
+                  <tr style="background: var(--warning-bg);">
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); font-weight: 600;">Members</td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200);">New self-service portal launch (volume reduction)</td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center;"><span style="background: #DBEAFE; color: #1E40AF; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600;">Volume</span></td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200);">Chat, Email</td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center; color: var(--success); font-weight: 600;">-10%</td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center;">TBD</td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center;"><span style="background: var(--warning); color: white; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600;">Pending</span></td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center;">Mar-26</td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center;"><span style="background: var(--gusto-coral-light); color: var(--gusto-coral); padding: 4px 8px; border-radius: 8px; font-size: 10px;">Strategic</span></td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center;"><span style="color: var(--warning); font-weight: 600;">Medium</span></td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center;">
+                      <button style="background: none; border: none; cursor: pointer; font-size: 14px;" title="Edit">✏️</button>
+                      <button style="background: none; border: none; cursor: pointer; font-size: 14px;" title="Approve">✅</button>
+                      <button style="background: none; border: none; cursor: pointer; font-size: 14px;" title="Reject">❌</button>
+                    </td>
+                  </tr>
+                  
+                  <!-- Rejected Overlays -->
+                  <tr style="background: var(--error-bg); opacity: 0.7;">
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); font-weight: 600;">Payroll and Taxes</td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-decoration: line-through;">Rainy day call diversion to Chat</td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center;"><span style="background: #DBEAFE; color: #1E40AF; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600;">Volume</span></td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200);">Chat</td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center;">+20%</td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center;">-</td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center;"><span style="background: var(--error); color: white; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600;">Rejected</span></td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center;">-</td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center;"><span style="background: var(--gusto-coral-light); color: var(--gusto-coral); padding: 4px 8px; border-radius: 8px; font-size: 10px;">Strategic</span></td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center;"><span style="color: var(--gray-400);">-</span></td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center;">
+                      <button style="background: none; border: none; cursor: pointer; font-size: 14px;" title="Restore">🔄</button>
+                      <button style="background: none; border: none; cursor: pointer; font-size: 14px;" title="Delete">🗑️</button>
+                    </td>
+                  </tr>
+                  <tr style="background: var(--error-bg); opacity: 0.7;">
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); font-weight: 600;">Accountant</td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-decoration: line-through;">Mandatory overtime request</td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center;"><span style="background: #E0E7FF; color: #3730A3; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600;">OT</span></td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200);">All</td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center;">-</td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center;">87 hrs</td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center;"><span style="background: var(--error); color: white; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600;">Rejected</span></td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center;">Jan-26</td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center;"><span style="background: var(--gusto-teal-light); color: var(--gusto-teal); padding: 4px 8px; border-radius: 8px; font-size: 10px;">Tactical</span></td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center;"><span style="color: var(--success);">High</span></td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); text-align: center;">
+                      <button style="background: none; border: none; cursor: pointer; font-size: 14px;" title="Restore">🔄</button>
+                      <button style="background: none; border: none; cursor: pointer; font-size: 14px;" title="Delete">🗑️</button>
+                    </td>
+                  </tr>
+                  
+                  <!-- Add New Overlay Row -->
+                  <tr style="background: linear-gradient(180deg, var(--gusto-teal-light) 0%, white 100%);" class="add-overlay-row">
+                    <td style="padding: 12px 16px; border-bottom: none;">
+                      <select style="width: 100%; padding: 8px; border: 1px solid var(--gray-300); border-radius: var(--radius-sm); font-size: 12px; background: white;">
+                        <option value="">Select Pillar...</option>
+                        <option>Payroll and Taxes</option>
+                        <option>Benefits</option>
+                        <option>Members</option>
+                        <option>Accountant</option>
+                        <option>PAC</option>
+                        <option>BAC</option>
+                        <option>Premier</option>
+                        <option>Money</option>
+                      </select>
+                    </td>
+                    <td style="padding: 12px 16px; border-bottom: none;">
+                      <input type="text" placeholder="Describe the impact..." style="width: 100%; padding: 8px; border: 1px solid var(--gray-300); border-radius: var(--radius-sm); font-size: 12px;">
+                    </td>
+                    <td style="padding: 12px 16px; border-bottom: none; text-align: center;">
+                      <select style="padding: 8px; border: 1px solid var(--gray-300); border-radius: var(--radius-sm); font-size: 11px; background: white;">
+                        <option value="">Category</option>
+                        <option>Volume</option>
+                        <option>AHT</option>
+                        <option>SL Target</option>
+                        <option>Shrinkage</option>
+                        <option>Occupancy</option>
+                        <option>OT</option>
+                      </select>
+                    </td>
+                    <td style="padding: 12px 16px; border-bottom: none;">
+                      <select style="width: 100%; padding: 8px; border: 1px solid var(--gray-300); border-radius: var(--radius-sm); font-size: 12px; background: white;">
+                        <option value="">Channel...</option>
+                        <option>All Channels</option>
+                        <option>Phone</option>
+                        <option>Chat</option>
+                        <option>Email</option>
+                      </select>
+                    </td>
+                    <td style="padding: 12px 16px; border-bottom: none; text-align: center;">
+                      <input type="text" placeholder="%" style="width: 60px; padding: 8px; border: 1px solid var(--gray-300); border-radius: var(--radius-sm); font-size: 12px; text-align: center;">
+                    </td>
+                    <td style="padding: 12px 16px; border-bottom: none; text-align: center;">
+                      <input type="text" placeholder="Value" style="width: 70px; padding: 8px; border: 1px solid var(--gray-300); border-radius: var(--radius-sm); font-size: 12px; text-align: center;">
+                    </td>
+                    <td style="padding: 12px 16px; border-bottom: none; text-align: center;">
+                      <select style="padding: 8px; border: 1px solid var(--gray-300); border-radius: var(--radius-sm); font-size: 11px; background: white;">
+                        <option>Pending</option>
+                        <option>Active</option>
+                      </select>
+                    </td>
+                    <td style="padding: 12px 16px; border-bottom: none; text-align: center;">
+                      <input type="month" style="padding: 6px; border: 1px solid var(--gray-300); border-radius: var(--radius-sm); font-size: 11px;">
+                    </td>
+                    <td style="padding: 12px 16px; border-bottom: none; text-align: center;">
+                      <select style="padding: 8px; border: 1px solid var(--gray-300); border-radius: var(--radius-sm); font-size: 11px; background: white;">
+                        <option>Tactical</option>
+                        <option>Strategic</option>
+                      </select>
+                    </td>
+                    <td style="padding: 12px 16px; border-bottom: none; text-align: center;">
+                      <select style="padding: 8px; border: 1px solid var(--gray-300); border-radius: var(--radius-sm); font-size: 11px; background: white;">
+                        <option>Medium</option>
+                        <option>High</option>
+                        <option>Low</option>
+                      </select>
+                    </td>
+                    <td style="padding: 12px 16px; border-bottom: none; text-align: center;">
+                      <button onclick="saveNewOverlay()" style="background: var(--gusto-teal); color: white; border: none; padding: 8px 16px; border-radius: var(--radius-sm); font-size: 12px; font-weight: 600; cursor: pointer;">
+                        + Add
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <!-- Bottom Section: Unquantified Overlays (Collapsible) -->
+          <div id="unquantified-section" style="margin-top: var(--space-lg); background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); border-left: 4px solid var(--warning); overflow: hidden;">
+            <div onclick="toggleUnquantifiedSection()" style="padding: var(--space-md) var(--space-lg); cursor: pointer; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(180deg, var(--warning-bg) 0%, white 100%);">
+              <h3 style="font-size: 16px; font-weight: 600; color: var(--gray-800); display: flex; align-items: center; gap: 8px;">
+                <span id="unquantified-arrow" style="font-size: 12px; transition: transform 0.2s;">▼</span>
+                <span style="font-size: 20px;">📝</span> Unquantified Overlays
+                <span style="background: var(--warning); color: white; padding: 2px 10px; border-radius: 10px; font-size: 11px; font-weight: 600; margin-left: 8px;">2</span>
+              </h3>
+              <div style="display: flex; align-items: center; gap: var(--space-sm);">
+                <span style="font-size: 12px; color: var(--gray-500);">Click to expand/collapse</span>
+                <button class="btn btn-secondary" style="font-size: 12px;" onclick="event.stopPropagation(); addUnquantifiedOverlay()">+ Add Note</button>
+              </div>
+            </div>
+            
+            <div id="unquantified-content" style="padding: 0 var(--space-lg) var(--space-lg); display: block;">
+              <p style="color: var(--gray-500); font-size: 13px; margin-bottom: var(--space-md); padding-top: var(--space-sm);">Track overlay requests that haven't been quantified yet - these won't affect calculations until values are assigned.</p>
+              
+              <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-md);">
+                <div style="background: var(--gray-50); padding: var(--space-md); border-radius: var(--radius-sm); border-left: 3px solid var(--warning); position: relative;">
+                  <button onclick="promoteToOverlay(this)" style="position: absolute; top: 8px; right: 8px; background: var(--gusto-teal); color: white; border: none; padding: 4px 8px; border-radius: 4px; font-size: 10px; cursor: pointer;" title="Move to main table">↑ Quantify</button>
+                  <div style="font-weight: 600; font-size: 13px; color: var(--gray-800); margin-bottom: 4px;">Client retention initiative impact</div>
+                  <div style="font-size: 12px; color: var(--gray-500);">Benefits • Submitted by Product Team • Dec 5, 2025</div>
+                  <div style="font-size: 11px; color: var(--gray-400); margin-top: 8px;">"New retention program may reduce churn-related calls. Awaiting metrics from analytics."</div>
+                </div>
+                <div style="background: var(--gray-50); padding: var(--space-md); border-radius: var(--radius-sm); border-left: 3px solid var(--warning); position: relative;">
+                  <button onclick="promoteToOverlay(this)" style="position: absolute; top: 8px; right: 8px; background: var(--gusto-teal); color: white; border: none; padding: 4px 8px; border-radius: 4px; font-size: 10px; cursor: pointer;" title="Move to main table">↑ Quantify</button>
+                  <div style="font-weight: 600; font-size: 13px; color: var(--gray-800); margin-bottom: 4px;">AI chatbot expansion</div>
+                  <div style="font-size: 12px; color: var(--gray-500);">All Pillars • Submitted by Eng Team • Dec 8, 2025</div>
+                  <div style="font-size: 11px; color: var(--gray-400); margin-top: 8px;">"Expanding AI chatbot to handle more query types. Impact TBD based on pilot results."</div>
+                </div>
+              </div>
+              
+              <!-- Add new unquantified note inline -->
+              <div style="margin-top: var(--space-md); background: var(--gusto-teal-light); padding: var(--space-md); border-radius: var(--radius-sm); border: 1px dashed var(--gusto-teal);">
+                <div style="display: grid; grid-template-columns: 1fr 150px auto; gap: var(--space-sm); align-items: center;">
+                  <input type="text" placeholder="Describe the potential overlay impact..." style="padding: 10px; border: 1px solid var(--gray-300); border-radius: var(--radius-sm); font-size: 13px;">
+                  <select style="padding: 10px; border: 1px solid var(--gray-300); border-radius: var(--radius-sm); font-size: 13px; background: white;">
+                    <option value="">Pillar...</option>
+                    <option>All Pillars</option>
+                    <option>Payroll and Taxes</option>
+                    <option>Benefits</option>
+                    <option>Members</option>
+                    <option>Accountant</option>
+                    <option>PAC</option>
+                  </select>
+                  <button onclick="saveUnquantifiedNote()" style="background: var(--gusto-teal); color: white; border: none; padding: 10px 16px; border-radius: var(--radius-sm); font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap;">
+                    + Add Note
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div><!-- END view-overlays -->
         
       </div>
     </main>
   </div>
+  
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       OVERLAY SIDE PANEL - Slides in from right
+       ═══════════════════════════════════════════════════════════════════════ -->
+  <div id="overlaySidePanel" style="position: fixed; top: 0; right: -420px; width: 400px; height: 100vh; background: white; box-shadow: -4px 0 20px rgba(0,0,0,0.15); z-index: 1000; transition: right 0.3s ease; display: flex; flex-direction: column;">
+    <!-- Panel Header -->
+    <div style="padding: 16px 20px; background: linear-gradient(135deg, var(--gusto-coral) 0%, #E53E3E 100%); color: white; display: flex; align-items: center; justify-content: space-between;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 20px;">🎯</span>
+        <div>
+          <div style="font-weight: 600; font-size: 16px;">Active Overlays</div>
+          <div style="font-size: 11px; opacity: 0.9;">12 overlays • +38 HC impact</div>
+        </div>
+      </div>
+      <button onclick="toggleOverlayPanel()" style="background: rgba(255,255,255,0.2); border: none; color: white; width: 32px; height: 32px; border-radius: 6px; font-size: 18px; cursor: pointer;">✕</button>
+    </div>
+    
+    <!-- Month Selector -->
+    <div style="padding: 12px 20px; border-bottom: 1px solid var(--gray-200); display: flex; align-items: center; gap: 12px;">
+      <span style="font-size: 12px; color: var(--gray-600);">View for:</span>
+      <select id="overlayMonthFilter" style="flex: 1; padding: 8px 12px; border: 1px solid var(--gray-300); border-radius: 6px; font-size: 13px;" onchange="filterOverlaysByMonth(this.value)">
+        <option value="all">All Months</option>
+        <option value="dec-25" selected>December 2025</option>
+        <option value="jan-26">January 2026</option>
+        <option value="feb-26">February 2026</option>
+        <option value="mar-26">March 2026</option>
+      </select>
+    </div>
+    
+    <!-- Panel Content -->
+    <div style="flex: 1; overflow-y: auto; padding: 16px;">
+      <!-- Pillar Cards -->
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        
+        <!-- Payroll Overlays -->
+        <div style="background: var(--gray-50); border-radius: 10px; border: 1px solid var(--gray-200); overflow: hidden;">
+          <div onclick="toggleSidePanelPillar(this)" style="padding: 12px 16px; background: var(--gusto-teal-light); cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 14px;">💰</span>
+              <span style="font-weight: 600; font-size: 13px; color: var(--gray-800);">Payroll</span>
+              <span style="background: var(--gusto-coral); color: white; padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 600;">+15 HC</span>
+            </div>
+            <span class="panel-pillar-arrow" style="font-size: 10px; color: var(--gray-500);">▼</span>
+          </div>
+          <div class="panel-pillar-content" style="padding: 12px 16px;">
+            <table style="width: 100%; font-size: 11px; border-collapse: collapse;">
+              <tr style="border-bottom: 1px solid var(--gray-200);">
+                <td style="padding: 6px 0; color: var(--gray-600);">Volume Adjustment</td>
+                <td style="padding: 6px 0; text-align: right; font-weight: 600; color: var(--error);">+10%</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--gray-200);">
+                <td style="padding: 6px 0; color: var(--gray-600);">AHT Override</td>
+                <td style="padding: 6px 0; text-align: right; font-weight: 600; color: var(--error);">+15 sec</td>
+              </tr>
+              <tr>
+                <td style="padding: 6px 0; color: var(--gray-600);">Shrinkage</td>
+                <td style="padding: 6px 0; text-align: right; font-weight: 600;">28%</td>
+              </tr>
+            </table>
+            <button onclick="loadView('overlays')" style="width: 100%; margin-top: 10px; padding: 8px; background: white; border: 1px solid var(--gusto-teal); color: var(--gusto-teal); border-radius: 6px; font-size: 11px; font-weight: 600; cursor: pointer;">View Full Details →</button>
+          </div>
+        </div>
+        
+        <!-- Benefits Overlays -->
+        <div style="background: var(--gray-50); border-radius: 10px; border: 1px solid var(--gray-200); overflow: hidden;">
+          <div onclick="toggleSidePanelPillar(this)" style="padding: 12px 16px; background: var(--gusto-teal-light); cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 14px;">🏥</span>
+              <span style="font-weight: 600; font-size: 13px; color: var(--gray-800);">Benefits</span>
+              <span style="background: var(--gusto-coral); color: white; padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 600;">+18 HC</span>
+            </div>
+            <span class="panel-pillar-arrow" style="font-size: 10px; color: var(--gray-500);">▼</span>
+          </div>
+          <div class="panel-pillar-content" style="padding: 12px 16px;">
+            <table style="width: 100%; font-size: 11px; border-collapse: collapse;">
+              <tr style="border-bottom: 1px solid var(--gray-200);">
+                <td style="padding: 6px 0; color: var(--gray-600);">Volume (Open Enrollment)</td>
+                <td style="padding: 6px 0; text-align: right; font-weight: 600; color: var(--error);">+25%</td>
+              </tr>
+              <tr>
+                <td style="padding: 6px 0; color: var(--gray-600);">SL Target</td>
+                <td style="padding: 6px 0; text-align: right; font-weight: 600;">70/30</td>
+              </tr>
+            </table>
+            <button onclick="loadView('overlays')" style="width: 100%; margin-top: 10px; padding: 8px; background: white; border: 1px solid var(--gusto-teal); color: var(--gusto-teal); border-radius: 6px; font-size: 11px; font-weight: 600; cursor: pointer;">View Full Details →</button>
+          </div>
+        </div>
+        
+        <!-- PAC Overlays -->
+        <div style="background: var(--gray-50); border-radius: 10px; border: 1px solid var(--gray-200); overflow: hidden;">
+          <div onclick="toggleSidePanelPillar(this)" style="padding: 12px 16px; background: #D1FAE5; cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 14px;">📞</span>
+              <span style="font-weight: 600; font-size: 13px; color: var(--gray-800);">PAC</span>
+              <span style="background: #10B981; color: white; padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 600;">-5 HC</span>
+            </div>
+            <span class="panel-pillar-arrow" style="font-size: 10px; color: var(--gray-500);">▼</span>
+          </div>
+          <div class="panel-pillar-content" style="padding: 12px 16px;">
+            <table style="width: 100%; font-size: 11px; border-collapse: collapse;">
+              <tr>
+                <td style="padding: 6px 0; color: var(--gray-600);">AHT Improvement</td>
+                <td style="padding: 6px 0; text-align: right; font-weight: 600; color: var(--success);">-20%</td>
+              </tr>
+            </table>
+            <button onclick="loadView('overlays')" style="width: 100%; margin-top: 10px; padding: 8px; background: white; border: 1px solid var(--gusto-teal); color: var(--gusto-teal); border-radius: 6px; font-size: 11px; font-weight: 600; cursor: pointer;">View Full Details →</button>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    
+    <!-- Panel Footer -->
+    <div style="padding: 12px 20px; border-top: 1px solid var(--gray-200); background: var(--gray-50);">
+      <button onclick="loadView('overlays'); toggleOverlayPanel();" style="width: 100%; padding: 12px; background: var(--gusto-teal); color: white; border: none; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
+        🎚️ Open Full Overlay Tracker
+      </button>
+    </div>
+  </div>
+  
+  <!-- Overlay for side panel -->
+  <div id="overlaySidePanelBackdrop" onclick="toggleOverlayPanel()" style="position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 999; display: none;"></div>
   
   <!-- Toast Container -->
   <div class="toast-container" id="toastContainer"></div>
@@ -7103,15 +7989,14 @@
       } else if (view === 'pillar') {
         dropdown.style.display = 'inline-block';
         comparisonToggle.style.display = 'flex';
-      } else if (view === 'exports' || view === 'published' || view === 'scenarios') {
+      } else if (view === 'datamanagement' || view === 'published' || view === 'scenarios') {
         dropdown.style.display = 'none';
         comparisonToggle.style.display = 'none';
         if (scenariosBtn) scenariosBtn.style.display = 'none';
-        // For published and scenarios, show the exports view (consolidated data section)
-        if (view === 'published' || view === 'scenarios') {
-          document.querySelectorAll('.view-container').forEach(v => v.style.display = 'none');
-          document.getElementById('view-exports').style.display = 'block';
-        }
+      } else if (view === 'overlays') {
+        dropdown.style.display = 'none';
+        comparisonToggle.style.display = 'none';
+        if (scenariosBtn) scenariosBtn.style.display = 'none';
       }
       
       // Update current view state
@@ -7738,6 +8623,100 @@
       showToast('🗄️ Archive Manager - Coming soon!', 'info');
     }
     
+    // ═══════════════════════════════════════════════════════════════════════
+    // OVERLAY TRACKER FUNCTIONS
+    // ═══════════════════════════════════════════════════════════════════════
+    
+    function filterOverlays(status) {
+      showToast('🔍 Filtering overlays by: ' + status, 'info');
+      // In production: would filter the table rows
+    }
+    
+    // ═══════════════════════════════════════════════════════════════════════
+    // OVERLAY SIDE PANEL FUNCTIONS
+    // ═══════════════════════════════════════════════════════════════════════
+    
+    function toggleOverlayPanel() {
+      const panel = document.getElementById('overlaySidePanel');
+      const backdrop = document.getElementById('overlaySidePanelBackdrop');
+      const isOpen = panel.style.right === '0px';
+      
+      if (isOpen) {
+        panel.style.right = '-420px';
+        backdrop.style.display = 'none';
+      } else {
+        panel.style.right = '0px';
+        backdrop.style.display = 'block';
+      }
+    }
+    
+    function showPillarOverlays(pillarName) {
+      toggleOverlayPanel();
+      showToast('📋 Showing overlays for ' + pillarName, 'info');
+    }
+    
+    function toggleSidePanelPillar(header) {
+      const content = header.nextElementSibling;
+      const arrow = header.querySelector('.panel-pillar-arrow');
+      const isHidden = content.style.display === 'none';
+      
+      content.style.display = isHidden ? 'block' : 'none';
+      arrow.textContent = isHidden ? '▼' : '▶';
+    }
+    
+    function filterOverlaysByMonth(month) {
+      showToast('🗓️ Filtering overlays for: ' + month, 'info');
+      // In production: would filter overlay data
+    }
+    
+    function addUnquantifiedOverlay() {
+      // Scroll to the unquantified section and expand it
+      const section = document.getElementById('unquantified-section');
+      const content = document.getElementById('unquantified-content');
+      const arrow = document.getElementById('unquantified-arrow');
+      
+      // Expand if collapsed
+      if (content.style.display === 'none') {
+        content.style.display = 'block';
+        arrow.style.transform = 'rotate(0deg)';
+      }
+      
+      // Scroll to it
+      section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+    
+    function toggleUnquantifiedSection() {
+      const content = document.getElementById('unquantified-content');
+      const arrow = document.getElementById('unquantified-arrow');
+      
+      if (content.style.display === 'none') {
+        content.style.display = 'block';
+        arrow.style.transform = 'rotate(0deg)';
+      } else {
+        content.style.display = 'none';
+        arrow.style.transform = 'rotate(-90deg)';
+      }
+    }
+    
+    function saveNewOverlay() {
+      showToast('✅ Overlay added successfully!', 'success');
+      // In production: would save to database and refresh table
+    }
+    
+    function saveUnquantifiedNote() {
+      showToast('📝 Note saved! You can quantify it later.', 'success');
+      // In production: would save to database
+    }
+    
+    function promoteToOverlay(btn) {
+      showToast('↑ Opening quantification form...', 'info');
+      // In production: would open a modal or scroll to add row with prefilled data
+    }
+    
+    function openAddOverlayModal() {
+      showToast('➕ Add Overlay modal - Coming soon!', 'info');
+    }
+    
     function saveScenario() {
       const name = document.getElementById('scenarioName').value;
       if (!name) {
@@ -8200,13 +9179,22 @@
     
     // Toggle All-In view table sections
     function toggleAllInSection(headerRow) {
-      const sectionClass = headerRow.nextElementSibling?.classList[0];
-      if (!sectionClass) return;
+      // Get all following siblings until the next section header
+      let nextRow = headerRow.nextElementSibling;
+      const rowsToToggle = [];
       
-      const rows = document.querySelectorAll('.' + sectionClass);
-      const isCollapsed = rows[0]?.style.display === 'none';
+      while (nextRow && !nextRow.classList.contains('row-section-header')) {
+        rowsToToggle.push(nextRow);
+        nextRow = nextRow.nextElementSibling;
+      }
       
-      rows.forEach(row => {
+      if (rowsToToggle.length === 0) return;
+      
+      // Check if currently collapsed
+      const isCollapsed = rowsToToggle[0].style.display === 'none';
+      
+      // Toggle all rows
+      rowsToToggle.forEach(row => {
         row.style.display = isCollapsed ? '' : 'none';
       });
       
