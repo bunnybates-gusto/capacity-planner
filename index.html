@@ -2453,6 +2453,16 @@
               <span class="nav-icon">🗄️</span>
               <span class="nav-text">Data Management</span>
             </div>
+            <div class="nav-item" onclick="loadView('stafftracker')" id="nav-stafftracker">
+              <span class="nav-icon">👥</span>
+              <span class="nav-text">Staff Tracker</span>
+              <span style="font-size: 8px; background: var(--gusto-teal); color: white; padding: 2px 6px; border-radius: 8px; margin-left: auto;">NEW</span>
+            </div>
+            <div class="nav-item" onclick="loadView('settingshub')" id="nav-settingshub">
+              <span class="nav-icon">⚙️</span>
+              <span class="nav-text">Settings Hub</span>
+              <span style="font-size: 8px; background: var(--gusto-teal); color: white; padding: 2px 6px; border-radius: 8px; margin-left: auto;">NEW</span>
+            </div>
           </div>
         </div>
         
@@ -3035,12 +3045,24 @@
             <h2 style="display: flex; align-items: center; gap: var(--space-sm); margin: 0;">
               🔗 Customer Care - All In
             </h2>
-            <select class="form-select" style="width: auto; font-size: 12px;">
-              <option>May-2025</option>
-              <option>Jun-2025</option>
-              <option selected>Dec-2025</option>
+            <select id="pillar-start-month" class="form-select" style="width: auto; font-size: 12px;" onchange="updateTableStartMonth(this.value)">
+              <option value="May-2025" selected>May-2025</option>
+              <option value="Jun-2025">Jun-2025</option>
+              <option value="Jul-2025">Jul-2025</option>
+              <option value="Aug-2025">Aug-2025</option>
+              <option value="Sep-2025">Sep-2025</option>
+              <option value="Oct-2025">Oct-2025</option>
+              <option value="Nov-2025">Nov-2025</option>
+              <option value="Dec-2025">Dec-2025</option>
+              <option value="Jan-2026">Jan-2026</option>
+              <option value="Feb-2026">Feb-2026</option>
+              <option value="Mar-2026">Mar-2026</option>
+              <option value="Apr-2026">Apr-2026</option>
             </select>
             <span style="font-size: 12px; color: var(--gray-500);">→ 24 months</span>
+            <button onclick="openDateSettingsModal()" class="btn btn-ghost" style="padding: 6px 10px; font-size: 11px; margin-left: 8px;" title="Set default start date">
+              📅 Set Default
+            </button>
             <button class="btn btn-secondary" style="margin-left: auto;">📤 Export PDF</button>
           </div>
           
@@ -6353,7 +6375,7 @@
                     <span style="font-size: 18px;">📋</span>
                     <div>
                       <div style="font-weight: 600; font-size: 13px; color: var(--gray-800);">Pillar Template Format</div>
-                      <div style="font-size: 11px; color: var(--gray-500);">Wide format with months as columns - editable in Sheets</div>
+                      <div style="font-size: 11px; color: var(--gray-500);">Wide format with months as columns + Settings Summary - editable in Sheets</div>
                     </div>
                   </div>
                 </div>
@@ -6536,6 +6558,632 @@
           </div>
           
         </div><!-- END view-datamanagement -->
+        
+        <!-- ═══════════════════════════════════════════════════════════════════════
+             STAFF TRACKER VIEW - Interactive HC Management
+             ═══════════════════════════════════════════════════════════════════════ -->
+        <div id="view-stafftracker" class="view-container" style="display: none;">
+          
+          <!-- Page Header -->
+          <div style="margin-bottom: var(--space-lg);">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <h1 style="font-size: 24px; font-weight: 600; color: var(--gray-800);">👥 Staff Tracker</h1>
+                <span style="background: var(--gusto-teal); color: white; padding: 4px 12px; border-radius: 12px; font-size: 11px; font-weight: 600;">Phase 1</span>
+              </div>
+              <div style="display: flex; gap: 8px;">
+                <button class="btn btn-secondary" onclick="openImportModal('activeHC')">📥 Import HC Data</button>
+                <button class="btn btn-primary" onclick="saveStaffChanges()">💾 Save Changes</button>
+              </div>
+            </div>
+            <p style="color: var(--gray-500); font-size: 14px;">View and edit actual headcount by Pillar, Site, and Management Unit</p>
+          </div>
+          
+          <!-- Filter Bar -->
+          <div style="background: white; padding: var(--space-md); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); margin-bottom: var(--space-lg); display: flex; gap: 16px; align-items: center; flex-wrap: wrap;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <label style="font-size: 12px; font-weight: 600; color: var(--gray-600);">Pillar:</label>
+              <select class="form-select" id="staff-filter-pillar" style="width: auto; font-size: 12px;" onchange="filterStaffTable()">
+                <option value="all">All Pillars</option>
+                <option value="Payroll and Taxes">Payroll and Taxes</option>
+                <option value="Benefits">Benefits</option>
+                <option value="Money">Money</option>
+                <option value="Premier">Premier</option>
+                <option value="Accountant">Accountant</option>
+                <option value="Members">Members</option>
+                <option value="BAC">BAC</option>
+                <option value="PAC">PAC</option>
+              </select>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <label style="font-size: 12px; font-weight: 600; color: var(--gray-600);">Site:</label>
+              <select class="form-select" id="staff-filter-site" style="width: auto; font-size: 12px;" onchange="filterStaffTable()">
+                <option value="all">All Sites</option>
+                <option value="Gusto">Gusto</option>
+                <option value="TaskUs">TaskUs</option>
+                <option value="Teleperformance">Teleperformance</option>
+                <option value="Apex">Apex</option>
+              </select>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <label style="font-size: 12px; font-weight: 600; color: var(--gray-600);">Organization:</label>
+              <select class="form-select" id="staff-filter-org" style="width: auto; font-size: 12px;" onchange="filterStaffTable()">
+                <option value="all">All Organizations</option>
+                <option value="On-Demand">On-Demand</option>
+                <option value="Advanced Care">Advanced Care</option>
+                <option value="DSA">DSA</option>
+              </select>
+            </div>
+            <div style="margin-left: auto; display: flex; align-items: center; gap: 12px;">
+              <span style="font-size: 11px; color: var(--gray-500);">
+                <span style="display: inline-block; width: 10px; height: 10px; background: var(--editable); border-radius: 2px; margin-right: 4px;"></span>
+                Editable (Future)
+              </span>
+              <span style="font-size: 11px; color: var(--gray-500);">
+                <span style="display: inline-block; width: 10px; height: 10px; background: var(--gray-200); border-radius: 2px; margin-right: 4px;"></span>
+                Historical (Read-only)
+              </span>
+            </div>
+          </div>
+          
+          <!-- Summary Cards -->
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-md); margin-bottom: var(--space-lg);">
+            <div style="background: white; padding: var(--space-md); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); text-align: center;">
+              <div style="font-size: 11px; color: var(--gray-500); text-transform: uppercase; margin-bottom: 4px;">Total HC (Current)</div>
+              <div style="font-size: 28px; font-weight: 700; color: var(--gusto-teal);">847</div>
+              <div style="font-size: 10px; color: var(--gray-400);">Dec 2025</div>
+            </div>
+            <div style="background: white; padding: var(--space-md); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); text-align: center;">
+              <div style="font-size: 11px; color: var(--gray-500); text-transform: uppercase; margin-bottom: 4px;">Management Units</div>
+              <div style="font-size: 28px; font-weight: 700; color: var(--gray-700);">24</div>
+              <div style="font-size: 10px; color: var(--gray-400);">Active MUs</div>
+            </div>
+            <div style="background: white; padding: var(--space-md); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); text-align: center;">
+              <div style="font-size: 11px; color: var(--gray-500); text-transform: uppercase; margin-bottom: 4px;">Unsaved Changes</div>
+              <div style="font-size: 28px; font-weight: 700; color: var(--warning);">0</div>
+              <div style="font-size: 10px; color: var(--gray-400);">Cells modified</div>
+            </div>
+            <div style="background: white; padding: var(--space-md); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); text-align: center;">
+              <div style="font-size: 11px; color: var(--gray-500); text-transform: uppercase; margin-bottom: 4px;">Last Import</div>
+              <div style="font-size: 16px; font-weight: 700; color: var(--gray-700);">Dec 10</div>
+              <div style="font-size: 10px; color: var(--gray-400);">2 days ago</div>
+            </div>
+          </div>
+          
+          <!-- Staff Data Table -->
+          <div style="background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); overflow: hidden;">
+            <div style="padding: var(--space-md); border-bottom: 1px solid var(--gray-200); display: flex; justify-content: space-between; align-items: center;">
+              <h3 style="font-size: 16px; font-weight: 600; color: var(--gray-800); display: flex; align-items: center; gap: 8px;">
+                <span>📊</span> Active Headcount by Management Unit
+              </h3>
+              <div style="font-size: 11px; color: var(--gray-500);">
+                Showing 24 of 24 MUs • Click future month cells to edit
+              </div>
+            </div>
+            
+            <div style="overflow-x: auto;">
+              <table class="data-table" style="font-size: 11px; width: 100%;">
+                <thead>
+                  <tr style="background: var(--gray-100);">
+                    <th style="position: sticky; left: 0; background: var(--gray-100); z-index: 10; min-width: 180px; text-align: left; padding: 10px 12px;">MU Name</th>
+                    <th style="min-width: 100px; text-align: left; padding: 10px 8px;">Pillar</th>
+                    <th style="min-width: 80px; text-align: left; padding: 10px 8px;">Site</th>
+                    <th style="min-width: 60px; text-align: center; padding: 10px 8px; background: var(--gray-200);">May</th>
+                    <th style="min-width: 60px; text-align: center; padding: 10px 8px; background: var(--gray-200);">Jun</th>
+                    <th style="min-width: 60px; text-align: center; padding: 10px 8px; background: var(--gray-200);">Jul</th>
+                    <th style="min-width: 60px; text-align: center; padding: 10px 8px; background: var(--gray-200);">Aug</th>
+                    <th style="min-width: 60px; text-align: center; padding: 10px 8px; background: var(--gray-200);">Sep</th>
+                    <th style="min-width: 60px; text-align: center; padding: 10px 8px; background: var(--gray-200);">Oct</th>
+                    <th style="min-width: 60px; text-align: center; padding: 10px 8px; background: var(--gray-200);">Nov</th>
+                    <th style="min-width: 60px; text-align: center; padding: 10px 8px; background: var(--editable);">Dec</th>
+                    <th style="min-width: 60px; text-align: center; padding: 10px 8px; background: var(--editable);">Jan</th>
+                    <th style="min-width: 60px; text-align: center; padding: 10px 8px; background: var(--editable);">Feb</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Gusto Teams -->
+                  <tr style="background: var(--gusto-teal-light);">
+                    <td colspan="13" style="padding: 8px 12px; font-weight: 600; color: var(--gusto-teal);">
+                      🏠 Gusto (Internal)
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="position: sticky; left: 0; background: white; z-index: 5; padding: 8px 12px; font-weight: 500;">Care Payroll & Taxes</td>
+                    <td style="padding: 8px; color: var(--gray-600);">Payroll and Taxes</td>
+                    <td style="padding: 8px; color: var(--gray-500);">Gusto</td>
+                    <td style="text-align: center; padding: 8px; background: var(--gray-50);">61</td>
+                    <td style="text-align: center; padding: 8px; background: var(--gray-50);">65</td>
+                    <td style="text-align: center; padding: 8px; background: var(--gray-50);">48</td>
+                    <td style="text-align: center; padding: 8px; background: var(--gray-50);">52</td>
+                    <td style="text-align: center; padding: 8px; background: var(--gray-50);">48</td>
+                    <td style="text-align: center; padding: 8px; background: var(--gray-50);">41</td>
+                    <td style="text-align: center; padding: 8px; background: var(--gray-50);">44</td>
+                    <td style="text-align: center; padding: 8px;"><input type="number" value="75" style="width: 50px; text-align: center; border: 1px solid var(--gray-300); border-radius: 4px; padding: 4px;" onchange="markCellChanged(this)"></td>
+                    <td style="text-align: center; padding: 8px;"><input type="number" value="" placeholder="—" style="width: 50px; text-align: center; border: 1px solid var(--gray-300); border-radius: 4px; padding: 4px;" onchange="markCellChanged(this)"></td>
+                    <td style="text-align: center; padding: 8px;"><input type="number" value="" placeholder="—" style="width: 50px; text-align: center; border: 1px solid var(--gray-300); border-radius: 4px; padding: 4px;" onchange="markCellChanged(this)"></td>
+                  </tr>
+                  <tr style="background: var(--gray-50);">
+                    <td style="position: sticky; left: 0; background: var(--gray-50); z-index: 5; padding: 8px 12px; font-weight: 500;">Care Premier</td>
+                    <td style="padding: 8px; color: var(--gray-600);">Premier</td>
+                    <td style="padding: 8px; color: var(--gray-500);">Gusto</td>
+                    <td style="text-align: center; padding: 8px;">21</td>
+                    <td style="text-align: center; padding: 8px;">20</td>
+                    <td style="text-align: center; padding: 8px;">19</td>
+                    <td style="text-align: center; padding: 8px;">19</td>
+                    <td style="text-align: center; padding: 8px;">17</td>
+                    <td style="text-align: center; padding: 8px;">15</td>
+                    <td style="text-align: center; padding: 8px;">15</td>
+                    <td style="text-align: center; padding: 8px;"><input type="number" value="15" style="width: 50px; text-align: center; border: 1px solid var(--gray-300); border-radius: 4px; padding: 4px;" onchange="markCellChanged(this)"></td>
+                    <td style="text-align: center; padding: 8px;"><input type="number" value="" placeholder="—" style="width: 50px; text-align: center; border: 1px solid var(--gray-300); border-radius: 4px; padding: 4px;" onchange="markCellChanged(this)"></td>
+                    <td style="text-align: center; padding: 8px;"><input type="number" value="" placeholder="—" style="width: 50px; text-align: center; border: 1px solid var(--gray-300); border-radius: 4px; padding: 4px;" onchange="markCellChanged(this)"></td>
+                  </tr>
+                  <tr>
+                    <td style="position: sticky; left: 0; background: white; z-index: 5; padding: 8px 12px; font-weight: 500;">Care Benefits Tier 1</td>
+                    <td style="padding: 8px; color: var(--gray-600);">Benefits</td>
+                    <td style="padding: 8px; color: var(--gray-500);">Gusto</td>
+                    <td style="text-align: center; padding: 8px; background: var(--gray-50);">39</td>
+                    <td style="text-align: center; padding: 8px; background: var(--gray-50);">35</td>
+                    <td style="text-align: center; padding: 8px; background: var(--gray-50);">32</td>
+                    <td style="text-align: center; padding: 8px; background: var(--gray-50);">30</td>
+                    <td style="text-align: center; padding: 8px; background: var(--gray-50);">38</td>
+                    <td style="text-align: center; padding: 8px; background: var(--gray-50);">29</td>
+                    <td style="text-align: center; padding: 8px; background: var(--gray-50);">42</td>
+                    <td style="text-align: center; padding: 8px;"><input type="number" value="41" style="width: 50px; text-align: center; border: 1px solid var(--gray-300); border-radius: 4px; padding: 4px;" onchange="markCellChanged(this)"></td>
+                    <td style="text-align: center; padding: 8px;"><input type="number" value="" placeholder="—" style="width: 50px; text-align: center; border: 1px solid var(--gray-300); border-radius: 4px; padding: 4px;" onchange="markCellChanged(this)"></td>
+                    <td style="text-align: center; padding: 8px;"><input type="number" value="" placeholder="—" style="width: 50px; text-align: center; border: 1px solid var(--gray-300); border-radius: 4px; padding: 4px;" onchange="markCellChanged(this)"></td>
+                  </tr>
+                  <tr style="background: var(--gray-50);">
+                    <td style="position: sticky; left: 0; background: var(--gray-50); z-index: 5; padding: 8px 12px; font-weight: 500;">Care Benefits Tier 2</td>
+                    <td style="padding: 8px; color: var(--gray-600);">BAC</td>
+                    <td style="padding: 8px; color: var(--gray-500);">Gusto</td>
+                    <td style="text-align: center; padding: 8px;">39</td>
+                    <td style="text-align: center; padding: 8px;">37</td>
+                    <td style="text-align: center; padding: 8px;">36</td>
+                    <td style="text-align: center; padding: 8px;">32</td>
+                    <td style="text-align: center; padding: 8px;">31</td>
+                    <td style="text-align: center; padding: 8px;">26</td>
+                    <td style="text-align: center; padding: 8px;">21</td>
+                    <td style="text-align: center; padding: 8px;"><input type="number" value="20" style="width: 50px; text-align: center; border: 1px solid var(--gray-300); border-radius: 4px; padding: 4px;" onchange="markCellChanged(this)"></td>
+                    <td style="text-align: center; padding: 8px;"><input type="number" value="" placeholder="—" style="width: 50px; text-align: center; border: 1px solid var(--gray-300); border-radius: 4px; padding: 4px;" onchange="markCellChanged(this)"></td>
+                    <td style="text-align: center; padding: 8px;"><input type="number" value="" placeholder="—" style="width: 50px; text-align: center; border: 1px solid var(--gray-300); border-radius: 4px; padding: 4px;" onchange="markCellChanged(this)"></td>
+                  </tr>
+                  
+                  <!-- TaskUs Teams -->
+                  <tr style="background: var(--info-bg);">
+                    <td colspan="13" style="padding: 8px 12px; font-weight: 600; color: var(--info);">
+                      📋 TaskUs
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="position: sticky; left: 0; background: white; z-index: 5; padding: 8px 12px; font-weight: 500;">TaskUs Payroll and Taxes</td>
+                    <td style="padding: 8px; color: var(--gray-600);">Payroll and Taxes</td>
+                    <td style="padding: 8px; color: var(--gray-500);">TaskUs</td>
+                    <td style="text-align: center; padding: 8px; background: var(--gray-50);">147</td>
+                    <td style="text-align: center; padding: 8px; background: var(--gray-50);">127</td>
+                    <td style="text-align: center; padding: 8px; background: var(--gray-50);">170</td>
+                    <td style="text-align: center; padding: 8px; background: var(--gray-50);">121</td>
+                    <td style="text-align: center; padding: 8px; background: var(--gray-50);">118</td>
+                    <td style="text-align: center; padding: 8px; background: var(--gray-50);">140</td>
+                    <td style="text-align: center; padding: 8px; background: var(--gray-50);">148</td>
+                    <td style="text-align: center; padding: 8px;"><input type="number" value="163" style="width: 50px; text-align: center; border: 1px solid var(--gray-300); border-radius: 4px; padding: 4px;" onchange="markCellChanged(this)"></td>
+                    <td style="text-align: center; padding: 8px;"><input type="number" value="" placeholder="—" style="width: 50px; text-align: center; border: 1px solid var(--gray-300); border-radius: 4px; padding: 4px;" onchange="markCellChanged(this)"></td>
+                    <td style="text-align: center; padding: 8px;"><input type="number" value="" placeholder="—" style="width: 50px; text-align: center; border: 1px solid var(--gray-300); border-radius: 4px; padding: 4px;" onchange="markCellChanged(this)"></td>
+                  </tr>
+                  <tr style="background: var(--gray-50);">
+                    <td style="position: sticky; left: 0; background: var(--gray-50); z-index: 5; padding: 8px 12px; font-weight: 500;">TaskUs - Benefits</td>
+                    <td style="padding: 8px; color: var(--gray-600);">Benefits</td>
+                    <td style="padding: 8px; color: var(--gray-500);">TaskUs</td>
+                    <td style="text-align: center; padding: 8px;">49</td>
+                    <td style="text-align: center; padding: 8px;">45</td>
+                    <td style="text-align: center; padding: 8px;">50</td>
+                    <td style="text-align: center; padding: 8px;">38</td>
+                    <td style="text-align: center; padding: 8px;">29</td>
+                    <td style="text-align: center; padding: 8px;">44</td>
+                    <td style="text-align: center; padding: 8px;">40</td>
+                    <td style="text-align: center; padding: 8px;"><input type="number" value="54" style="width: 50px; text-align: center; border: 1px solid var(--gray-300); border-radius: 4px; padding: 4px;" onchange="markCellChanged(this)"></td>
+                    <td style="text-align: center; padding: 8px;"><input type="number" value="" placeholder="—" style="width: 50px; text-align: center; border: 1px solid var(--gray-300); border-radius: 4px; padding: 4px;" onchange="markCellChanged(this)"></td>
+                    <td style="text-align: center; padding: 8px;"><input type="number" value="" placeholder="—" style="width: 50px; text-align: center; border: 1px solid var(--gray-300); border-radius: 4px; padding: 4px;" onchange="markCellChanged(this)"></td>
+                  </tr>
+                  <tr>
+                    <td style="position: sticky; left: 0; background: white; z-index: 5; padding: 8px 12px; font-weight: 500;">TaskUs - Members + Money</td>
+                    <td style="padding: 8px; color: var(--gray-600);">Members</td>
+                    <td style="padding: 8px; color: var(--gray-500);">TaskUs</td>
+                    <td style="text-align: center; padding: 8px; background: var(--gray-50);">0</td>
+                    <td style="text-align: center; padding: 8px; background: var(--gray-50);">0</td>
+                    <td style="text-align: center; padding: 8px; background: var(--gray-50);">0</td>
+                    <td style="text-align: center; padding: 8px; background: var(--gray-50);">27</td>
+                    <td style="text-align: center; padding: 8px; background: var(--gray-50);">27</td>
+                    <td style="text-align: center; padding: 8px; background: var(--gray-50);">26</td>
+                    <td style="text-align: center; padding: 8px; background: var(--gray-50);">56</td>
+                    <td style="text-align: center; padding: 8px;"><input type="number" value="56" style="width: 50px; text-align: center; border: 1px solid var(--gray-300); border-radius: 4px; padding: 4px;" onchange="markCellChanged(this)"></td>
+                    <td style="text-align: center; padding: 8px;"><input type="number" value="" placeholder="—" style="width: 50px; text-align: center; border: 1px solid var(--gray-300); border-radius: 4px; padding: 4px;" onchange="markCellChanged(this)"></td>
+                    <td style="text-align: center; padding: 8px;"><input type="number" value="" placeholder="—" style="width: 50px; text-align: center; border: 1px solid var(--gray-300); border-radius: 4px; padding: 4px;" onchange="markCellChanged(this)"></td>
+                  </tr>
+                  
+                  <!-- Teleperformance Teams -->
+                  <tr style="background: var(--gusto-coral-light);">
+                    <td colspan="13" style="padding: 8px 12px; font-weight: 600; color: var(--gusto-coral);">
+                      🌐 Teleperformance
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="position: sticky; left: 0; background: white; z-index: 5; padding: 8px 12px; font-weight: 500;">Teleperformance Payroll and Taxes</td>
+                    <td style="padding: 8px; color: var(--gray-600);">Payroll and Taxes</td>
+                    <td style="padding: 8px; color: var(--gray-500);">TP</td>
+                    <td style="text-align: center; padding: 8px; background: var(--gray-50);">90</td>
+                    <td style="text-align: center; padding: 8px; background: var(--gray-50);">93</td>
+                    <td style="text-align: center; padding: 8px; background: var(--gray-50);">76</td>
+                    <td style="text-align: center; padding: 8px; background: var(--gray-50);">75</td>
+                    <td style="text-align: center; padding: 8px; background: var(--gray-50);">64</td>
+                    <td style="text-align: center; padding: 8px; background: var(--gray-50);">69</td>
+                    <td style="text-align: center; padding: 8px; background: var(--gray-50);">84</td>
+                    <td style="text-align: center; padding: 8px;"><input type="number" value="108" style="width: 50px; text-align: center; border: 1px solid var(--gray-300); border-radius: 4px; padding: 4px;" onchange="markCellChanged(this)"></td>
+                    <td style="text-align: center; padding: 8px;"><input type="number" value="" placeholder="—" style="width: 50px; text-align: center; border: 1px solid var(--gray-300); border-radius: 4px; padding: 4px;" onchange="markCellChanged(this)"></td>
+                    <td style="text-align: center; padding: 8px;"><input type="number" value="" placeholder="—" style="width: 50px; text-align: center; border: 1px solid var(--gray-300); border-radius: 4px; padding: 4px;" onchange="markCellChanged(this)"></td>
+                  </tr>
+                  <tr style="background: var(--gray-50);">
+                    <td style="position: sticky; left: 0; background: var(--gray-50); z-index: 5; padding: 8px 12px; font-weight: 500;">Teleperformance Support</td>
+                    <td style="padding: 8px; color: var(--gray-600);">Support</td>
+                    <td style="padding: 8px; color: var(--gray-500);">TP</td>
+                    <td style="text-align: center; padding: 8px;">30</td>
+                    <td style="text-align: center; padding: 8px;">30</td>
+                    <td style="text-align: center; padding: 8px;">29</td>
+                    <td style="text-align: center; padding: 8px;">30</td>
+                    <td style="text-align: center; padding: 8px;">41</td>
+                    <td style="text-align: center; padding: 8px;">33</td>
+                    <td style="text-align: center; padding: 8px;">39</td>
+                    <td style="text-align: center; padding: 8px;"><input type="number" value="40" style="width: 50px; text-align: center; border: 1px solid var(--gray-300); border-radius: 4px; padding: 4px;" onchange="markCellChanged(this)"></td>
+                    <td style="text-align: center; padding: 8px;"><input type="number" value="" placeholder="—" style="width: 50px; text-align: center; border: 1px solid var(--gray-300); border-radius: 4px; padding: 4px;" onchange="markCellChanged(this)"></td>
+                    <td style="text-align: center; padding: 8px;"><input type="number" value="" placeholder="—" style="width: 50px; text-align: center; border: 1px solid var(--gray-300); border-radius: 4px; padding: 4px;" onchange="markCellChanged(this)"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            
+            <!-- Table Footer -->
+            <div style="padding: var(--space-md); border-top: 1px solid var(--gray-200); background: var(--gray-50); display: flex; justify-content: space-between; align-items: center;">
+              <div style="font-size: 11px; color: var(--gray-500);">
+                💡 Tip: Use Tab to move between cells. Changes are highlighted until saved.
+              </div>
+              <div style="display: flex; gap: 8px;">
+                <button class="btn btn-ghost" onclick="undoStaffChanges()">↩️ Undo All</button>
+                <button class="btn btn-secondary" onclick="downloadStaffTemplate()">📥 Download Template</button>
+              </div>
+            </div>
+          </div>
+          
+        </div><!-- END view-stafftracker -->
+        
+        <!-- ═══════════════════════════════════════════════════════════════════════
+             SETTINGS HUB VIEW - Centralized Configuration
+             ═══════════════════════════════════════════════════════════════════════ -->
+        <div id="view-settingshub" class="view-container" style="display: none;">
+          
+          <!-- Page Header -->
+          <div style="margin-bottom: var(--space-lg);">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <h1 style="font-size: 24px; font-weight: 600; color: var(--gray-800);">⚙️ Settings Hub</h1>
+                <span style="background: var(--gusto-teal); color: white; padding: 4px 12px; border-radius: 12px; font-size: 11px; font-weight: 600;">Phase 1</span>
+              </div>
+              <div style="display: flex; gap: 8px;">
+                <button class="btn btn-secondary" onclick="resetAllSettings()">🔄 Reset to Defaults</button>
+                <button class="btn btn-primary" onclick="saveAllSettings()">💾 Save All Changes</button>
+              </div>
+            </div>
+            <p style="color: var(--gray-500); font-size: 14px;">Configure planning parameters, pillars, channels, sites, and metric defaults — all in one place</p>
+          </div>
+          
+          <!-- Settings Grid -->
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-lg);">
+            
+            <!-- Planning Period Card -->
+            <div style="background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); overflow: hidden;">
+              <div style="padding: var(--space-md); border-bottom: 1px solid var(--gray-200); background: linear-gradient(135deg, var(--gusto-teal-light) 0%, white 100%);">
+                <h3 style="font-size: 16px; font-weight: 600; color: var(--gray-800); display: flex; align-items: center; gap: 8px;">
+                  <span style="font-size: 20px;">📅</span> Planning Period
+                </h3>
+              </div>
+              <div style="padding: var(--space-lg);">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                  <div class="form-group">
+                    <label class="form-label">Fiscal Start</label>
+                    <input type="month" class="form-input" value="2025-05">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Planning End</label>
+                    <input type="month" class="form-input" value="2027-04">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Current Month</label>
+                    <input type="month" class="form-input" value="2025-12">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Planning Horizon</label>
+                    <select class="form-select">
+                      <option value="12">12 months</option>
+                      <option value="18">18 months</option>
+                      <option value="24" selected>24 months</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Metric Defaults Card -->
+            <div style="background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); overflow: hidden;">
+              <div style="padding: var(--space-md); border-bottom: 1px solid var(--gray-200); background: linear-gradient(135deg, var(--info-bg) 0%, white 100%);">
+                <h3 style="font-size: 16px; font-weight: 600; color: var(--gray-800); display: flex; align-items: center; gap: 8px;">
+                  <span style="font-size: 20px;">📊</span> Metric Defaults
+                </h3>
+              </div>
+              <div style="padding: var(--space-lg);">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                  <div class="form-group">
+                    <label class="form-label">Daily Work Hours</label>
+                    <input type="number" class="form-input" value="7.5" step="0.5">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Default Shrink %</label>
+                    <input type="number" class="form-input" value="18" step="1">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Default Attrition %</label>
+                    <input type="number" class="form-input" value="5" step="0.5">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Ramp Period (Months)</label>
+                    <input type="number" class="form-input" value="3" min="1" max="12">
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Sites Configuration -->
+            <div style="background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); overflow: hidden;">
+              <div style="padding: var(--space-md); border-bottom: 1px solid var(--gray-200); background: linear-gradient(135deg, var(--success-bg) 0%, white 100%);">
+                <h3 style="font-size: 16px; font-weight: 600; color: var(--gray-800); display: flex; align-items: center; gap: 8px;">
+                  <span style="font-size: 20px;">🏢</span> Sites
+                  <span style="font-size: 11px; background: var(--gray-200); color: var(--gray-600); padding: 2px 8px; border-radius: 8px; margin-left: auto;">4 active</span>
+                </h3>
+              </div>
+              <div style="padding: var(--space-lg);">
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                  <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: var(--gray-50); border-radius: var(--radius-sm); border: 1px solid var(--gray-200);">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                      <span style="font-size: 16px;">🏠</span>
+                      <span style="font-weight: 500;">Gusto</span>
+                      <span style="font-size: 10px; color: var(--gray-400);">Internal</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                      <span style="font-size: 11px; color: var(--success);">● Active</span>
+                      <button class="btn btn-ghost" style="padding: 4px 8px; font-size: 11px;">✏️ Edit</button>
+                    </div>
+                  </div>
+                  <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: var(--gray-50); border-radius: var(--radius-sm); border: 1px solid var(--gray-200);">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                      <span style="font-size: 16px;">📋</span>
+                      <span style="font-weight: 500;">TaskUs</span>
+                      <span style="font-size: 10px; color: var(--gray-400);">Vendor</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                      <span style="font-size: 11px; color: var(--success);">● Active</span>
+                      <button class="btn btn-ghost" style="padding: 4px 8px; font-size: 11px;">✏️ Edit</button>
+                    </div>
+                  </div>
+                  <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: var(--gray-50); border-radius: var(--radius-sm); border: 1px solid var(--gray-200);">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                      <span style="font-size: 16px;">🌐</span>
+                      <span style="font-weight: 500;">Teleperformance</span>
+                      <span style="font-size: 10px; color: var(--gray-400);">Vendor</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                      <span style="font-size: 11px; color: var(--success);">● Active</span>
+                      <button class="btn btn-ghost" style="padding: 4px 8px; font-size: 11px;">✏️ Edit</button>
+                    </div>
+                  </div>
+                  <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: var(--gray-50); border-radius: var(--radius-sm); border: 1px solid var(--gray-200);">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                      <span style="font-size: 16px;">🔺</span>
+                      <span style="font-weight: 500;">Apex</span>
+                      <span style="font-size: 10px; color: var(--gray-400);">Vendor</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                      <span style="font-size: 11px; color: var(--success);">● Active</span>
+                      <button class="btn btn-ghost" style="padding: 4px 8px; font-size: 11px;">✏️ Edit</button>
+                    </div>
+                  </div>
+                  <button class="btn btn-secondary" style="margin-top: 8px;">+ Add New Site</button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Organizations -->
+            <div style="background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); overflow: hidden;">
+              <div style="padding: var(--space-md); border-bottom: 1px solid var(--gray-200); background: linear-gradient(135deg, var(--warning-bg) 0%, white 100%);">
+                <h3 style="font-size: 16px; font-weight: 600; color: var(--gray-800); display: flex; align-items: center; gap: 8px;">
+                  <span style="font-size: 20px;">🏛️</span> Organizations
+                  <span style="font-size: 11px; background: var(--gray-200); color: var(--gray-600); padding: 2px 8px; border-radius: 8px; margin-left: auto;">3 active</span>
+                </h3>
+              </div>
+              <div style="padding: var(--space-lg);">
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                  <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: var(--gusto-teal-light); border-radius: var(--radius-sm); border: 1px solid var(--gusto-teal);">
+                    <span style="font-weight: 500; color: var(--gusto-teal);">On-Demand</span>
+                    <span style="font-size: 11px; color: var(--gray-500);">7 pillars</span>
+                  </div>
+                  <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: var(--info-bg); border-radius: var(--radius-sm); border: 1px solid var(--info);">
+                    <span style="font-weight: 500; color: var(--info);">Advanced Care</span>
+                    <span style="font-size: 11px; color: var(--gray-500);">2 pillars</span>
+                  </div>
+                  <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: var(--gusto-coral-light); border-radius: var(--radius-sm); border: 1px solid var(--gusto-coral);">
+                    <span style="font-weight: 500; color: var(--gusto-coral);">DSA</span>
+                    <span style="font-size: 11px; color: var(--gray-500);">2 pillars</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Service Level Uplifts -->
+            <div style="background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); overflow: hidden;">
+              <div style="padding: var(--space-md); border-bottom: 1px solid var(--gray-200); background: linear-gradient(135deg, var(--gusto-coral-light) 0%, white 100%);">
+                <h3 style="font-size: 16px; font-weight: 600; color: var(--gray-800); display: flex; align-items: center; gap: 8px;">
+                  <span style="font-size: 20px;">📈</span> Service Level Uplifts
+                </h3>
+              </div>
+              <div style="padding: var(--space-lg);">
+                <table style="width: 100%; font-size: 12px; border-collapse: collapse;">
+                  <thead>
+                    <tr style="border-bottom: 2px solid var(--gray-200);">
+                      <th style="text-align: left; padding: 8px 0;">Channel</th>
+                      <th style="text-align: center; padding: 8px;">SL Target</th>
+                      <th style="text-align: center; padding: 8px;">Uplift Factor</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr style="border-bottom: 1px solid var(--gray-100);">
+                      <td style="padding: 10px 0; font-weight: 500;">📞 Phone</td>
+                      <td style="text-align: center; padding: 10px;"><input type="text" value="80/30" style="width: 60px; text-align: center; border: 1px solid var(--gray-300); border-radius: 4px; padding: 4px;"></td>
+                      <td style="text-align: center; padding: 10px;"><input type="number" value="1.08" step="0.01" style="width: 60px; text-align: center; border: 1px solid var(--gray-300); border-radius: 4px; padding: 4px;"></td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid var(--gray-100);">
+                      <td style="padding: 10px 0; font-weight: 500;">💬 Chat</td>
+                      <td style="text-align: center; padding: 10px;"><input type="text" value="70/60" style="width: 60px; text-align: center; border: 1px solid var(--gray-300); border-radius: 4px; padding: 4px;"></td>
+                      <td style="text-align: center; padding: 10px;"><input type="number" value="1.03" step="0.01" style="width: 60px; text-align: center; border: 1px solid var(--gray-300); border-radius: 4px; padding: 4px;"></td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 10px 0; font-weight: 500;">📧 Email</td>
+                      <td style="text-align: center; padding: 10px;"><input type="text" value="100/86400" style="width: 80px; text-align: center; border: 1px solid var(--gray-300); border-radius: 4px; padding: 4px;"></td>
+                      <td style="text-align: center; padding: 10px;"><input type="number" value="1.00" step="0.01" style="width: 60px; text-align: center; border: 1px solid var(--gray-300); border-radius: 4px; padding: 4px;"></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div style="margin-top: 12px; font-size: 10px; color: var(--gray-500);">
+                  💡 SL Target format: % answered / seconds (e.g., 80/30 = 80% in 30 seconds)
+                </div>
+              </div>
+            </div>
+            
+            <!-- US Holidays -->
+            <div style="background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); overflow: hidden;">
+              <div style="padding: var(--space-md); border-bottom: 1px solid var(--gray-200); background: linear-gradient(135deg, #DBEAFE 0%, white 100%);">
+                <h3 style="font-size: 16px; font-weight: 600; color: var(--gray-800); display: flex; align-items: center; gap: 8px;">
+                  <span style="font-size: 20px;">🇺🇸</span> US Holidays
+                  <span style="font-size: 11px; background: var(--warning-bg); color: var(--warning); padding: 2px 8px; border-radius: 8px; margin-left: auto;">Preview</span>
+                </h3>
+              </div>
+              <div style="padding: var(--space-lg);">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; max-height: 200px; overflow-y: auto;">
+                  <label style="display: flex; align-items: center; gap: 8px; padding: 8px; background: var(--gray-50); border-radius: var(--radius-sm); cursor: pointer;">
+                    <input type="checkbox" checked> <span style="font-size: 12px;">New Year's Day</span>
+                  </label>
+                  <label style="display: flex; align-items: center; gap: 8px; padding: 8px; background: var(--gray-50); border-radius: var(--radius-sm); cursor: pointer;">
+                    <input type="checkbox" checked> <span style="font-size: 12px;">MLK Day</span>
+                  </label>
+                  <label style="display: flex; align-items: center; gap: 8px; padding: 8px; background: var(--gray-50); border-radius: var(--radius-sm); cursor: pointer;">
+                    <input type="checkbox" checked> <span style="font-size: 12px;">Presidents Day</span>
+                  </label>
+                  <label style="display: flex; align-items: center; gap: 8px; padding: 8px; background: var(--gray-50); border-radius: var(--radius-sm); cursor: pointer;">
+                    <input type="checkbox" checked> <span style="font-size: 12px;">Memorial Day</span>
+                  </label>
+                  <label style="display: flex; align-items: center; gap: 8px; padding: 8px; background: var(--gray-50); border-radius: var(--radius-sm); cursor: pointer;">
+                    <input type="checkbox" checked> <span style="font-size: 12px;">Juneteenth</span>
+                  </label>
+                  <label style="display: flex; align-items: center; gap: 8px; padding: 8px; background: var(--gray-50); border-radius: var(--radius-sm); cursor: pointer;">
+                    <input type="checkbox" checked> <span style="font-size: 12px;">Independence Day</span>
+                  </label>
+                  <label style="display: flex; align-items: center; gap: 8px; padding: 8px; background: var(--gray-50); border-radius: var(--radius-sm); cursor: pointer;">
+                    <input type="checkbox" checked> <span style="font-size: 12px;">Labor Day</span>
+                  </label>
+                  <label style="display: flex; align-items: center; gap: 8px; padding: 8px; background: var(--gray-50); border-radius: var(--radius-sm); cursor: pointer;">
+                    <input type="checkbox" checked> <span style="font-size: 12px;">Thanksgiving</span>
+                  </label>
+                  <label style="display: flex; align-items: center; gap: 8px; padding: 8px; background: var(--gray-50); border-radius: var(--radius-sm); cursor: pointer;">
+                    <input type="checkbox" checked> <span style="font-size: 12px;">Christmas</span>
+                  </label>
+                  <label style="display: flex; align-items: center; gap: 8px; padding: 8px; background: var(--gray-50); border-radius: var(--radius-sm); cursor: pointer;">
+                    <input type="checkbox"> <span style="font-size: 12px;">Veterans Day</span>
+                  </label>
+                </div>
+                <button class="btn btn-secondary" style="margin-top: 12px; width: 100%;">+ Add Custom Holiday</button>
+              </div>
+            </div>
+            
+          </div>
+          
+          <!-- Pillars Section (Full Width) -->
+          <div style="margin-top: var(--space-lg); background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); overflow: hidden;">
+            <div style="padding: var(--space-md); border-bottom: 1px solid var(--gray-200); background: linear-gradient(135deg, var(--gusto-teal-light) 0%, white 100%); display: flex; justify-content: space-between; align-items: center;">
+              <h3 style="font-size: 16px; font-weight: 600; color: var(--gray-800); display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 20px;">🎯</span> Pillars & Channels
+              </h3>
+              <button class="btn btn-primary" style="font-size: 12px;">+ Add New Pillar</button>
+            </div>
+            <div style="padding: var(--space-lg);">
+              <table style="width: 100%; font-size: 12px; border-collapse: collapse;">
+                <thead>
+                  <tr style="border-bottom: 2px solid var(--gray-200);">
+                    <th style="text-align: left; padding: 10px 8px;">Pillar</th>
+                    <th style="text-align: left; padding: 10px 8px;">Organization</th>
+                    <th style="text-align: center; padding: 10px 8px;">Channels</th>
+                    <th style="text-align: center; padding: 10px 8px;">Sites</th>
+                    <th style="text-align: center; padding: 10px 8px;">Daily Hours</th>
+                    <th style="text-align: center; padding: 10px 8px;">Shrink %</th>
+                    <th style="text-align: center; padding: 10px 8px;">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="border-bottom: 1px solid var(--gray-100);">
+                    <td style="padding: 12px 8px; font-weight: 500;">Payroll and Taxes</td>
+                    <td style="padding: 12px 8px; color: var(--gray-600);">On-Demand</td>
+                    <td style="text-align: center; padding: 12px 8px;"><span style="background: var(--gray-200); padding: 2px 8px; border-radius: 8px; font-size: 11px;">📞 💬 📧</span></td>
+                    <td style="text-align: center; padding: 12px 8px;"><span style="font-size: 11px; color: var(--gray-600);">Gusto, TaskUs, TP</span></td>
+                    <td style="text-align: center; padding: 12px 8px;">7.5</td>
+                    <td style="text-align: center; padding: 12px 8px;">18%</td>
+                    <td style="text-align: center; padding: 12px 8px;"><button class="btn btn-ghost" style="padding: 4px 8px; font-size: 11px;" onclick="openModal('editPillar')">⚙️</button></td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid var(--gray-100); background: var(--gray-50);">
+                    <td style="padding: 12px 8px; font-weight: 500;">Benefits</td>
+                    <td style="padding: 12px 8px; color: var(--gray-600);">On-Demand</td>
+                    <td style="text-align: center; padding: 12px 8px;"><span style="background: var(--gray-200); padding: 2px 8px; border-radius: 8px; font-size: 11px;">📞 💬 📧</span></td>
+                    <td style="text-align: center; padding: 12px 8px;"><span style="font-size: 11px; color: var(--gray-600);">Gusto, TaskUs</span></td>
+                    <td style="text-align: center; padding: 12px 8px;">7.5</td>
+                    <td style="text-align: center; padding: 12px 8px;">18%</td>
+                    <td style="text-align: center; padding: 12px 8px;"><button class="btn btn-ghost" style="padding: 4px 8px; font-size: 11px;" onclick="openModal('editPillar')">⚙️</button></td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid var(--gray-100);">
+                    <td style="padding: 12px 8px; font-weight: 500;">Money</td>
+                    <td style="padding: 12px 8px; color: var(--gray-600);">On-Demand</td>
+                    <td style="text-align: center; padding: 12px 8px;"><span style="background: var(--gray-200); padding: 2px 8px; border-radius: 8px; font-size: 11px;">📞 💬 📧</span></td>
+                    <td style="text-align: center; padding: 12px 8px;"><span style="font-size: 11px; color: var(--gray-600);">Gusto</span></td>
+                    <td style="text-align: center; padding: 12px 8px;">7.5</td>
+                    <td style="text-align: center; padding: 12px 8px;">18%</td>
+                    <td style="text-align: center; padding: 12px 8px;"><button class="btn btn-ghost" style="padding: 4px 8px; font-size: 11px;" onclick="openModal('editPillar')">⚙️</button></td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid var(--gray-100); background: var(--gray-50);">
+                    <td style="padding: 12px 8px; font-weight: 500;">BAC</td>
+                    <td style="padding: 12px 8px; color: var(--info);">Advanced Care</td>
+                    <td style="text-align: center; padding: 12px 8px;"><span style="background: var(--gray-200); padding: 2px 8px; border-radius: 8px; font-size: 11px;">📞 💬 📧</span></td>
+                    <td style="text-align: center; padding: 12px 8px;"><span style="font-size: 11px; color: var(--gray-600);">Gusto</span></td>
+                    <td style="text-align: center; padding: 12px 8px;">7.5</td>
+                    <td style="text-align: center; padding: 12px 8px;">18%</td>
+                    <td style="text-align: center; padding: 12px 8px;"><button class="btn btn-ghost" style="padding: 4px 8px; font-size: 11px;" onclick="openModal('editPillar')">⚙️</button></td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid var(--gray-100);">
+                    <td style="padding: 12px 8px; font-weight: 500;">PAC</td>
+                    <td style="padding: 12px 8px; color: var(--info);">Advanced Care</td>
+                    <td style="text-align: center; padding: 12px 8px;"><span style="background: var(--gray-200); padding: 2px 8px; border-radius: 8px; font-size: 11px;">📞 💬 📧</span></td>
+                    <td style="text-align: center; padding: 12px 8px;"><span style="font-size: 11px; color: var(--gray-600);">Gusto</span></td>
+                    <td style="text-align: center; padding: 12px 8px;">7.5</td>
+                    <td style="text-align: center; padding: 12px 8px;">18%</td>
+                    <td style="text-align: center; padding: 12px 8px;"><button class="btn btn-ghost" style="padding: 4px 8px; font-size: 11px;" onclick="openModal('editPillar')">⚙️</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+        </div><!-- END view-settingshub -->
         
         <!-- ═══════════════════════════════════════════════════════════════════════
              PROJECT HUB VIEW - Sprint Timeline, Checklists, Notes
@@ -6910,6 +7558,18 @@ Next steps:
                     <div style="font-size: 13px; color: var(--gray-700); margin-top: 4px;">Export to Pillar Template format so users can work in Sheets if tool is down</div>
                     <div style="font-size: 10px; color: var(--gray-500); margin-top: 4px;">Dec 10, 2025</div>
                   </div>
+                  
+                  <div style="padding: 12px; background: var(--gusto-teal-light); border-radius: var(--radius-sm); border-left: 3px solid var(--gusto-teal);">
+                    <div style="font-size: 12px; font-weight: 600; color: var(--gusto-teal);">Shrink Application</div>
+                    <div style="font-size: 13px; color: var(--gray-700); margin-top: 4px;">Shrink applied in FTE calc as (1 + Shrink%), NOT in Productive Hours. More transparent for overlays.</div>
+                    <div style="font-size: 10px; color: var(--gray-500); margin-top: 4px;">Dec 11, 2025</div>
+                  </div>
+                  
+                  <div style="padding: 12px; background: var(--gusto-teal-light); border-radius: var(--radius-sm); border-left: 3px solid var(--gusto-teal);">
+                    <div style="font-size: 12px; font-weight: 600; color: var(--gusto-teal);">Default Settings as Safety Nets</div>
+                    <div style="font-size: 13px; color: var(--gray-700); margin-top: 4px;">Pillar Settings include default shrink, hours, etc. as fallbacks when baseline data is incomplete</div>
+                    <div style="font-size: 10px; color: var(--gray-500); margin-top: 4px;">Dec 11, 2025</div>
+                  </div>
                 </div>
                 </div><!-- END collapsible-content -->
               </div>
@@ -6956,6 +7616,40 @@ Next steps:
                       <span style="font-size: 10px; color: var(--gray-600);">Full WFM Suite</span>
                     </div>
                     <span style="font-size: 10px; color: var(--gray-500);">TBD</span>
+                  </div>
+                </div>
+                
+                <!-- Future Features List -->
+                <div style="margin-top: var(--space-md); padding-top: var(--space-md); border-top: 1px solid var(--gray-200);">
+                  <div style="font-size: 12px; font-weight: 600; color: var(--gray-600); margin-bottom: 8px;">📋 Future Requirements Log</div>
+                  <div style="display: flex; flex-wrap: wrap; gap: 6px; font-size: 11px;">
+                    <!-- NOW BUILDING - Phase 1 -->
+                    <span style="background: var(--gusto-teal); color: white; padding: 4px 10px; border-radius: 12px; font-weight: 600;">📊 Staff Tracker ✓ BUILDING</span>
+                    <span style="background: var(--gusto-teal); color: white; padding: 4px 10px; border-radius: 12px; font-weight: 600;">⚙️ Settings Hub ✓ BUILDING</span>
+                    <!-- Data & Calendar -->
+                    <span style="background: var(--success-bg); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">🗓️ US Holidays System (check/uncheck)</span>
+                    <span style="background: var(--success-bg); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">📓 Captain's Log (Special Dates)</span>
+                    <span style="background: var(--info-bg); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">📖 Metric Dictionary</span>
+                    <!-- Settings & Config -->
+                    <span style="background: var(--warning-bg); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">Working Days Type Scheduling</span>
+                    <span style="background: var(--warning-bg); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">Part-Time / Full-Time HC Calculations</span>
+                    <span style="background: var(--warning-bg); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">Settings Change Audit Log</span>
+                    <span style="background: var(--warning-bg); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">Admin Notifications per Pillar</span>
+                    <span style="background: var(--warning-bg); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">Export Settings with Pillar Template</span>
+                    <!-- Advanced Analytics -->
+                    <span style="background: var(--gusto-coral-light); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">📊 Seasonal Pattern Detection</span>
+                    <span style="background: var(--gusto-coral-light); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">⚠️ Anomaly Alerts</span>
+                    <span style="background: var(--gusto-coral-light); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">🧪 What-If Simulator</span>
+                    <span style="background: var(--gusto-coral-light); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">📈 Trend Forecasting</span>
+                    <!-- Collaboration & Integration -->
+                    <span style="background: var(--gray-200); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">💬 Slack Integration</span>
+                    <span style="background: var(--gray-200); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">✅ Approval Workflows</span>
+                    <span style="background: var(--gray-200); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">👤 Role-Based Views</span>
+                    <span style="background: var(--gray-200); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">📱 Mobile Dashboard</span>
+                    <span style="background: var(--gray-200); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">📧 Export Scheduler</span>
+                    <!-- AI & Dream Features -->
+                    <span style="background: linear-gradient(135deg, var(--gusto-teal-light), var(--info-bg)); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">🤖 AI Notes Interaction</span>
+                    <span style="background: linear-gradient(135deg, var(--gusto-teal-light), var(--info-bg)); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">📉 Data Health Score</span>
                   </div>
                 </div>
                 </div><!-- END collapsible-content -->
@@ -8929,6 +9623,97 @@ Tip: Include header row with column names!"></textarea>
       <div class="modal-footer">
         <button class="btn btn-secondary" onclick="closeModal('editPillar')">Cancel</button>
         <button class="btn btn-primary" onclick="savePillarSettings()">💾 Save Changes</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Date Settings Modal -->
+  <div class="modal-overlay" id="dateSettingsModal" onclick="if(event.target === this) closeModal('dateSettings')">
+    <div class="modal" style="max-width: 520px;">
+      <div class="modal-header" style="background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%); color: white;">
+        <h3 class="modal-title" style="color: white;">📅 Date Settings</h3>
+        <button class="modal-close" onclick="closeModal('dateSettings')" style="background: rgba(255,255,255,0.2); color: white; border: none; width: 28px; height: 28px; border-radius: 4px; font-size: 16px; cursor: pointer;">✕</button>
+      </div>
+      <div class="modal-body">
+        
+        <!-- Default Start Date -->
+        <div style="margin-bottom: 20px;">
+          <div style="font-size: 12px; font-weight: 600; color: #7C3AED; text-transform: uppercase; margin-bottom: 12px; display: flex; align-items: center; gap: 6px;">
+            <span>🗓️</span> Default Staffing Start Date
+          </div>
+          <div style="font-size: 11px; color: var(--gray-500); margin-bottom: 12px;">
+            Sets the first month displayed in all tables. All 24-month views will start from this date.
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label">Start Month</label>
+              <select class="form-select" id="defaultStartMonth">
+                <option value="1">January</option>
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="4">April</option>
+                <option value="5" selected>May</option>
+                <option value="6">June</option>
+                <option value="7">July</option>
+                <option value="8">August</option>
+                <option value="9">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+              </select>
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label">Start Year</label>
+              <select class="form-select" id="defaultStartYear">
+                <option value="2024">2024</option>
+                <option value="2025" selected>2025</option>
+                <option value="2026">2026</option>
+                <option value="2027">2027</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        
+        <!-- US Holidays (Preview) -->
+        <div style="margin-bottom: 20px; padding: 16px; background: var(--gray-50); border-radius: var(--radius-md); border: 1px dashed var(--gray-300);">
+          <div style="font-size: 12px; font-weight: 600; color: var(--gray-600); text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+            <span>🇺🇸</span> US Holidays <span style="font-size: 9px; background: var(--warning-bg); color: var(--warning); padding: 2px 8px; border-radius: 8px;">COMING SOON</span>
+          </div>
+          <div style="font-size: 11px; color: var(--gray-500); line-height: 1.6;">
+            Pre-populated US holiday list will be available here. You'll be able to check/uncheck which holidays apply to your planning calculations.
+            <div style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px;">
+              <span style="background: white; padding: 4px 10px; border-radius: 12px; border: 1px solid var(--gray-200); font-size: 10px; color: var(--gray-500);">☑️ New Year's Day</span>
+              <span style="background: white; padding: 4px 10px; border-radius: 12px; border: 1px solid var(--gray-200); font-size: 10px; color: var(--gray-500);">☑️ MLK Day</span>
+              <span style="background: white; padding: 4px 10px; border-radius: 12px; border: 1px solid var(--gray-200); font-size: 10px; color: var(--gray-500);">☑️ Presidents Day</span>
+              <span style="background: white; padding: 4px 10px; border-radius: 12px; border: 1px solid var(--gray-200); font-size: 10px; color: var(--gray-500);">☑️ Memorial Day</span>
+              <span style="background: white; padding: 4px 10px; border-radius: 12px; border: 1px solid var(--gray-200); font-size: 10px; color: var(--gray-500);">☑️ Juneteenth</span>
+              <span style="background: white; padding: 4px 10px; border-radius: 12px; border: 1px solid var(--gray-200); font-size: 10px; color: var(--gray-500);">☑️ July 4th</span>
+              <span style="background: white; padding: 4px 10px; border-radius: 12px; border: 1px solid var(--gray-200); font-size: 10px; color: var(--gray-400);">... +5 more</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Captain's Log (Preview) -->
+        <div style="padding: 16px; background: linear-gradient(135deg, var(--gusto-teal-light) 0%, white 100%); border-radius: var(--radius-md); border: 1px dashed var(--gusto-teal);">
+          <div style="font-size: 12px; font-weight: 600; color: var(--gusto-teal); text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+            <span>📓</span> Captain's Log <span style="font-size: 9px; background: var(--warning-bg); color: var(--warning); padding: 2px 8px; border-radius: 8px;">COMING SOON</span>
+          </div>
+          <div style="font-size: 11px; color: var(--gray-600); line-height: 1.6;">
+            Track special dates, volume impacts, and notes that persist across admin changes. Categories include:
+            <div style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px;">
+              <span style="background: var(--info-bg); padding: 4px 10px; border-radius: 12px; font-size: 10px; color: var(--info);">📝 Notes</span>
+              <span style="background: var(--warning-bg); padding: 4px 10px; border-radius: 12px; font-size: 10px; color: var(--warning);">📈 Volume Impact</span>
+              <span style="background: var(--gusto-coral-light); padding: 4px 10px; border-radius: 12px; font-size: 10px; color: var(--gusto-coral);">📊 Metric Impact</span>
+              <span style="background: var(--success-bg); padding: 4px 10px; border-radius: 12px; font-size: 10px; color: var(--success);">🏛️ Pillar-Specific</span>
+              <span style="background: var(--gray-200); padding: 4px 10px; border-radius: 12px; font-size: 10px; color: var(--gray-600);">🌐 All Pillars</span>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('dateSettings')">Cancel</button>
+        <button class="btn btn-primary" onclick="saveDateSettings()">💾 Save Date Settings</button>
       </div>
     </div>
   </div>
@@ -11142,6 +11927,143 @@ Accountant\tMar-25\tGusto\t16`;
         
         showToast('✅ Pillar "' + newName + '" updated!', 'success');
       }, 1000);
+    }
+    
+    // ═══════════════════════════════════════════════════════════════════════
+    // DATE SETTINGS
+    // ═══════════════════════════════════════════════════════════════════════
+    
+    // Default start date (system-wide)
+    let defaultStartMonth = 5;  // May
+    let defaultStartYear = 2025;
+    
+    function openDateSettingsModal() {
+      // Set current values
+      document.getElementById('defaultStartMonth').value = defaultStartMonth;
+      document.getElementById('defaultStartYear').value = defaultStartYear;
+      openModal('dateSettings');
+    }
+    
+    function saveDateSettings() {
+      defaultStartMonth = parseInt(document.getElementById('defaultStartMonth').value);
+      defaultStartYear = parseInt(document.getElementById('defaultStartYear').value);
+      
+      // Update all month selectors
+      const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      const formattedMonth = monthNames[defaultStartMonth - 1] + '-' + defaultStartYear;
+      
+      // Update pillar month selector
+      const pillarSelector = document.getElementById('pillar-start-month');
+      if (pillarSelector) {
+        pillarSelector.value = formattedMonth;
+      }
+      
+      closeModal('dateSettings');
+      showToast('📅 Default start date set to ' + formattedMonth, 'success');
+      
+      // In production: would update all tables to reflect new start date
+      console.log('New default date:', { month: defaultStartMonth, year: defaultStartYear });
+    }
+    
+    function updateTableStartMonth(monthValue) {
+      // Called when user changes the month dropdown in Pillar view
+      console.log('Table start month changed to:', monthValue);
+      showToast('📅 View updated to start from ' + monthValue, 'info');
+      // In production: would re-render all tables with new start month
+    }
+    
+    // ═══════════════════════════════════════════════════════════════════════
+    // STAFF TRACKER FUNCTIONS
+    // ═══════════════════════════════════════════════════════════════════════
+    
+    let unsavedStaffChanges = 0;
+    
+    function filterStaffTable() {
+      const pillar = document.getElementById('staff-filter-pillar').value;
+      const site = document.getElementById('staff-filter-site').value;
+      const org = document.getElementById('staff-filter-org').value;
+      
+      console.log('Filtering staff table:', { pillar, site, org });
+      showToast('🔍 Filter applied', 'info');
+      // In production: would filter the table rows
+    }
+    
+    function markCellChanged(inputElement) {
+      inputElement.style.borderColor = 'var(--warning)';
+      inputElement.style.backgroundColor = 'var(--warning-bg)';
+      unsavedStaffChanges++;
+      updateUnsavedCount();
+    }
+    
+    function updateUnsavedCount() {
+      // Update the unsaved changes card
+      const cards = document.querySelectorAll('#view-stafftracker .form-group');
+      // Would update the count display
+      console.log('Unsaved changes:', unsavedStaffChanges);
+    }
+    
+    function saveStaffChanges() {
+      if (unsavedStaffChanges === 0) {
+        showToast('✅ No changes to save', 'info');
+        return;
+      }
+      
+      showToast('💾 Saving ' + unsavedStaffChanges + ' changes...', 'info');
+      
+      setTimeout(() => {
+        // Reset all input styles
+        document.querySelectorAll('#view-stafftracker input[type="number"]').forEach(input => {
+          input.style.borderColor = 'var(--gray-300)';
+          input.style.backgroundColor = 'white';
+        });
+        unsavedStaffChanges = 0;
+        showToast('✅ All changes saved successfully!', 'success');
+      }, 1500);
+    }
+    
+    function undoStaffChanges() {
+      if (unsavedStaffChanges === 0) {
+        showToast('✅ No changes to undo', 'info');
+        return;
+      }
+      
+      // Reset all input styles
+      document.querySelectorAll('#view-stafftracker input[type="number"]').forEach(input => {
+        input.style.borderColor = 'var(--gray-300)';
+        input.style.backgroundColor = 'white';
+        // Would also reset values to original
+      });
+      unsavedStaffChanges = 0;
+      showToast('↩️ All changes undone', 'info');
+    }
+    
+    function downloadStaffTemplate() {
+      showToast('📥 Downloading Staff Tracker template...', 'info');
+      // In production: would generate and download a CSV template
+    }
+    
+    // ═══════════════════════════════════════════════════════════════════════
+    // SETTINGS HUB FUNCTIONS
+    // ═══════════════════════════════════════════════════════════════════════
+    
+    function saveAllSettings() {
+      showToast('💾 Saving all settings...', 'info');
+      
+      setTimeout(() => {
+        showToast('✅ All settings saved successfully!', 'success');
+        // In production: would save to Google Sheets or localStorage
+      }, 1500);
+    }
+    
+    function resetAllSettings() {
+      if (confirm('Are you sure you want to reset all settings to defaults? This cannot be undone.')) {
+        showToast('🔄 Resetting to defaults...', 'info');
+        
+        setTimeout(() => {
+          showToast('✅ Settings reset to defaults', 'success');
+          // In production: would reload default values
+        }, 1000);
+      }
     }
     
     // Update pillar name in Control Panel table
