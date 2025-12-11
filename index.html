@@ -4894,9 +4894,10 @@
           <h2 id="pillarViewTitle" style="display: flex; align-items: center; gap: var(--space-sm); margin: 0;">
             🏛️ <span id="pillarNameDisplay">Accountant</span> Pillar
           </h2>
+          <button class="btn btn-ghost" style="font-size: 14px; padding: 4px 8px;" onclick="openEditPillarModalWithWarning(currentPillar, 'On-Demand')" title="Edit pillar settings (system-wide impact)">⚙️</button>
           <span class="badge" style="background: var(--success-bg); color: var(--success); font-size: 11px; padding: 4px 10px; border-radius: 12px;">Ready</span>
           <span style="font-size: 12px; color: var(--gray-500);">On-Demand • 3 channels</span>
-          <button class="btn btn-secondary" style="margin-left: auto; font-size: 12px;" onclick="openEditPillarModal(currentPillar, 'On-Demand')" data-tooltip="Edit name, org, channels & owner">⚙️ Settings</button>
+          <button class="btn btn-secondary" style="margin-left: auto; font-size: 12px;">📤 Export PDF</button>
         </div>
         
         <!-- Loading Overlay -->
@@ -7647,6 +7648,10 @@ Next steps:
                     <span style="background: var(--gray-200); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">👤 Role-Based Views</span>
                     <span style="background: var(--gray-200); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">📱 Mobile Dashboard</span>
                     <span style="background: var(--gray-200); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">📧 Export Scheduler</span>
+                    <!-- UX & Design -->
+                    <span style="background: var(--gusto-coral-light); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">📱 Responsive Design (Laptop/Desktop)</span>
+                    <span style="background: var(--gusto-coral-light); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">🔐 Admin Permissions & Ticket System</span>
+                    <span style="background: var(--gusto-coral-light); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">📊 HC Source of Truth Logic</span>
                     <!-- AI & Dream Features -->
                     <span style="background: linear-gradient(135deg, var(--gusto-teal-light), var(--info-bg)); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">🤖 AI Notes Interaction</span>
                     <span style="background: linear-gradient(135deg, var(--gusto-teal-light), var(--info-bg)); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">📉 Data Health Score</span>
@@ -11874,6 +11879,36 @@ Accountant\tMar-25\tGusto\t16`;
     
     // Open Edit Pillar Modal
     let currentEditingPillar = null;
+    // Demo: User permission level (in production, would come from auth)
+    let userIsAdmin = true;
+    
+    function openEditPillarModalWithWarning(pillarName, org) {
+      // Check if user has permission
+      if (!userIsAdmin) {
+        // Show permission denied modal or ticket submission
+        if (confirm('You don\'t have permission to edit pillar settings.\n\nWould you like to submit a ticket to request this change?')) {
+          showToast('📝 Opening ticket submission...', 'info');
+          // In production: would open a ticket submission form
+        }
+        return;
+      }
+      
+      // Show warning about system-wide impact
+      const proceed = confirm(
+        '⚠️ System-Wide Settings Warning\n\n' +
+        'Changes to pillar settings will affect:\n' +
+        '• All calculations for this pillar\n' +
+        '• Published plans and scenarios\n' +
+        '• Historical data recalculations\n\n' +
+        'These changes will be logged for audit purposes.\n\n' +
+        'Do you want to continue?'
+      );
+      
+      if (proceed) {
+        openEditPillarModal(pillarName, org);
+      }
+    }
+    
     function openEditPillarModal(pillarName, org) {
       currentEditingPillar = pillarName;
       
