@@ -6445,12 +6445,11 @@
               </button>
               
               <button onclick="testCalculation()" class="btn btn-secondary" style="width: 100%; padding: 10px; font-size: 12px; margin-top: 8px; opacity: 0.7;">
-                🧪 Test Channel Calc (Payroll Phone)
+                🧪 Test Channel Calc (Payroll Phone May-25)
               </button>
-              
-              <button onclick="testStaffingModel()" class="btn btn-secondary" style="width: 100%; padding: 10px; font-size: 12px; margin-top: 4px; opacity: 0.7;">
-                🏢 Test Staffing Model
-              </button>
+              <div style="font-size: 10px; color: var(--gray-400); text-align: center; margin-top: 4px;">
+                Compares against your actual Pillar Template data
+              </div>
               
               <div style="margin-top: var(--space-md); padding: 12px; background: var(--warning-bg); border-radius: var(--radius-sm);">
                 <div style="font-size: 12px; color: var(--warning); font-weight: 600;">⚠️ Import will update Working Plan</div>
@@ -8770,55 +8769,166 @@ Tip: Include header row with column names!"></textarea>
   
   <!-- Edit Pillar Modal -->
   <div class="modal-overlay" id="editPillarModal" onclick="if(event.target === this) closeModal('editPillar')">
-    <div class="modal">
+    <div class="modal" style="max-width: 600px;">
       <div class="modal-header" style="background: var(--gusto-teal); color: white;">
-        <h3 class="modal-title" style="color: white;">⚙️ Edit Pillar Settings</h3>
+        <h3 class="modal-title" style="color: white;">⚙️ Pillar Settings</h3>
         <button class="modal-close" onclick="closeModal('editPillar')" style="background: rgba(255,255,255,0.2); color: white; border: none; width: 28px; height: 28px; border-radius: 4px; font-size: 16px; cursor: pointer;">✕</button>
       </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <label class="form-label">Pillar Name</label>
-          <input type="text" class="form-input" id="editPillarName" placeholder="e.g., Accountant">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Organization</label>
-          <select class="form-select" id="editPillarOrg">
-            <option value="On-Demand">On-Demand</option>
-            <option value="Adv Care">Adv Care</option>
-            <option value="Special">Special</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Channels</label>
-          <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 8px;">
-            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-              <input type="checkbox" id="editPillarPhone" value="Phone"> 📞 Phone
-            </label>
-            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-              <input type="checkbox" id="editPillarEmail" value="Email"> 📧 Email
-            </label>
-            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-              <input type="checkbox" id="editPillarChat" value="Chat"> 💬 Chat
-            </label>
+      <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
+        
+        <!-- Basic Info Section -->
+        <div style="margin-bottom: 20px;">
+          <div style="font-size: 12px; font-weight: 600; color: var(--gusto-teal); text-transform: uppercase; margin-bottom: 12px; display: flex; align-items: center; gap: 6px;">
+            <span>📋</span> Basic Information
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label">Pillar Name</label>
+              <input type="text" class="form-input" id="editPillarName" placeholder="e.g., Accountant">
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label">Organization</label>
+              <select class="form-select" id="editPillarOrg">
+                <option value="On-Demand">On-Demand</option>
+                <option value="Adv Care">Adv Care</option>
+                <option value="Special">Special</option>
+              </select>
+            </div>
           </div>
         </div>
-        <div class="form-group">
-          <label class="form-label">Pillar Owner Email</label>
-          <input type="email" class="form-input" id="editPillarOwner" placeholder="owner@gusto.com">
+        
+        <!-- Sites Section -->
+        <div style="margin-bottom: 20px;">
+          <div style="font-size: 12px; font-weight: 600; color: var(--gusto-teal); text-transform: uppercase; margin-bottom: 12px; display: flex; align-items: center; gap: 6px;">
+            <span>🏢</span> Sites Allocated
+          </div>
+          <div style="font-size: 11px; color: var(--gray-500); margin-bottom: 10px;">Select which sites service this pillar</div>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 10px 14px; background: var(--gray-50); border-radius: var(--radius-sm); border: 1px solid var(--gray-200);">
+              <input type="checkbox" id="editPillarSiteGusto" value="Gusto" checked> 
+              <span style="font-size: 13px;">🏠 Gusto</span>
+            </label>
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 10px 14px; background: var(--gray-50); border-radius: var(--radius-sm); border: 1px solid var(--gray-200);">
+              <input type="checkbox" id="editPillarSiteApex" value="Apex" checked> 
+              <span style="font-size: 13px;">🔺 Apex</span>
+            </label>
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 10px 14px; background: var(--gray-50); border-radius: var(--radius-sm); border: 1px solid var(--gray-200);">
+              <input type="checkbox" id="editPillarSiteTaskUs" value="TaskUs"> 
+              <span style="font-size: 13px;">📋 TaskUs</span>
+            </label>
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 10px 14px; background: var(--gray-50); border-radius: var(--radius-sm); border: 1px solid var(--gray-200);">
+              <input type="checkbox" id="editPillarSiteTeleperformance" value="Teleperformance"> 
+              <span style="font-size: 13px;">🌐 Teleperformance</span>
+            </label>
+          </div>
+          <div style="font-size: 10px; color: var(--gray-400); margin-top: 8px; font-style: italic;">💡 Site allocation % is auto-calculated from actual HC data</div>
         </div>
-        <div class="form-group">
-          <label class="form-label">Status</label>
-          <select class="form-select" id="editPillarStatus">
-            <option value="Ready">🟢 Ready</option>
-            <option value="Editing">🟡 Editing</option>
-            <option value="Missing">🔴 Missing Data</option>
-            <option value="Overlay">🔵 Overlay Only</option>
-          </select>
+        
+        <!-- Channels Section -->
+        <div style="margin-bottom: 20px;">
+          <div style="font-size: 12px; font-weight: 600; color: var(--gusto-teal); text-transform: uppercase; margin-bottom: 12px; display: flex; align-items: center; gap: 6px;">
+            <span>📞</span> Channels Allocated
+          </div>
+          <div style="font-size: 11px; color: var(--gray-500); margin-bottom: 10px;">Select which channels belong to this pillar</div>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 10px 14px; background: var(--gray-50); border-radius: var(--radius-sm); border: 1px solid var(--gray-200);">
+              <input type="checkbox" id="editPillarPhone" value="Phone" checked> 
+              <span style="font-size: 13px;">📞 Phone</span>
+            </label>
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 10px 14px; background: var(--gray-50); border-radius: var(--radius-sm); border: 1px solid var(--gray-200);">
+              <input type="checkbox" id="editPillarEmail" value="Email"> 
+              <span style="font-size: 13px;">📧 Email</span>
+            </label>
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 10px 14px; background: var(--gray-50); border-radius: var(--radius-sm); border: 1px solid var(--gray-200);">
+              <input type="checkbox" id="editPillarChat" value="Chat"> 
+              <span style="font-size: 13px;">💬 Chat</span>
+            </label>
+          </div>
+          <div style="font-size: 10px; color: var(--gray-400); margin-top: 8px; font-style: italic;">💡 Channel allocation % is auto-calculated from volume data</div>
         </div>
+        
+        <!-- Calculation Settings Section -->
+        <div style="margin-bottom: 20px; padding: 16px; background: var(--gusto-teal-light); border-radius: var(--radius-md); border: 1px solid var(--gusto-teal);">
+          <div style="font-size: 12px; font-weight: 600; color: var(--gusto-teal); text-transform: uppercase; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
+            <span>🧮</span> Calculation Settings
+          </div>
+          <div style="font-size: 11px; color: var(--gray-600); margin-bottom: 12px;">These values drive HC calculations for this pillar</div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label" style="display: flex; align-items: center; gap: 4px;">
+                Daily Work Hours
+                <span style="font-size: 9px; color: var(--gray-400);">(per IC)</span>
+              </label>
+              <input type="number" class="form-input" id="editPillarDailyHours" value="7.5" step="0.5" min="4" max="12">
+              <div style="font-size: 10px; color: var(--gray-500); margin-top: 4px;">Standard is 7.5 hrs/day</div>
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label" style="display: flex; align-items: center; gap: 4px;">
+                Ramp Period
+                <span style="font-size: 9px; background: var(--gusto-teal); color: white; padding: 1px 6px; border-radius: 8px;">MONTHS</span>
+              </label>
+              <input type="number" class="form-input" id="editPillarRampPeriod" value="3" min="1" max="12">
+              <div style="font-size: 10px; color: var(--gray-500); margin-top: 4px;">Months until new hire is fully productive</div>
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label" style="display: flex; align-items: center; gap: 4px;">
+                Baseline Attrition %
+                <span style="font-size: 9px; color: var(--gray-400);">(monthly)</span>
+              </label>
+              <input type="number" class="form-input" id="editPillarAttrition" value="5" step="0.5" min="0" max="50">
+              <div style="font-size: 10px; color: var(--gray-500); margin-top: 4px;">Used in HC forecasting</div>
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label" style="display: flex; align-items: center; gap: 4px;">
+                Default Shrink %
+                <span style="font-size: 9px; color: var(--gray-400);">(if not in baseline)</span>
+              </label>
+              <input type="number" class="form-input" id="editPillarShrink" value="18" step="1" min="0" max="50">
+              <div style="font-size: 10px; color: var(--gray-500); margin-top: 4px;">Fallback if baseline doesn't specify</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Owner & Status Section -->
+        <div style="margin-bottom: 20px;">
+          <div style="font-size: 12px; font-weight: 600; color: var(--gusto-teal); text-transform: uppercase; margin-bottom: 12px; display: flex; align-items: center; gap: 6px;">
+            <span>👤</span> Ownership & Status
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label">Pillar Owner Email</label>
+              <input type="email" class="form-input" id="editPillarOwner" placeholder="owner@gusto.com">
+              <div style="font-size: 10px; color: var(--gray-500); margin-top: 4px;">Will receive change notifications</div>
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label">Status</label>
+              <select class="form-select" id="editPillarStatus">
+                <option value="Ready">🟢 Ready</option>
+                <option value="Editing">🟡 Editing</option>
+                <option value="Missing">🔴 Missing Data</option>
+                <option value="Overlay">🔵 Overlay Only</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Admin Notification Note -->
+        <div style="padding: 14px; background: var(--warning-bg); border-radius: var(--radius-sm); border-left: 3px solid var(--warning);">
+          <div style="font-size: 12px; color: var(--warning); font-weight: 600; margin-bottom: 6px;">🔔 Admin Notifications (Future)</div>
+          <div style="font-size: 11px; color: var(--gray-600); line-height: 1.5;">
+            When user permissions are implemented, setting changes will:
+            <ul style="margin: 6px 0 0 16px; padding: 0;">
+              <li>Notify pillar owner via email</li>
+              <li>Log who changed what and when</li>
+              <li>Optionally post to Slack channel</li>
+            </ul>
+          </div>
+        </div>
+        
       </div>
       <div class="modal-footer">
         <button class="btn btn-secondary" onclick="closeModal('editPillar')">Cancel</button>
-        <button class="btn btn-primary" onclick="savePillarSettings()">Save Changes</button>
+        <button class="btn btn-primary" onclick="savePillarSettings()">💾 Save Changes</button>
       </div>
     </div>
   </div>
@@ -9857,12 +9967,13 @@ Tip: Include header row with column names!"></textarea>
       
       /**
        * Calculate Headcount Need from FTE
-       * Formula: FTE Need / Daily Work Hours / 8
-       * This converts FTE to headcount based on work hour differences
+       * Formula: FTE Need / (Daily Work Hours / 8)
+       * This converts FTE to headcount - if daily hours < 8, need more HC
+       * Example: 110.6 FTE / (7.5/8) = 110.6 / 0.9375 = 118 HC
        */
       calculateHCFromFTE: function(fteNeed, dailyWorkHours) {
         const dwh = dailyWorkHours || this.defaults.dailyWorkHours;
-        return fteNeed / dwh / 8;
+        return fteNeed / (dwh / 8);
       },
       
       /**
@@ -10457,20 +10568,36 @@ Tip: Include header row with column names!"></textarea>
       console.log('Overlay Impact:', result.overlayImpact);
       console.log('================================================');
       
-      let msg = '🧮 Test: Payroll Phone May-2025\n\n';
+      let msg = '════════════════════════════════════\n';
+      msg += '🧮 CHANNEL CALCULATION TEST\n';
+      msg += '════════════════════════════════════\n\n';
+      msg += '📍 PILLAR: Payroll and Taxes\n';
+      msg += '📞 CHANNEL: Phone\n';
+      msg += '📅 MONTH: May-2025\n';
+      msg += '────────────────────────────────────\n\n';
       msg += 'INPUTS:\n';
-      msg += '• Volume: ' + testInputs.volume.toLocaleString() + '\n';
-      msg += '• AHT: ' + testInputs.ahtSeconds + ' sec\n';
-      msg += '• Occupancy: ' + testInputs.occupancyPercent + '%\n';
-      msg += '• Shrink: ' + testInputs.shrinkPercent + '%\n';
-      msg += '• SL Uplift: ' + testInputs.slUpliftFactor + '\n\n';
-      msg += 'RESULTS:\n';
-      msg += '• Productive Hours: ' + result.baseline.productiveHours + '\n';
-      msg += '• Base FTE Need: ' + result.baseline.baseFTENeed + '\n';
-      msg += '• Base FTE w/ SL: ' + result.baseline.baseFTEWithSL + '\n';
-      msg += '• Base HC Need: ' + result.baseline.baseHCNeed + '\n\n';
-      msg += 'Expected from your sheet: ~118 HC\n';
-      msg += 'Match: ' + (Math.abs(result.baseline.baseHCNeed - 118) < 5 ? '✅ Close!' : '⚠️ Check formulas');
+      msg += '  • Volume: ' + testInputs.volume.toLocaleString() + '\n';
+      msg += '  • AHT: ' + testInputs.ahtSeconds + ' seconds\n';
+      msg += '  • Occupancy: ' + testInputs.occupancyPercent + '%\n';
+      msg += '  • Shrink: ' + testInputs.shrinkPercent + '%\n';
+      msg += '  • SL Uplift: ' + testInputs.slUpliftFactor + '\n';
+      msg += '  • Productive Days: ' + testInputs.productiveDays + '\n';
+      msg += '  • Daily Work Hours: ' + testInputs.dailyWorkHours + '\n\n';
+      msg += '────────────────────────────────────\n';
+      msg += 'CALCULATED RESULTS:\n';
+      msg += '  • Productive Hours: ' + result.baseline.productiveHours + '\n';
+      msg += '  • Base FTE Need: ' + result.baseline.baseFTENeed + '\n';
+      msg += '  • Base FTE w/ SL: ' + result.baseline.baseFTEWithSL + '\n';
+      msg += '  • Base HC Need: ' + result.baseline.baseHCNeed + '\n\n';
+      msg += '────────────────────────────────────\n';
+      msg += 'EXPECTED (from your sheet):\n';
+      msg += '  • Productive Hours: 158\n';
+      msg += '  • Base FTE: 102.4\n';
+      msg += '  • Base FTE w/ SL: 110.6\n';
+      msg += '  • Base HC Need: 118\n\n';
+      msg += '════════════════════════════════════\n';
+      msg += 'MATCH: ' + (Math.abs(result.baseline.baseHCNeed - 118) < 2 ? '✅ SUCCESS!' : '⚠️ Check formulas') + '\n';
+      msg += '════════════════════════════════════';
       
       alert(msg);
       return result;
@@ -10497,18 +10624,30 @@ Tip: Include header row with column names!"></textarea>
       console.log('Results:', result);
       console.log('==================================');
       
-      let msg = '🏢 Pillar Staffing Model Test\n\n';
+      let msg = '════════════════════════════════════\n';
+      msg += '🏢 PILLAR STAFFING MODEL TEST\n';
+      msg += '════════════════════════════════════\n\n';
+      msg += '📍 PILLAR: Payroll and Taxes\n';
+      msg += '📅 MONTH: May-2025 (Sample)\n';
+      msg += '────────────────────────────────────\n\n';
       msg += 'INPUTS:\n';
-      msg += '• Active HC Need: ' + staffingInputs.activeHCNeed + '\n';
-      msg += '• Actual HC: ' + staffingInputs.actualHC + '\n';
-      msg += '• Productive Hours: ' + staffingInputs.productiveHours + '\n';
-      msg += '• Planned OT/IC: ' + staffingInputs.plannedOTPerIC + ' hrs\n\n';
-      msg += 'RESULTS:\n';
-      msg += '• Net Staffing Gap: ' + result.netStaffingGap + '\n';
-      msg += '• Planned OT HC: ' + result.plannedOTHeadcount + '\n';
-      msg += '• Net w/ OT: ' + result.netStaffingWithOT + '\n';
-      msg += '• Required OT/IC: ' + result.totalRequiredOTPerIC + ' hrs\n';
-      msg += '• Required OT HC: ' + result.requiredOTHeadcount;
+      msg += '  • Active HC Need: ' + staffingInputs.activeHCNeed + '\n';
+      msg += '  • Actual HC: ' + staffingInputs.actualHC + '\n';
+      msg += '  • Productive Hours: ' + staffingInputs.productiveHours + '\n';
+      msg += '  • Planned OT/IC: ' + staffingInputs.plannedOTPerIC + ' hrs\n\n';
+      msg += 'CHANNEL ALLOCATIONS:\n';
+      staffingInputs.channelAllocations.forEach(function(ch) {
+        msg += '  • ' + ch.channel + ': ' + (ch.allocation * 100) + '%\n';
+      });
+      msg += '\n────────────────────────────────────\n';
+      msg += 'CALCULATED RESULTS:\n';
+      msg += '  • Net Staffing Gap: ' + result.netStaffingGap + '\n';
+      msg += '    (Positive = Overstaffed)\n';
+      msg += '  • Planned OT HC: ' + result.plannedOTHeadcount + '\n';
+      msg += '  • Net w/ OT: ' + result.netStaffingWithOT + '\n';
+      msg += '  • Required OT/IC: ' + result.totalRequiredOTPerIC + ' hrs\n';
+      msg += '  • Required OT HC: ' + result.requiredOTHeadcount + '\n\n';
+      msg += '════════════════════════════════════';
       
       alert(msg);
       return result;
