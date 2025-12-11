@@ -2371,7 +2371,7 @@
               <span class="nav-icon">🚀</span>
               <span class="nav-text">Project Hub</span>
             </div>
-            <div class="nav-item" onclick="window.open('ProductOverview.html', '_blank')" id="nav-overview">
+            <div class="nav-item" onclick="loadView('overview')" id="nav-overview">
               <span class="nav-icon">📄</span>
               <span class="nav-text">Product Overview</span>
             </div>
@@ -6445,7 +6445,11 @@
               </button>
               
               <button onclick="testCalculation()" class="btn btn-secondary" style="width: 100%; padding: 10px; font-size: 12px; margin-top: 8px; opacity: 0.7;">
-                🧪 Test Calculator (Sample Data)
+                🧪 Test Channel Calc (Payroll Phone)
+              </button>
+              
+              <button onclick="testStaffingModel()" class="btn btn-secondary" style="width: 100%; padding: 10px; font-size: 12px; margin-top: 4px; opacity: 0.7;">
+                🏢 Test Staffing Model
               </button>
               
               <div style="margin-top: var(--space-md); padding: 12px; background: var(--warning-bg); border-radius: var(--radius-sm);">
@@ -7238,6 +7242,205 @@ Next steps:
           </div>
           
         </div><!-- END view-designsystem -->
+        
+        <!-- ═══════════════════════════════════════════════════════════════════════
+             PRODUCT OVERVIEW VIEW - Scope, Purpose, Roadmap
+             ═══════════════════════════════════════════════════════════════════════ -->
+        <div id="view-overview" class="view-container" style="display: none;">
+          
+          <!-- Phase 1 Banner -->
+          <div style="background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%); border-radius: var(--radius-lg); padding: 16px 24px; margin-bottom: var(--space-lg); display: flex; align-items: center; gap: 16px; border: 1px solid #F59E0B;">
+            <span style="font-size: 28px;">⚠️</span>
+            <div>
+              <div style="font-weight: 600; color: #92400E; font-size: 14px;">Phase 1 Prototype — Foundation Only</div>
+              <div style="font-size: 13px; color: #78350F;">This is the capacity planning core. Forecasting, IDPs, and full WFM capabilities are planned for future phases.</div>
+            </div>
+          </div>
+          
+          <!-- Header -->
+          <div style="text-align: center; margin-bottom: var(--space-xl);">
+            <div style="display: inline-flex; align-items: center; gap: 12px; background: white; padding: 12px 24px; border-radius: 50px; box-shadow: var(--shadow-md); margin-bottom: 20px;">
+              <div style="width: 40px; height: 40px; background: linear-gradient(135deg, var(--gusto-teal) 0%, var(--gusto-teal-dark) 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 18px;">G</div>
+              <span style="font-size: 18px; font-weight: 600; color: var(--gray-800);">Gusto Customer Care</span>
+            </div>
+            <h1 style="font-size: 36px; font-weight: 700; color: var(--gray-900); margin-bottom: 12px;">Capacity Planning Tool</h1>
+            <p style="font-size: 16px; color: var(--gray-600); max-width: 600px; margin: 0 auto;">A unified platform for workforce planning, scenario analysis, and cross-pillar visibility</p>
+            <span style="display: inline-block; background: var(--gusto-coral); color: white; padding: 6px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; margin-top: 16px;">V1 PROTOTYPE • DECEMBER 2025</span>
+          </div>
+          
+          <!-- Quick Stats -->
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-md); margin-bottom: var(--space-xl);">
+            <div style="background: white; border-radius: var(--radius-lg); padding: 24px; text-align: center; box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200);">
+              <div style="font-size: 42px; font-weight: 700; color: var(--gusto-teal);">11</div>
+              <div style="font-size: 12px; color: var(--gray-500); text-transform: uppercase; margin-top: 8px;">Views Built</div>
+            </div>
+            <div style="background: white; border-radius: var(--radius-lg); padding: 24px; text-align: center; box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200);">
+              <div style="font-size: 42px; font-weight: 700; color: var(--gusto-teal);">9</div>
+              <div style="font-size: 12px; color: var(--gray-500); text-transform: uppercase; margin-top: 8px;">Pillars Supported</div>
+            </div>
+            <div style="background: white; border-radius: var(--radius-lg); padding: 24px; text-align: center; box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200);">
+              <div style="font-size: 42px; font-weight: 700; color: var(--gusto-teal);">24</div>
+              <div style="font-size: 12px; color: var(--gray-500); text-transform: uppercase; margin-top: 8px;">Month Horizon</div>
+            </div>
+            <div style="background: white; border-radius: var(--radius-lg); padding: 24px; text-align: center; box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200);">
+              <div style="font-size: 42px; font-weight: 700; color: var(--success);">✓</div>
+              <div style="font-size: 12px; color: var(--gray-500); text-transform: uppercase; margin-top: 8px;">Sheets Integration</div>
+            </div>
+          </div>
+          
+          <!-- Two Column Layout -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg); margin-bottom: var(--space-xl);">
+            
+            <!-- Purpose & Scope -->
+            <div style="background: white; border-radius: var(--radius-lg); padding: var(--space-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200);">
+              <h3 style="font-size: 18px; font-weight: 600; color: var(--gray-800); margin-bottom: var(--space-md); display: flex; align-items: center; gap: 10px;">
+                <span style="font-size: 22px;">🎯</span> Purpose & Scope
+              </h3>
+              <p style="color: var(--gray-600); font-size: 14px; margin-bottom: var(--space-md);">Replace fragmented spreadsheets with a unified capacity planning platform that provides:</p>
+              <ul style="color: var(--gray-600); font-size: 14px; padding-left: 20px; display: flex; flex-direction: column; gap: 8px;">
+                <li><strong>Cross-Pillar Visibility</strong> — See all teams in one view</li>
+                <li><strong>Scenario Planning</strong> — What-if analysis without breaking production data</li>
+                <li><strong>Overlay Tracking</strong> — Document and quantify business impacts</li>
+                <li><strong>Auto-Generated Insights</strong> — AI-powered summaries for stakeholders</li>
+                <li><strong>Export Flexibility</strong> — Work in Sheets if needed, re-import easily</li>
+              </ul>
+            </div>
+            
+            <!-- V1 Functionality -->
+            <div style="background: white; border-radius: var(--radius-lg); padding: var(--space-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200);">
+              <h3 style="font-size: 18px; font-weight: 600; color: var(--gray-800); margin-bottom: var(--space-md); display: flex; align-items: center; gap: 10px;">
+                <span style="font-size: 22px;">✅</span> V1 Functionality
+              </h3>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                <div style="background: var(--success-bg); padding: 10px 12px; border-radius: var(--radius-sm); border-left: 3px solid var(--success);">
+                  <div style="font-size: 12px; font-weight: 600; color: var(--gray-800);">🎛️ Control Panel</div>
+                </div>
+                <div style="background: var(--success-bg); padding: 10px 12px; border-radius: var(--radius-sm); border-left: 3px solid var(--success);">
+                  <div style="font-size: 12px; font-weight: 600; color: var(--gray-800);">🔗 All-In View</div>
+                </div>
+                <div style="background: var(--success-bg); padding: 10px 12px; border-radius: var(--radius-sm); border-left: 3px solid var(--success);">
+                  <div style="font-size: 12px; font-weight: 600; color: var(--gray-800);">⚖️ Plan Comparison</div>
+                </div>
+                <div style="background: var(--success-bg); padding: 10px 12px; border-radius: var(--radius-sm); border-left: 3px solid var(--success);">
+                  <div style="font-size: 12px; font-weight: 600; color: var(--gray-800);">📊 Dashboard</div>
+                </div>
+                <div style="background: var(--success-bg); padding: 10px 12px; border-radius: var(--radius-sm); border-left: 3px solid var(--success);">
+                  <div style="font-size: 12px; font-weight: 600; color: var(--gray-800);">🏛️ Pillar Views</div>
+                </div>
+                <div style="background: var(--success-bg); padding: 10px 12px; border-radius: var(--radius-sm); border-left: 3px solid var(--success);">
+                  <div style="font-size: 12px; font-weight: 600; color: var(--gray-800);">🎚️ Overlay Tracker</div>
+                </div>
+                <div style="background: var(--success-bg); padding: 10px 12px; border-radius: var(--radius-sm); border-left: 3px solid var(--success);">
+                  <div style="font-size: 12px; font-weight: 600; color: var(--gray-800);">🗄️ Data Management</div>
+                </div>
+                <div style="background: var(--success-bg); padding: 10px 12px; border-radius: var(--radius-sm); border-left: 3px solid var(--success);">
+                  <div style="font-size: 12px; font-weight: 600; color: var(--gray-800);">🚀 Project Hub</div>
+                </div>
+                <div style="background: var(--success-bg); padding: 10px 12px; border-radius: var(--radius-sm); border-left: 3px solid var(--success);">
+                  <div style="font-size: 12px; font-weight: 600; color: var(--gray-800);">🎨 Design System</div>
+                </div>
+                <div style="background: var(--success-bg); padding: 10px 12px; border-radius: var(--radius-sm); border-left: 3px solid var(--success);">
+                  <div style="font-size: 12px; font-weight: 600; color: var(--gray-800);">💡 Auto Insights</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Roadmap -->
+          <div style="background: linear-gradient(135deg, var(--gusto-teal) 0%, var(--gusto-teal-dark) 100%); border-radius: var(--radius-lg); padding: var(--space-xl); color: white; margin-bottom: var(--space-xl);">
+            <h3 style="font-size: 20px; font-weight: 600; margin-bottom: var(--space-lg); display: flex; align-items: center; gap: 10px;">
+              <span style="font-size: 24px;">🗺️</span> Roadmap
+            </h3>
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-md);">
+              <div style="background: rgba(255,255,255,0.15); border-radius: var(--radius-md); padding: 20px; border: 2px solid rgba(255,255,255,0.3);">
+                <div style="font-size: 11px; text-transform: uppercase; opacity: 0.8; margin-bottom: 8px;">Phase 1 — Now</div>
+                <div style="font-size: 16px; font-weight: 600; margin-bottom: 8px;">Prototype</div>
+                <div style="font-size: 12px; opacity: 0.9;">UI/UX complete, data architecture, calculation engine</div>
+              </div>
+              <div style="background: rgba(255,255,255,0.1); border-radius: var(--radius-md); padding: 20px;">
+                <div style="font-size: 11px; text-transform: uppercase; opacity: 0.8; margin-bottom: 8px;">Phase 2 — Q1 '26</div>
+                <div style="font-size: 16px; font-weight: 600; margin-bottom: 8px;">Live Data</div>
+                <div style="font-size: 12px; opacity: 0.9;">Real Sheets connection, validated calculations, team testing</div>
+              </div>
+              <div style="background: rgba(255,255,255,0.1); border-radius: var(--radius-md); padding: 20px;">
+                <div style="font-size: 11px; text-transform: uppercase; opacity: 0.8; margin-bottom: 8px;">Phase 3 — Q2 '26</div>
+                <div style="font-size: 16px; font-weight: 600; margin-bottom: 8px;">Multi-Team</div>
+                <div style="font-size: 12px; opacity: 0.9;">Multiple orgs, advanced scenarios, executive reporting</div>
+              </div>
+              <div style="background: rgba(255,255,255,0.05); border-radius: var(--radius-md); padding: 20px;">
+                <div style="font-size: 11px; text-transform: uppercase; opacity: 0.8; margin-bottom: 8px;">Future</div>
+                <div style="font-size: 16px; font-weight: 600; margin-bottom: 8px;">Full WFM</div>
+                <div style="font-size: 12px; opacity: 0.9;">Forecasting hub, interval IDPs, Slack integration</div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Data Architecture -->
+          <div style="background: white; border-radius: var(--radius-lg); padding: var(--space-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); margin-bottom: var(--space-xl);">
+            <h3 style="font-size: 18px; font-weight: 600; color: var(--gray-800); margin-bottom: var(--space-md); display: flex; align-items: center; gap: 10px;">
+              <span style="font-size: 22px;">🏗️</span> Data Architecture
+            </h3>
+            <div style="overflow-x: auto;">
+              <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+                <thead>
+                  <tr style="background: var(--gray-100);">
+                    <th style="padding: 12px 16px; text-align: left; font-weight: 600; border-bottom: 2px solid var(--gray-200);">Sheet</th>
+                    <th style="padding: 12px 16px; text-align: left; font-weight: 600; border-bottom: 2px solid var(--gray-200);">Purpose</th>
+                    <th style="padding: 12px 16px; text-align: left; font-weight: 600; border-bottom: 2px solid var(--gray-200);">Key Fields</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-100); font-weight: 500;">Plans_Registry</td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-100);">Track all plans & scenarios</td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-100); color: var(--gray-500);">plan_id, type, status, pillar_scope</td>
+                  </tr>
+                  <tr style="background: var(--gray-50);">
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-100); font-weight: 500;">Plan_Inputs</td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-100);">Baseline & overlay inputs</td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-100); color: var(--gray-500);">Volume, AHT, Shrink, Occupancy, SL</td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-100); font-weight: 500;">Plan_Outputs</td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-100);">Calculated results</td>
+                    <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-100); color: var(--gray-500);">HC Need, FTE, Gap, OT metrics</td>
+                  </tr>
+                  <tr style="background: var(--gray-50);">
+                    <td style="padding: 12px 16px; font-weight: 500;">Plan_Manual_Inputs</td>
+                    <td style="padding: 12px 16px;">Site-level manual data</td>
+                    <td style="padding: 12px 16px; color: var(--gray-500);">New hires, Attrition, Planned OT</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <!-- Known Gaps -->
+          <div style="background: white; border-radius: var(--radius-lg); padding: var(--space-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200);">
+            <h3 style="font-size: 18px; font-weight: 600; color: var(--gray-800); margin-bottom: var(--space-md); display: flex; align-items: center; gap: 10px;">
+              <span style="font-size: 22px;">⚠️</span> Known Gaps (Phase 1)
+            </h3>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-md);">
+              <div style="background: var(--warning-bg); padding: 14px; border-radius: var(--radius-sm); border-left: 3px solid var(--warning);">
+                <div style="font-size: 13px; font-weight: 600; color: var(--gray-800);">Live Data Connection</div>
+                <div style="font-size: 12px; color: var(--gray-600); margin-top: 4px;">Currently using sample data — real Sheets API connection in Phase 2</div>
+              </div>
+              <div style="background: var(--warning-bg); padding: 14px; border-radius: var(--radius-sm); border-left: 3px solid var(--warning);">
+                <div style="font-size: 13px; font-weight: 600; color: var(--gray-800);">Calculation Validation</div>
+                <div style="font-size: 12px; color: var(--gray-600); margin-top: 4px;">Team review in progress to verify formulas match spreadsheet logic</div>
+              </div>
+              <div style="background: var(--warning-bg); padding: 14px; border-radius: var(--radius-sm); border-left: 3px solid var(--warning);">
+                <div style="font-size: 13px; font-weight: 600; color: var(--gray-800);">User Authentication</div>
+                <div style="font-size: 12px; color: var(--gray-600); margin-top: 4px;">No login system yet — future production requirement</div>
+              </div>
+              <div style="background: var(--warning-bg); padding: 14px; border-radius: var(--radius-sm); border-left: 3px solid var(--warning);">
+                <div style="font-size: 13px; font-weight: 600; color: var(--gray-800);">Multi-Team Scalability</div>
+                <div style="font-size: 12px; color: var(--gray-600); margin-top: 4px;">Architecture supports it, but UI needs work for team separation</div>
+              </div>
+            </div>
+          </div>
+          
+        </div><!-- END view-overview -->
         
         <!-- ═══════════════════════════════════════════════════════════════════════
              PUBLISHED PLANS VIEW - Archive of all published plans
@@ -8813,7 +9016,7 @@ Tip: Include header row with column names!"></textarea>
         dropdown.style.display = 'none';
         comparisonToggle.style.display = 'none';
         if (scenariosBtn) scenariosBtn.style.display = 'none';
-      } else if (view === 'projecthub' || view === 'designsystem') {
+      } else if (view === 'projecthub' || view === 'designsystem' || view === 'overview') {
         dropdown.style.display = 'none';
         comparisonToggle.style.display = 'none';
         if (scenariosBtn) scenariosBtn.style.display = 'none';
@@ -9595,74 +9798,176 @@ Tip: Include header row with column names!"></textarea>
     
     // ═══════════════════════════════════════════════════════════════════════
     // CAPACITY CALCULATOR ENGINE - Core HC Calculations
+    // Based on: https://docs.google.com/spreadsheets/d/1Jfm3Gv7xkaHtl5Vrf8qQpFtOElQu4MX-xl2OykBpuVs/edit?gid=1616116817
     // ═══════════════════════════════════════════════════════════════════════
     
     const CapacityCalculator = {
       
       // Configuration defaults (can be overridden per pillar/channel)
       defaults: {
-        standardWorkDays: {
-          'Jan': 23, 'Feb': 20, 'Mar': 21, 'Apr': 22, 'May': 22, 'Jun': 21,
-          'Jul': 23, 'Aug': 21, 'Sep': 21, 'Oct': 23, 'Nov': 20, 'Dec': 21
-        },
-        dailyWorkHours: 8,
-        standardHoursPerFTE: 173.33 // Monthly average
+        dailyWorkHours: 7.5,  // User defined, usually 7.5
+        standardWorkHours: 8,  // Standard 8-hour day for HC conversion
+        rampPeriod: 3          // Months until new hire is productive
       },
+      
+      // ═══════════════════════════════════════════════════════════════════════
+      // PILLAR-CHANNEL LEVEL CALCULATIONS
+      // ═══════════════════════════════════════════════════════════════════════
       
       /**
        * Calculate Productive Hours for a month
-       * Formula: Working Days × Daily Hours × (1 - Shrink%)
+       * Formula: Productive Days × Daily Work Hours
+       * Note: Shrink is NOT applied here - it's applied in FTE calculation
        */
-      calculateProductiveHours: function(workingDays, dailyHours, shrinkPercent) {
-        const shrink = shrinkPercent / 100;
-        return workingDays * dailyHours * (1 - shrink);
+      calculateProductiveHours: function(productiveDays, dailyWorkHours) {
+        return productiveDays * (dailyWorkHours || this.defaults.dailyWorkHours);
       },
       
       /**
-       * Calculate Base HC Need (before SL and shrink adjustments)
-       * Formula: Volume / (AHT × Occupancy × Concurrency × Productive Hours)
+       * Calculate Base FTE Need (No Overlays)
+       * Formula: ((Volume × (AHT/Concurrency)) / 3600 / Productive Hours / Occupancy) × (1 + Shrink)
        * 
        * @param {number} volume - Monthly contact volume
-       * @param {number} aht - Average Handle Time in minutes
-       * @param {number} occupancy - Occupancy percentage (e.g., 85 for 85%)
+       * @param {number} ahtSeconds - Average Handle Time in SECONDS
        * @param {number} concurrency - Concurrent sessions (1 for phone, 2-3 for chat)
-       * @param {number} productiveHours - Monthly productive hours per agent
+       * @param {number} productiveHours - Monthly productive hours
+       * @param {number} occupancyPercent - Occupancy percentage (e.g., 85 for 85%)
+       * @param {number} shrinkPercent - Shrink percentage (e.g., 18 for 18%)
        */
-      calculateBaseHCNeed: function(volume, aht, occupancy, concurrency, productiveHours) {
-        const occ = occupancy / 100;
-        // AHT is in minutes, productive hours is in hours
-        const ahtHours = aht / 60;
-        const denominator = ahtHours * occ * concurrency * productiveHours;
-        
-        if (denominator === 0) return 0;
-        return volume * ahtHours / (occ * concurrency * productiveHours);
-      },
-      
-      /**
-       * Calculate SL FTE Need (with SL uplift factor)
-       * Formula: Base HC × SL Uplift Factor
-       */
-      calculateSLFTENeed: function(baseHC, slUpliftFactor) {
-        return baseHC * slUpliftFactor;
-      },
-      
-      /**
-       * Calculate Shrink Adjusted HC
-       * Formula: SL FTE / (1 - Shrink%)
-       */
-      calculateShrinkAdjustedHC: function(slFTE, shrinkPercent) {
+      calculateBaseFTENeed: function(volume, ahtSeconds, concurrency, productiveHours, occupancyPercent, shrinkPercent) {
+        const occ = occupancyPercent / 100;
         const shrink = shrinkPercent / 100;
-        if (shrink >= 1) return Infinity;
-        return slFTE / (1 - shrink);
+        
+        if (productiveHours === 0 || occ === 0 || concurrency === 0) return 0;
+        
+        // ((Volume × (AHT/Concurrency)) / 3600 / Productive Hours / Occupancy) × (1 + Shrink)
+        const workload = (volume * (ahtSeconds / concurrency)) / 3600;
+        const baseFTE = (workload / productiveHours / occ) * (1 + shrink);
+        
+        return baseFTE;
       },
       
       /**
-       * Calculate Active HC Need (with overlay impacts)
-       * Formula: Shrink Adjusted × (1 + Overlay Impact%)
+       * Calculate FTE Need with SL Uplift
+       * Formula: Base FTE Need × SL Uplift Factor
        */
-      calculateActiveHCNeed: function(shrinkAdjustedHC, overlayImpactPercent) {
-        const impact = overlayImpactPercent / 100;
-        return shrinkAdjustedHC * (1 + impact);
+      calculateFTEWithSLUplift: function(baseFTE, slUpliftFactor) {
+        return baseFTE * (slUpliftFactor || 1.0);
+      },
+      
+      /**
+       * Calculate Headcount Need from FTE
+       * Formula: FTE Need / Daily Work Hours / 8
+       * This converts FTE to headcount based on work hour differences
+       */
+      calculateHCFromFTE: function(fteNeed, dailyWorkHours) {
+        const dwh = dailyWorkHours || this.defaults.dailyWorkHours;
+        return fteNeed / dwh / 8;
+      },
+      
+      /**
+       * Full Pillar-Channel calculation (Baseline - No Overlays)
+       */
+      calculateBaselineChannel: function(inputs) {
+        const {
+          volume,
+          ahtSeconds,
+          concurrency,
+          productiveDays,
+          dailyWorkHours,
+          occupancyPercent,
+          shrinkPercent,
+          slUpliftFactor
+        } = inputs;
+        
+        // Step 1: Productive Hours
+        const productiveHours = this.calculateProductiveHours(productiveDays, dailyWorkHours);
+        
+        // Step 2: Base FTE Need (no overlays)
+        const baseFTENeed = this.calculateBaseFTENeed(
+          volume, ahtSeconds, concurrency, productiveHours, occupancyPercent, shrinkPercent
+        );
+        
+        // Step 3: Base FTE with SL Uplift
+        const baseFTEWithSL = this.calculateFTEWithSLUplift(baseFTENeed, slUpliftFactor);
+        
+        // Step 4: Base Headcount Need
+        const baseHCNeed = this.calculateHCFromFTE(baseFTEWithSL, dailyWorkHours);
+        
+        return {
+          productiveHours: this.round(productiveHours),
+          baseFTENeed: this.round(baseFTENeed),
+          baseFTEWithSL: this.round(baseFTEWithSL),
+          baseHCNeed: this.round(baseHCNeed)
+        };
+      },
+      
+      /**
+       * Full Pillar-Channel calculation (Active - With Overlays)
+       * Same formulas but with overlay-adjusted inputs
+       */
+      calculateActiveChannel: function(inputs) {
+        const {
+          volumeActive,           // Volume with overlays applied
+          ahtSecondsActive,       // AHT with overlays applied
+          concurrencyActive,      // Concurrency with overlays
+          productiveDays,
+          dailyWorkHours,
+          occupancyPercentActive, // Occupancy with overlays
+          shrinkPercentActive,    // Shrink with overlays
+          slUpliftFactor
+        } = inputs;
+        
+        // Step 1: Productive Hours (same as baseline)
+        const productiveHours = this.calculateProductiveHours(productiveDays, dailyWorkHours);
+        
+        // Step 2: Active FTE Need (with overlays)
+        const activeFTENeed = this.calculateBaseFTENeed(
+          volumeActive, ahtSecondsActive, concurrencyActive, productiveHours, occupancyPercentActive, shrinkPercentActive
+        );
+        
+        // Step 3: Active FTE with SL Uplift
+        const activeFTEWithSL = this.calculateFTEWithSLUplift(activeFTENeed, slUpliftFactor);
+        
+        // Step 4: Active Headcount Need
+        const activeHCNeed = this.calculateHCFromFTE(activeFTEWithSL, dailyWorkHours);
+        
+        return {
+          productiveHours: this.round(productiveHours),
+          activeFTENeed: this.round(activeFTENeed),
+          activeFTEWithSL: this.round(activeFTEWithSL),
+          activeHCNeed: this.round(activeHCNeed)
+        };
+      },
+      
+      /**
+       * Calculate Overlay Impact
+       * Formula: Active HC Need - Base HC Need
+       */
+      calculateOverlayImpact: function(activeHCNeed, baseHCNeed) {
+        return activeHCNeed - baseHCNeed;
+      },
+      
+      // ═══════════════════════════════════════════════════════════════════════
+      // PILLAR STAFFING MODEL CALCULATIONS
+      // ═══════════════════════════════════════════════════════════════════════
+      
+      /**
+       * Calculate Actual Headcount (with forecast fallback)
+       * Uses LET formula logic: IF actual exists, use it; else use forecast
+       * 
+       * @param {number} actualHC - Actual HC from data (0 if not available)
+       * @param {number} prevMonthHC - Previous month's HC
+       * @param {number} newHires - Ramped new hires for this month
+       * @param {number} attritionRate - Monthly attrition rate (e.g., 0.05 for 5%)
+       */
+      calculateActualHC: function(actualHC, prevMonthHC, newHires, attritionRate) {
+        if (actualHC && actualHC > 0) {
+          return actualHC;
+        }
+        // Forecast: (Previous + New Hires) - (Attrition × Previous)
+        const forecastHC = (prevMonthHC + newHires) - (attritionRate * prevMonthHC);
+        return Math.max(0, forecastHC);
       },
       
       /**
@@ -9675,110 +9980,195 @@ Tip: Include header row with column names!"></textarea>
       },
       
       /**
-       * Calculate OT Coverage (FTE equivalent)
-       * Formula: Planned OT Hours / Standard Hours per FTE
+       * Calculate Planned OT Headcount
+       * Formula: ROUND((Planned OT Per IC × Total Actual HC) / Productive Hours)
        */
-      calculateOTCoverage: function(plannedOTHours, standardHoursPerFTE) {
-        standardHoursPerFTE = standardHoursPerFTE || this.defaults.standardHoursPerFTE;
-        return plannedOTHours / standardHoursPerFTE;
+      calculatePlannedOTHeadcount: function(plannedOTPerIC, totalActualHC, productiveHours) {
+        if (productiveHours === 0) return 0;
+        return Math.round((plannedOTPerIC * totalActualHC) / productiveHours);
       },
       
       /**
-       * Calculate Net Gap with OT
-       * Formula: Net Staffing Gap + OT Coverage FTE
+       * Calculate Net Staffing with OT
+       * Formula: Net Staffing Gap + Planned OT Headcount
        */
-      calculateNetGapWithOT: function(netStaffingGap, otCoverageFTE) {
-        return netStaffingGap + otCoverageFTE;
+      calculateNetStaffingWithOT: function(netStaffingGap, plannedOTHeadcount) {
+        return netStaffingGap + plannedOTHeadcount;
       },
       
       /**
-       * Full calculation pipeline for a single channel/month
+       * Calculate Required OT Per IC Per Month (Channel Level)
+       * Formula: -(Net Staffing × Channel Allocation) × (Productive Hours) / Actual Headcount
+       * This tells you how much OT each person needs to work to cover the gap
+       */
+      calculateRequiredOTPerIC: function(netStaffing, channelAllocation, productiveHours, actualHC) {
+        if (actualHC === 0) return 0;
+        return -(netStaffing * channelAllocation) * (productiveHours) / actualHC;
+      },
+      
+      /**
+       * Calculate Required OT Headcount
+       * Formula: (Required OT Per IC × Actual HC) / Productive Hours
+       */
+      calculateRequiredOTHeadcount: function(requiredOTPerIC, actualHC, productiveHours) {
+        if (productiveHours === 0) return 0;
+        return (requiredOTPerIC * actualHC) / productiveHours;
+      },
+      
+      /**
+       * Calculate Forecasted Attrition
+       * Formula: Baseline Attrition + Attrition Adjustment
+       */
+      calculateForecastedAttrition: function(baselineAttrition, attritionAdjustment) {
+        return baselineAttrition + (attritionAdjustment || 0);
+      },
+      
+      // ═══════════════════════════════════════════════════════════════════════
+      // PILLAR ROLLUP CALCULATIONS
+      // ═══════════════════════════════════════════════════════════════════════
+      
+      /**
+       * Sum values across channels for pillar-level metrics
+       */
+      sumChannels: function(channelValues) {
+        return channelValues.reduce((sum, val) => sum + (val || 0), 0);
+      },
+      
+      /**
+       * Calculate Weighted Average AHT across channels
+       * Formula: SUM(Volume × AHT) / SUM(Volume)
+       */
+      calculateWeightedAHT: function(channels) {
+        let totalWeighted = 0;
+        let totalVolume = 0;
+        
+        channels.forEach(ch => {
+          totalWeighted += (ch.volume || 0) * (ch.aht || 0);
+          totalVolume += (ch.volume || 0);
+        });
+        
+        return totalVolume > 0 ? totalWeighted / totalVolume : 0;
+      },
+      
+      /**
+       * Calculate Site Allocation Percentage
+       * Formula: Site HC / Total HC
+       */
+      calculateSiteAllocation: function(siteHC, totalHC) {
+        return totalHC > 0 ? siteHC / totalHC : 0;
+      },
+      
+      /**
+       * Calculate Channel Allocation Percentage
+       * Formula: Channel Volume / Total Volume
+       */
+      calculateChannelAllocation: function(channelVolume, totalVolume) {
+        return totalVolume > 0 ? channelVolume / totalVolume : 0;
+      },
+      
+      // ═══════════════════════════════════════════════════════════════════════
+      // FULL CALCULATION PIPELINE
+      // ═══════════════════════════════════════════════════════════════════════
+      
+      /**
+       * Full calculation for a single channel/month
        * Returns all intermediate and final values
        */
-      calculateFull: function(inputs) {
+      calculateFullChannel: function(inputs) {
         const {
+          // Baseline inputs
           volume,
-          aht,
-          occupancy,
+          ahtSeconds,
           concurrency,
+          productiveDays,
+          dailyWorkHours,
+          occupancyPercent,
           shrinkPercent,
           slUpliftFactor,
-          overlayImpactPercent,
-          actualHC,
-          plannedOTHours,
-          workingDays,
-          dailyHours
+          // Overlay inputs (use baseline if not provided)
+          volumeOverlay,
+          ahtSecondsOverlay,
+          concurrencyOverlay,
+          occupancyPercentOverlay,
+          shrinkPercentOverlay
         } = inputs;
         
-        // Step 1: Productive Hours
-        const productiveHours = this.calculateProductiveHours(
-          workingDays || 21,
-          dailyHours || 8,
-          shrinkPercent || 30
-        );
+        // Use overlay values if provided, otherwise use baseline
+        const volumeActive = volumeOverlay || volume;
+        const ahtActive = ahtSecondsOverlay || ahtSeconds;
+        const concActive = concurrencyOverlay || concurrency;
+        const occActive = occupancyPercentOverlay || occupancyPercent;
+        const shrinkActive = shrinkPercentOverlay || shrinkPercent;
         
-        // Step 2: Base HC Need
-        const baseHCNeed = this.calculateBaseHCNeed(
-          volume || 0,
-          aht || 0,
-          occupancy || 85,
-          concurrency || 1,
-          productiveHours
-        );
+        // Calculate baseline
+        const baseline = this.calculateBaselineChannel({
+          volume, ahtSeconds, concurrency, productiveDays, dailyWorkHours, occupancyPercent, shrinkPercent, slUpliftFactor
+        });
         
-        // Step 3: SL FTE Need
-        const slFTENeed = this.calculateSLFTENeed(
-          baseHCNeed,
-          slUpliftFactor || 1.0
-        );
+        // Calculate active (with overlays)
+        const active = this.calculateActiveChannel({
+          volumeActive, ahtSecondsActive: ahtActive, concurrencyActive: concActive,
+          productiveDays, dailyWorkHours, occupancyPercentActive: occActive, shrinkPercentActive: shrinkActive, slUpliftFactor
+        });
         
-        // Step 4: Shrink Adjusted
-        const shrinkAdjustedHC = this.calculateShrinkAdjustedHC(
-          slFTENeed,
-          shrinkPercent || 30
-        );
-        
-        // Step 5: Active HC Need (with overlays)
-        const activeHCNeed = this.calculateActiveHCNeed(
-          shrinkAdjustedHC,
-          overlayImpactPercent || 0
-        );
-        
-        // Step 6: Net Staffing Gap
-        const netStaffingGap = this.calculateNetStaffingGap(
-          actualHC || 0,
-          activeHCNeed
-        );
-        
-        // Step 7: OT Coverage
-        const otCoverage = this.calculateOTCoverage(
-          plannedOTHours || 0
-        );
-        
-        // Step 8: Net Gap with OT
-        const netGapWithOT = this.calculateNetGapWithOT(
-          netStaffingGap,
-          otCoverage
-        );
+        // Calculate overlay impact
+        const overlayImpact = this.calculateOverlayImpact(active.activeHCNeed, baseline.baseHCNeed);
         
         return {
-          inputs: inputs,
-          productiveHours: Math.round(productiveHours * 100) / 100,
-          baseHCNeed: Math.round(baseHCNeed * 100) / 100,
-          slFTENeed: Math.round(slFTENeed * 100) / 100,
-          shrinkAdjustedHC: Math.round(shrinkAdjustedHC * 100) / 100,
-          activeHCNeed: Math.round(activeHCNeed * 100) / 100,
-          netStaffingGap: Math.round(netStaffingGap * 100) / 100,
-          otCoverage: Math.round(otCoverage * 100) / 100,
-          netGapWithOT: Math.round(netGapWithOT * 100) / 100
+          inputs,
+          baseline,
+          active,
+          overlayImpact: this.round(overlayImpact)
         };
       },
       
       /**
-       * Calculate for multiple months at once
+       * Full Pillar Staffing Model calculation
        */
-      calculateMultipleMonths: function(monthlyInputs) {
-        return monthlyInputs.map(inputs => this.calculateFull(inputs));
+      calculatePillarStaffing: function(inputs) {
+        const {
+          activeHCNeed,      // From channel rollup
+          actualHC,          // From data or forecast
+          productiveHours,
+          plannedOTPerIC,
+          channelAllocations // Array of {channel, allocation}
+        } = inputs;
+        
+        // Net Staffing Gap
+        const netStaffingGap = this.calculateNetStaffingGap(actualHC, activeHCNeed);
+        
+        // Planned OT Headcount
+        const plannedOTHeadcount = this.calculatePlannedOTHeadcount(plannedOTPerIC, actualHC, productiveHours);
+        
+        // Net Staffing with OT
+        const netStaffingWithOT = this.calculateNetStaffingWithOT(netStaffingGap, plannedOTHeadcount);
+        
+        // Required OT per channel
+        const channelOT = channelAllocations.map(ch => ({
+          channel: ch.channel,
+          requiredOTPerIC: this.round(this.calculateRequiredOTPerIC(netStaffingGap, ch.allocation, productiveHours, actualHC))
+        }));
+        
+        // Total Required OT Per IC
+        const totalRequiredOTPerIC = channelOT.reduce((sum, ch) => sum + ch.requiredOTPerIC, 0);
+        
+        // Required OT Headcount
+        const requiredOTHeadcount = this.calculateRequiredOTHeadcount(totalRequiredOTPerIC, actualHC, productiveHours);
+        
+        return {
+          netStaffingGap: this.round(netStaffingGap),
+          plannedOTHeadcount: this.round(plannedOTHeadcount),
+          netStaffingWithOT: this.round(netStaffingWithOT),
+          channelOT,
+          totalRequiredOTPerIC: this.round(totalRequiredOTPerIC),
+          requiredOTHeadcount: this.round(requiredOTHeadcount)
+        };
+      },
+      
+      // Utility function for rounding
+      round: function(value, decimals) {
+        decimals = decimals || 2;
+        return Math.round(value * Math.pow(10, decimals)) / Math.pow(10, decimals);
       }
     };
     
@@ -10044,35 +10434,81 @@ Tip: Include header row with column names!"></textarea>
       return results;
     }
     
-    // Test calculation with sample data
+    // Test calculation with sample data (matches your Pillar Template)
     function testCalculation() {
+      // Sample from Payroll and Taxes - Phone, May-2025
       const testInputs = {
-        volume: 10000,
-        aht: 8, // minutes
-        occupancy: 85,
+        volume: 47118,
+        ahtSeconds: 888,        // AHT in SECONDS
         concurrency: 1,
-        shrinkPercent: 30,
-        slUpliftFactor: 1.15,
-        overlayImpactPercent: 5,
-        actualHC: 45,
-        plannedOTHours: 200,
-        workingDays: 21,
-        dailyHours: 8
+        productiveDays: 21,
+        dailyWorkHours: 7.5,
+        occupancyPercent: 85,
+        shrinkPercent: 18,
+        slUpliftFactor: 1.08
       };
       
-      const result = CapacityCalculator.calculateFull(testInputs);
+      const result = CapacityCalculator.calculateFullChannel(testInputs);
       
-      console.log('=== Test Calculation ===');
+      console.log('=== Test Calculation (Payroll Phone May-25) ===');
       console.log('Inputs:', testInputs);
-      console.log('Results:', result);
-      console.log('========================');
+      console.log('Baseline Results:', result.baseline);
+      console.log('Active Results:', result.active);
+      console.log('Overlay Impact:', result.overlayImpact);
+      console.log('================================================');
       
-      let msg = 'Test Calc Results:\n';
-      msg += '• Productive Hours: ' + result.productiveHours + '\n';
-      msg += '• Base HC Need: ' + result.baseHCNeed + '\n';
-      msg += '• Active HC Need: ' + result.activeHCNeed + '\n';
-      msg += '• Net Gap: ' + result.netStaffingGap + '\n';
-      msg += '• Net Gap w/OT: ' + result.netGapWithOT;
+      let msg = '🧮 Test: Payroll Phone May-2025\n\n';
+      msg += 'INPUTS:\n';
+      msg += '• Volume: ' + testInputs.volume.toLocaleString() + '\n';
+      msg += '• AHT: ' + testInputs.ahtSeconds + ' sec\n';
+      msg += '• Occupancy: ' + testInputs.occupancyPercent + '%\n';
+      msg += '• Shrink: ' + testInputs.shrinkPercent + '%\n';
+      msg += '• SL Uplift: ' + testInputs.slUpliftFactor + '\n\n';
+      msg += 'RESULTS:\n';
+      msg += '• Productive Hours: ' + result.baseline.productiveHours + '\n';
+      msg += '• Base FTE Need: ' + result.baseline.baseFTENeed + '\n';
+      msg += '• Base FTE w/ SL: ' + result.baseline.baseFTEWithSL + '\n';
+      msg += '• Base HC Need: ' + result.baseline.baseHCNeed + '\n\n';
+      msg += 'Expected from your sheet: ~118 HC\n';
+      msg += 'Match: ' + (Math.abs(result.baseline.baseHCNeed - 118) < 5 ? '✅ Close!' : '⚠️ Check formulas');
+      
+      alert(msg);
+      return result;
+    }
+    
+    // Test Pillar Staffing Model
+    function testStaffingModel() {
+      const staffingInputs = {
+        activeHCNeed: 118,
+        actualHC: 125,
+        productiveHours: 157.5,
+        plannedOTPerIC: 10,
+        channelAllocations: [
+          { channel: 'Phone', allocation: 0.7 },
+          { channel: 'Chat', allocation: 0.2 },
+          { channel: 'Email', allocation: 0.1 }
+        ]
+      };
+      
+      const result = CapacityCalculator.calculatePillarStaffing(staffingInputs);
+      
+      console.log('=== Pillar Staffing Model Test ===');
+      console.log('Inputs:', staffingInputs);
+      console.log('Results:', result);
+      console.log('==================================');
+      
+      let msg = '🏢 Pillar Staffing Model Test\n\n';
+      msg += 'INPUTS:\n';
+      msg += '• Active HC Need: ' + staffingInputs.activeHCNeed + '\n';
+      msg += '• Actual HC: ' + staffingInputs.actualHC + '\n';
+      msg += '• Productive Hours: ' + staffingInputs.productiveHours + '\n';
+      msg += '• Planned OT/IC: ' + staffingInputs.plannedOTPerIC + ' hrs\n\n';
+      msg += 'RESULTS:\n';
+      msg += '• Net Staffing Gap: ' + result.netStaffingGap + '\n';
+      msg += '• Planned OT HC: ' + result.plannedOTHeadcount + '\n';
+      msg += '• Net w/ OT: ' + result.netStaffingWithOT + '\n';
+      msg += '• Required OT/IC: ' + result.totalRequiredOTPerIC + ' hrs\n';
+      msg += '• Required OT HC: ' + result.requiredOTHeadcount;
       
       alert(msg);
       return result;
@@ -11384,7 +11820,7 @@ ACTION ITEMS:
         if (hash.startsWith('pillar-')) {
           const pillarName = hash.replace('pillar-', '');
           selectPillar(pillarName);
-        } else if (['controlpanel', 'allin', 'dashboard', 'comparison', 'datamanagement', 'overlays', 'published', 'scenarios', 'designsystem'].includes(hash)) {
+        } else if (['controlpanel', 'allin', 'dashboard', 'comparison', 'datamanagement', 'overlays', 'published', 'scenarios', 'designsystem', 'overview'].includes(hash)) {
           loadView(hash);
         }
       }
@@ -11401,7 +11837,7 @@ ACTION ITEMS:
         if (hash.startsWith('pillar-')) {
           const pillarName = hash.replace('pillar-', '');
           selectPillarDirect(pillarName);
-        } else if (['controlpanel', 'allin', 'dashboard', 'comparison', 'projecthub', 'datamanagement', 'overlays', 'published', 'scenarios', 'designsystem'].includes(hash)) {
+        } else if (['controlpanel', 'allin', 'dashboard', 'comparison', 'projecthub', 'datamanagement', 'overlays', 'published', 'scenarios', 'designsystem', 'overview'].includes(hash)) {
           loadViewDirect(hash);
         }
       }
