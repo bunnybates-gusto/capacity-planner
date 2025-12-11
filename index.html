@@ -2438,6 +2438,20 @@
         </div>
         
         <div class="nav-section">
+          <div class="section-label">Project</div>
+          <div class="nav-items">
+            <div class="nav-item" onclick="loadView('projecthub')" id="nav-projecthub">
+              <span class="nav-icon">🚀</span>
+              <span class="nav-text">Project Hub</span>
+            </div>
+            <div class="nav-item" onclick="loadView('designsystem')" id="nav-designsystem">
+              <span class="nav-icon">🎨</span>
+              <span class="nav-text">Design System</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="nav-section">
           <div class="section-label">Help</div>
           <div class="nav-items">
             <div class="nav-item" onclick="openModal('feedback')">
@@ -6508,6 +6522,680 @@
         </div><!-- END view-datamanagement -->
         
         <!-- ═══════════════════════════════════════════════════════════════════════
+             PROJECT HUB VIEW - Sprint Timeline, Checklists, Notes
+             ═══════════════════════════════════════════════════════════════════════ -->
+        <div id="view-projecthub" class="view-container" style="display: none;">
+          
+          <!-- Page Header -->
+          <div style="margin-bottom: var(--space-lg);">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+              <h1 style="font-size: 24px; font-weight: 600; color: var(--gray-800);">🚀 Project Hub</h1>
+              <span style="background: var(--info-bg); color: var(--info); padding: 4px 12px; border-radius: 12px; font-size: 11px; font-weight: 600;">Phase 1 Prototype</span>
+            </div>
+            <p style="color: var(--gray-500); font-size: 14px;">Track progress, manage tasks, and document decisions</p>
+          </div>
+          
+          <!-- Quick Stats Row -->
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-md); margin-bottom: var(--space-lg);">
+            <div style="background: white; border-radius: var(--radius-md); padding: 16px 20px; box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200);">
+              <div style="font-size: 11px; color: var(--gray-500); text-transform: uppercase; margin-bottom: 4px;">Sprint Progress</div>
+              <div style="font-size: 24px; font-weight: 700; color: var(--gusto-teal);" id="sprintProgress">68%</div>
+              <div style="width: 100%; height: 4px; background: var(--gray-200); border-radius: 2px; margin-top: 8px;">
+                <div style="width: 68%; height: 100%; background: linear-gradient(90deg, var(--gusto-teal) 0%, var(--success) 100%); border-radius: 2px;"></div>
+              </div>
+            </div>
+            <div style="background: white; border-radius: var(--radius-md); padding: 16px 20px; box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200);">
+              <div style="font-size: 11px; color: var(--gray-500); text-transform: uppercase; margin-bottom: 4px;">Tasks Complete</div>
+              <div style="font-size: 24px; font-weight: 700; color: var(--success);" id="tasksComplete">12/18</div>
+            </div>
+            <div style="background: white; border-radius: var(--radius-md); padding: 16px 20px; box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200);">
+              <div style="font-size: 11px; color: var(--gray-500); text-transform: uppercase; margin-bottom: 4px;">Target Date</div>
+              <div style="font-size: 24px; font-weight: 700; color: var(--gray-800);">Dec 31</div>
+            </div>
+            <div style="background: white; border-radius: var(--radius-md); padding: 16px 20px; box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200);">
+              <div style="font-size: 11px; color: var(--gray-500); text-transform: uppercase; margin-bottom: 4px;">Days Left</div>
+              <div style="font-size: 24px; font-weight: 700; color: var(--warning);" id="daysLeft">20</div>
+            </div>
+          </div>
+          
+          <!-- Two Column Layout -->
+          <div style="display: grid; grid-template-columns: 2fr 1fr; gap: var(--space-lg);">
+            
+            <!-- LEFT: Sprint Timeline & Tasks -->
+            <div style="display: flex; flex-direction: column; gap: var(--space-lg);">
+              
+              <!-- Sprint Timeline -->
+              <div style="background: white; border-radius: var(--radius-lg); padding: var(--space-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-md);">
+                  <h3 style="font-size: 16px; font-weight: 600; color: var(--gray-800); display: flex; align-items: center; gap: 8px;">
+                    <span style="font-size: 18px;">📋</span> Sprint Checklist
+                  </h3>
+                  <button onclick="addSprintTask()" style="background: var(--gusto-teal); color: white; border: none; padding: 6px 12px; border-radius: var(--radius-sm); font-size: 12px; cursor: pointer;">+ Add Task</button>
+                </div>
+                
+                <!-- Checklist Items -->
+                <div id="sprintChecklist" style="display: flex; flex-direction: column; gap: 8px;">
+                  
+                  <!-- COMPLETED SECTION -->
+                  <div style="font-size: 11px; color: var(--success); text-transform: uppercase; font-weight: 600; margin-top: 8px; margin-bottom: 4px;">✅ Completed</div>
+                  
+                  <label class="task-item completed" style="display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; background: var(--success-bg); border-radius: var(--radius-sm); cursor: pointer; border-left: 3px solid var(--success);">
+                    <input type="checkbox" checked onchange="updateSprintProgress()" style="margin-top: 2px; accent-color: var(--success);">
+                    <div style="flex: 1;">
+                      <div style="font-size: 13px; color: var(--gray-600); text-decoration: line-through;">Control Panel View</div>
+                      <div style="font-size: 10px; color: var(--gray-400);">Pillar overview, settings, quick stats</div>
+                    </div>
+                    <span style="font-size: 10px; color: var(--success);">Dec 8</span>
+                  </label>
+                  
+                  <label class="task-item completed" style="display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; background: var(--success-bg); border-radius: var(--radius-sm); cursor: pointer; border-left: 3px solid var(--success);">
+                    <input type="checkbox" checked onchange="updateSprintProgress()" style="margin-top: 2px; accent-color: var(--success);">
+                    <div style="flex: 1;">
+                      <div style="font-size: 13px; color: var(--gray-600); text-decoration: line-through;">All-In View</div>
+                      <div style="font-size: 10px; color: var(--gray-400);">Combined pillar data with expandable sections</div>
+                    </div>
+                    <span style="font-size: 10px; color: var(--success);">Dec 9</span>
+                  </label>
+                  
+                  <label class="task-item completed" style="display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; background: var(--success-bg); border-radius: var(--radius-sm); cursor: pointer; border-left: 3px solid var(--success);">
+                    <input type="checkbox" checked onchange="updateSprintProgress()" style="margin-top: 2px; accent-color: var(--success);">
+                    <div style="flex: 1;">
+                      <div style="font-size: 13px; color: var(--gray-600); text-decoration: line-through;">Plan Comparison View</div>
+                      <div style="font-size: 10px; color: var(--gray-400);">Compare plans with key insights</div>
+                    </div>
+                    <span style="font-size: 10px; color: var(--success);">Dec 10</span>
+                  </label>
+                  
+                  <label class="task-item completed" style="display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; background: var(--success-bg); border-radius: var(--radius-sm); cursor: pointer; border-left: 3px solid var(--success);">
+                    <input type="checkbox" checked onchange="updateSprintProgress()" style="margin-top: 2px; accent-color: var(--success);">
+                    <div style="flex: 1;">
+                      <div style="font-size: 13px; color: var(--gray-600); text-decoration: line-through;">Dashboard View</div>
+                      <div style="font-size: 10px; color: var(--gray-400);">Charts, trends, site-level breakdowns</div>
+                    </div>
+                    <span style="font-size: 10px; color: var(--success);">Dec 10</span>
+                  </label>
+                  
+                  <label class="task-item completed" style="display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; background: var(--success-bg); border-radius: var(--radius-sm); cursor: pointer; border-left: 3px solid var(--success);">
+                    <input type="checkbox" checked onchange="updateSprintProgress()" style="margin-top: 2px; accent-color: var(--success);">
+                    <div style="flex: 1;">
+                      <div style="font-size: 13px; color: var(--gray-600); text-decoration: line-through;">Pillar View Template</div>
+                      <div style="font-size: 10px; color: var(--gray-400);">Channel staffing, overlays, insights</div>
+                    </div>
+                    <span style="font-size: 10px; color: var(--success);">Dec 9</span>
+                  </label>
+                  
+                  <label class="task-item completed" style="display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; background: var(--success-bg); border-radius: var(--radius-sm); cursor: pointer; border-left: 3px solid var(--success);">
+                    <input type="checkbox" checked onchange="updateSprintProgress()" style="margin-top: 2px; accent-color: var(--success);">
+                    <div style="flex: 1;">
+                      <div style="font-size: 13px; color: var(--gray-600); text-decoration: line-through;">Overlay Tracker</div>
+                      <div style="font-size: 10px; color: var(--gray-400);">Track quantified & unquantified overlays</div>
+                    </div>
+                    <span style="font-size: 10px; color: var(--success);">Dec 10</span>
+                  </label>
+                  
+                  <label class="task-item completed" style="display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; background: var(--success-bg); border-radius: var(--radius-sm); cursor: pointer; border-left: 3px solid var(--success);">
+                    <input type="checkbox" checked onchange="updateSprintProgress()" style="margin-top: 2px; accent-color: var(--success);">
+                    <div style="flex: 1;">
+                      <div style="font-size: 13px; color: var(--gray-600); text-decoration: line-through;">Data Management View</div>
+                      <div style="font-size: 10px; color: var(--gray-400);">Import/export, storage summary</div>
+                    </div>
+                    <span style="font-size: 10px; color: var(--success);">Dec 10</span>
+                  </label>
+                  
+                  <label class="task-item completed" style="display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; background: var(--success-bg); border-radius: var(--radius-sm); cursor: pointer; border-left: 3px solid var(--success);">
+                    <input type="checkbox" checked onchange="updateSprintProgress()" style="margin-top: 2px; accent-color: var(--success);">
+                    <div style="flex: 1;">
+                      <div style="font-size: 13px; color: var(--gray-600); text-decoration: line-through;">GitHub Pages Deployment</div>
+                      <div style="font-size: 10px; color: var(--gray-400);">Shareable prototype URL</div>
+                    </div>
+                    <span style="font-size: 10px; color: var(--success);">Dec 10</span>
+                  </label>
+                  
+                  <label class="task-item completed" style="display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; background: var(--success-bg); border-radius: var(--radius-sm); cursor: pointer; border-left: 3px solid var(--success);">
+                    <input type="checkbox" checked onchange="updateSprintProgress()" style="margin-top: 2px; accent-color: var(--success);">
+                    <div style="flex: 1;">
+                      <div style="font-size: 13px; color: var(--gray-600); text-decoration: line-through;">Google Sheets Data Architecture</div>
+                      <div style="font-size: 10px; color: var(--gray-400);">Plans_Registry, Inputs, Outputs, Manual_Inputs</div>
+                    </div>
+                    <span style="font-size: 10px; color: var(--success);">Dec 10</span>
+                  </label>
+                  
+                  <label class="task-item completed" style="display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; background: var(--success-bg); border-radius: var(--radius-sm); cursor: pointer; border-left: 3px solid var(--success);">
+                    <input type="checkbox" checked onchange="updateSprintProgress()" style="margin-top: 2px; accent-color: var(--success);">
+                    <div style="flex: 1;">
+                      <div style="font-size: 13px; color: var(--gray-600); text-decoration: line-through;">Product Overview Document</div>
+                      <div style="font-size: 10px; color: var(--gray-400);">Scope, purpose, roadmap</div>
+                    </div>
+                    <span style="font-size: 10px; color: var(--success);">Dec 11</span>
+                  </label>
+                  
+                  <label class="task-item completed" style="display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; background: var(--success-bg); border-radius: var(--radius-sm); cursor: pointer; border-left: 3px solid var(--success);">
+                    <input type="checkbox" checked onchange="updateSprintProgress()" style="margin-top: 2px; accent-color: var(--success);">
+                    <div style="flex: 1;">
+                      <div style="font-size: 13px; color: var(--gray-600); text-decoration: line-through;">Responsive Design (basic)</div>
+                      <div style="font-size: 10px; color: var(--gray-400);">Adapts to different screen sizes</div>
+                    </div>
+                    <span style="font-size: 10px; color: var(--success);">Dec 11</span>
+                  </label>
+                  
+                  <!-- IN PROGRESS SECTION -->
+                  <div style="font-size: 11px; color: var(--warning); text-transform: uppercase; font-weight: 600; margin-top: 16px; margin-bottom: 4px;">🔄 In Progress</div>
+                  
+                  <label class="task-item" style="display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; background: var(--warning-bg); border-radius: var(--radius-sm); cursor: pointer; border-left: 3px solid var(--warning);">
+                    <input type="checkbox" onchange="updateSprintProgress()" style="margin-top: 2px; accent-color: var(--warning);">
+                    <div style="flex: 1;">
+                      <div style="font-size: 13px; color: var(--gray-800); font-weight: 500;">Calculations Validation</div>
+                      <div style="font-size: 10px; color: var(--gray-500);">Verify HC formulas match spreadsheet logic</div>
+                    </div>
+                    <span style="font-size: 10px; color: var(--warning);">Dec 15</span>
+                  </label>
+                  
+                  <label class="task-item" style="display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; background: var(--warning-bg); border-radius: var(--radius-sm); cursor: pointer; border-left: 3px solid var(--warning);">
+                    <input type="checkbox" onchange="updateSprintProgress()" style="margin-top: 2px; accent-color: var(--warning);">
+                    <div style="flex: 1;">
+                      <div style="font-size: 13px; color: var(--gray-800); font-weight: 500;">Connect Real Data (1 Pillar)</div>
+                      <div style="font-size: 10px; color: var(--gray-500);">Test with actual baseline & HC data</div>
+                    </div>
+                    <span style="font-size: 10px; color: var(--warning);">Dec 20</span>
+                  </label>
+                  
+                  <!-- UPCOMING SECTION -->
+                  <div style="font-size: 11px; color: var(--gray-500); text-transform: uppercase; font-weight: 600; margin-top: 16px; margin-bottom: 4px;">📅 Upcoming</div>
+                  
+                  <label class="task-item" style="display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; background: var(--gray-50); border-radius: var(--radius-sm); cursor: pointer; border-left: 3px solid var(--gray-300);">
+                    <input type="checkbox" onchange="updateSprintProgress()" style="margin-top: 2px;">
+                    <div style="flex: 1;">
+                      <div style="font-size: 13px; color: var(--gray-700);">Training Documentation</div>
+                      <div style="font-size: 10px; color: var(--gray-500);">Quick start guide for new users</div>
+                    </div>
+                    <span style="font-size: 10px; color: var(--gray-400);">Dec 23</span>
+                  </label>
+                  
+                  <label class="task-item" style="display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; background: var(--gray-50); border-radius: var(--radius-sm); cursor: pointer; border-left: 3px solid var(--gray-300);">
+                    <input type="checkbox" onchange="updateSprintProgress()" style="margin-top: 2px;">
+                    <div style="flex: 1;">
+                      <div style="font-size: 13px; color: var(--gray-700);">Team Setup Guide</div>
+                      <div style="font-size: 10px; color: var(--gray-500);">How new teams onboard to the tool</div>
+                    </div>
+                    <span style="font-size: 10px; color: var(--gray-400);">Dec 27</span>
+                  </label>
+                  
+                  <label class="task-item" style="display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; background: var(--gray-50); border-radius: var(--radius-sm); cursor: pointer; border-left: 3px solid var(--gray-300);">
+                    <input type="checkbox" onchange="updateSprintProgress()" style="margin-top: 2px;">
+                    <div style="flex: 1;">
+                      <div style="font-size: 13px; color: var(--gray-700);">User Acceptance Testing</div>
+                      <div style="font-size: 10px; color: var(--gray-500);">Team testing with real scenarios</div>
+                    </div>
+                    <span style="font-size: 10px; color: var(--gray-400);">Dec 31</span>
+                  </label>
+                  
+                </div>
+              </div>
+              
+              <!-- Calculations Validation -->
+              <div style="background: white; border-radius: var(--radius-lg); padding: var(--space-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200);">
+                <h3 style="font-size: 16px; font-weight: 600; color: var(--gray-800); margin-bottom: var(--space-md); display: flex; align-items: center; gap: 8px;">
+                  <span style="font-size: 18px;">🧮</span> Calculations Validation
+                </h3>
+                <p style="font-size: 12px; color: var(--gray-500); margin-bottom: var(--space-md);">Verify tool calculations match your spreadsheet formulas</p>
+                
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                  <label style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: var(--gray-50); border-radius: var(--radius-sm); cursor: pointer;">
+                    <input type="checkbox" style="accent-color: var(--success);">
+                    <div style="flex: 1;">
+                      <div style="font-size: 13px; color: var(--gray-700);">Base HC Need = Volume / (AHT × Occupancy × Concurrency × Productive Hours)</div>
+                    </div>
+                    <span style="font-size: 10px; color: var(--gray-400);">Core formula</span>
+                  </label>
+                  
+                  <label style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: var(--gray-50); border-radius: var(--radius-sm); cursor: pointer;">
+                    <input type="checkbox" style="accent-color: var(--success);">
+                    <div style="flex: 1;">
+                      <div style="font-size: 13px; color: var(--gray-700);">SL FTE Need = Base HC × SL Uplift Factor</div>
+                    </div>
+                    <span style="font-size: 10px; color: var(--gray-400);">SL adjustment</span>
+                  </label>
+                  
+                  <label style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: var(--gray-50); border-radius: var(--radius-sm); cursor: pointer;">
+                    <input type="checkbox" style="accent-color: var(--success);">
+                    <div style="flex: 1;">
+                      <div style="font-size: 13px; color: var(--gray-700);">Shrink Adjusted HC = SL FTE / (1 - Shrink %)</div>
+                    </div>
+                    <span style="font-size: 10px; color: var(--gray-400);">Shrink factor</span>
+                  </label>
+                  
+                  <label style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: var(--gray-50); border-radius: var(--radius-sm); cursor: pointer;">
+                    <input type="checkbox" style="accent-color: var(--success);">
+                    <div style="flex: 1;">
+                      <div style="font-size: 13px; color: var(--gray-700);">Active HC Need = Shrink Adjusted × (1 + Overlay Impact %)</div>
+                    </div>
+                    <span style="font-size: 10px; color: var(--gray-400);">Overlay application</span>
+                  </label>
+                  
+                  <label style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: var(--gray-50); border-radius: var(--radius-sm); cursor: pointer;">
+                    <input type="checkbox" style="accent-color: var(--success);">
+                    <div style="flex: 1;">
+                      <div style="font-size: 13px; color: var(--gray-700);">Productive Hours = Working Days × Daily Hours × (1 - Shrink)</div>
+                    </div>
+                    <span style="font-size: 10px; color: var(--gray-400);">Hours calc</span>
+                  </label>
+                  
+                  <label style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: var(--gray-50); border-radius: var(--radius-sm); cursor: pointer;">
+                    <input type="checkbox" style="accent-color: var(--success);">
+                    <div style="flex: 1;">
+                      <div style="font-size: 13px; color: var(--gray-700);">Net Staffing Gap = Actual HC - Active HC Need</div>
+                    </div>
+                    <span style="font-size: 10px; color: var(--gray-400);">Gap calculation</span>
+                  </label>
+                  
+                  <label style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: var(--gray-50); border-radius: var(--radius-sm); cursor: pointer;">
+                    <input type="checkbox" style="accent-color: var(--success);">
+                    <div style="flex: 1;">
+                      <div style="font-size: 13px; color: var(--gray-700);">OT Coverage = Planned OT Hours / Standard Hours per FTE</div>
+                    </div>
+                    <span style="font-size: 10px; color: var(--gray-400);">OT conversion</span>
+                  </label>
+                  
+                  <label style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: var(--gray-50); border-radius: var(--radius-sm); cursor: pointer;">
+                    <input type="checkbox" style="accent-color: var(--success);">
+                    <div style="flex: 1;">
+                      <div style="font-size: 13px; color: var(--gray-700);">Net Gap with OT = Net Staffing Gap + OT Coverage FTE</div>
+                    </div>
+                    <span style="font-size: 10px; color: var(--gray-400);">Final position</span>
+                  </label>
+                </div>
+              </div>
+              
+            </div>
+            
+            <!-- RIGHT: Notes & Decisions -->
+            <div style="display: flex; flex-direction: column; gap: var(--space-lg);">
+              
+              <!-- Quick Notes -->
+              <div style="background: white; border-radius: var(--radius-lg); padding: var(--space-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-md);">
+                  <h3 style="font-size: 16px; font-weight: 600; color: var(--gray-800); display: flex; align-items: center; gap: 8px;">
+                    <span style="font-size: 18px;">📝</span> Notes & Decisions
+                  </h3>
+                  <button onclick="saveProjectNotes()" style="background: var(--gusto-teal); color: white; border: none; padding: 6px 12px; border-radius: var(--radius-sm); font-size: 12px; cursor: pointer;">💾 Save</button>
+                </div>
+                
+                <textarea id="projectNotes" style="width: 100%; min-height: 300px; padding: 12px; border: 1px solid var(--gray-200); border-radius: var(--radius-sm); font-family: var(--font-primary); font-size: 13px; line-height: 1.6; resize: vertical;" placeholder="Document decisions, feedback, and ideas here...
+
+Example entries:
+---
+Dec 11: Presentation went well! Stakeholders want full WFM suite but understand this is Phase 1.
+
+Feedback received:
+• Want forecasting capabilities (Phase 2+)
+• Want interval-level IDPs (Phase 2+)  
+• Love the visual design
+• Concerned about multi-team scalability
+
+Next steps:
+• Validate calculations with real data
+• Test with one pillar first
+• Create training documentation
+---"></textarea>
+                <div style="font-size: 11px; color: var(--gray-400); margin-top: 8px;">💡 Notes are saved to browser localStorage</div>
+              </div>
+              
+              <!-- Key Decisions -->
+              <div style="background: white; border-radius: var(--radius-lg); padding: var(--space-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200);">
+                <h3 style="font-size: 16px; font-weight: 600; color: var(--gray-800); margin-bottom: var(--space-md); display: flex; align-items: center; gap: 8px;">
+                  <span style="font-size: 18px;">🎯</span> Key Decisions Log
+                </h3>
+                
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                  <div style="padding: 12px; background: var(--gusto-teal-light); border-radius: var(--radius-sm); border-left: 3px solid var(--gusto-teal);">
+                    <div style="font-size: 12px; font-weight: 600; color: var(--gusto-teal);">Architecture Decision</div>
+                    <div style="font-size: 13px; color: var(--gray-700); margin-top: 4px;">Google Sheets as database for Phase 1, with option for server-side DB later</div>
+                    <div style="font-size: 10px; color: var(--gray-500); margin-top: 4px;">Dec 10, 2025</div>
+                  </div>
+                  
+                  <div style="padding: 12px; background: var(--gusto-teal-light); border-radius: var(--radius-sm); border-left: 3px solid var(--gusto-teal);">
+                    <div style="font-size: 12px; font-weight: 600; color: var(--gusto-teal);">Versioning Approach</div>
+                    <div style="font-size: 13px; color: var(--gray-700); margin-top: 4px;">Full copy for scenarios (not delta-only) to maintain complete data per scenario</div>
+                    <div style="font-size: 10px; color: var(--gray-500); margin-top: 4px;">Dec 10, 2025</div>
+                  </div>
+                  
+                  <div style="padding: 12px; background: var(--gusto-teal-light); border-radius: var(--radius-sm); border-left: 3px solid var(--gusto-teal);">
+                    <div style="font-size: 12px; font-weight: 600; color: var(--gusto-teal);">Scope Definition</div>
+                    <div style="font-size: 13px; color: var(--gray-700); margin-top: 4px;">Phase 1 = Capacity Planning core only. Forecasting, IDPs, full WFM = future phases</div>
+                    <div style="font-size: 10px; color: var(--gray-500); margin-top: 4px;">Dec 11, 2025</div>
+                  </div>
+                  
+                  <div style="padding: 12px; background: var(--gusto-teal-light); border-radius: var(--radius-sm); border-left: 3px solid var(--gusto-teal);">
+                    <div style="font-size: 12px; font-weight: 600; color: var(--gusto-teal);">Export Contingency</div>
+                    <div style="font-size: 13px; color: var(--gray-700); margin-top: 4px;">Export to Pillar Template format so users can work in Sheets if tool is down</div>
+                    <div style="font-size: 10px; color: var(--gray-500); margin-top: 4px;">Dec 10, 2025</div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Roadmap Quick View -->
+              <div style="background: white; border-radius: var(--radius-lg); padding: var(--space-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200);">
+                <h3 style="font-size: 16px; font-weight: 600; color: var(--gray-800); margin-bottom: var(--space-md); display: flex; align-items: center; gap: 8px;">
+                  <span style="font-size: 18px;">🗺️</span> Roadmap Overview
+                </h3>
+                
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="width: 60px; font-size: 11px; font-weight: 600; color: var(--success);">Phase 1</div>
+                    <div style="flex: 1; height: 20px; background: var(--success); border-radius: 4px; display: flex; align-items: center; padding: 0 8px;">
+                      <span style="font-size: 10px; color: white;">Prototype & Validation</span>
+                    </div>
+                    <span style="font-size: 10px; color: var(--gray-500);">Dec '25</span>
+                  </div>
+                  
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="width: 60px; font-size: 11px; font-weight: 600; color: var(--info);">Phase 2</div>
+                    <div style="flex: 1; height: 20px; background: var(--info); border-radius: 4px; display: flex; align-items: center; padding: 0 8px;">
+                      <span style="font-size: 10px; color: white;">Live Data + Calculations</span>
+                    </div>
+                    <span style="font-size: 10px; color: var(--gray-500);">Q1 '26</span>
+                  </div>
+                  
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="width: 60px; font-size: 11px; font-weight: 600; color: var(--gusto-coral);">Phase 3</div>
+                    <div style="flex: 1; height: 20px; background: var(--gusto-coral); border-radius: 4px; display: flex; align-items: center; padding: 0 8px;">
+                      <span style="font-size: 10px; color: white;">Multi-Team + Advanced</span>
+                    </div>
+                    <span style="font-size: 10px; color: var(--gray-500);">Q2 '26</span>
+                  </div>
+                  
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="width: 60px; font-size: 11px; font-weight: 600; color: var(--gray-400);">Future</div>
+                    <div style="flex: 1; height: 20px; background: var(--gray-300); border-radius: 4px; display: flex; align-items: center; padding: 0 8px;">
+                      <span style="font-size: 10px; color: var(--gray-600);">Full WFM Suite</span>
+                    </div>
+                    <span style="font-size: 10px; color: var(--gray-500);">TBD</span>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+          
+        </div><!-- END view-projecthub -->
+        
+        <!-- ═══════════════════════════════════════════════════════════════════════
+             DESIGN SYSTEM VIEW - Colors, Typography, Components Reference
+             ═══════════════════════════════════════════════════════════════════════ -->
+        <div id="view-designsystem" class="view-container" style="display: none;">
+          
+          <!-- Page Header -->
+          <div style="margin-bottom: var(--space-lg);">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+              <h1 style="font-size: 24px; font-weight: 600; color: var(--gray-800);">🎨 Design System</h1>
+              <span style="background: var(--gusto-teal-light); color: var(--gusto-teal); padding: 4px 12px; border-radius: 12px; font-size: 11px; font-weight: 600;">Reference Guide</span>
+            </div>
+            <p style="color: var(--gray-500); font-size: 14px;">Visual standards for consistent design across the Capacity Planning Tool</p>
+          </div>
+          
+          <!-- Color Palette -->
+          <div style="background: white; border-radius: var(--radius-lg); padding: var(--space-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); margin-bottom: var(--space-lg);">
+            <h3 style="font-size: 18px; font-weight: 600; color: var(--gray-800); margin-bottom: var(--space-md);">🎨 Color Palette</h3>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: var(--space-md);">
+              <!-- Brand Colors -->
+              <div>
+                <div style="font-size: 12px; font-weight: 600; color: var(--gray-600); margin-bottom: 8px;">Brand Colors</div>
+                <div style="display: flex; flex-direction: column; gap: 6px;">
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="width: 40px; height: 40px; background: var(--gusto-teal); border-radius: var(--radius-sm);"></div>
+                    <div>
+                      <div style="font-size: 12px; font-weight: 500;">Gusto Teal</div>
+                      <div style="font-size: 10px; color: var(--gray-500); font-family: var(--font-mono);">#0A8080</div>
+                    </div>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="width: 40px; height: 40px; background: var(--gusto-teal-light); border-radius: var(--radius-sm); border: 1px solid var(--gray-200);"></div>
+                    <div>
+                      <div style="font-size: 12px; font-weight: 500;">Teal Light</div>
+                      <div style="font-size: 10px; color: var(--gray-500); font-family: var(--font-mono);">#E6F4F4</div>
+                    </div>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="width: 40px; height: 40px; background: var(--gusto-coral); border-radius: var(--radius-sm);"></div>
+                    <div>
+                      <div style="font-size: 12px; font-weight: 500;">Gusto Coral</div>
+                      <div style="font-size: 10px; color: var(--gray-500); font-family: var(--font-mono);">#F45D48</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Status Colors -->
+              <div>
+                <div style="font-size: 12px; font-weight: 600; color: var(--gray-600); margin-bottom: 8px;">Status Colors</div>
+                <div style="display: flex; flex-direction: column; gap: 6px;">
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="width: 40px; height: 40px; background: var(--success); border-radius: var(--radius-sm);"></div>
+                    <div>
+                      <div style="font-size: 12px; font-weight: 500;">Success</div>
+                      <div style="font-size: 10px; color: var(--gray-500); font-family: var(--font-mono);">#10B981</div>
+                    </div>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="width: 40px; height: 40px; background: var(--warning); border-radius: var(--radius-sm);"></div>
+                    <div>
+                      <div style="font-size: 12px; font-weight: 500;">Warning</div>
+                      <div style="font-size: 10px; color: var(--gray-500); font-family: var(--font-mono);">#F59E0B</div>
+                    </div>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="width: 40px; height: 40px; background: var(--error); border-radius: var(--radius-sm);"></div>
+                    <div>
+                      <div style="font-size: 12px; font-weight: 500;">Error</div>
+                      <div style="font-size: 10px; color: var(--gray-500); font-family: var(--font-mono);">#EF4444</div>
+                    </div>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="width: 40px; height: 40px; background: var(--info); border-radius: var(--radius-sm);"></div>
+                    <div>
+                      <div style="font-size: 12px; font-weight: 500;">Info</div>
+                      <div style="font-size: 10px; color: var(--gray-500); font-family: var(--font-mono);">#3B82F6</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Neutral Colors -->
+              <div>
+                <div style="font-size: 12px; font-weight: 600; color: var(--gray-600); margin-bottom: 8px;">Neutrals</div>
+                <div style="display: flex; flex-direction: column; gap: 6px;">
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="width: 40px; height: 40px; background: var(--gray-800); border-radius: var(--radius-sm);"></div>
+                    <div>
+                      <div style="font-size: 12px; font-weight: 500;">Gray 800</div>
+                      <div style="font-size: 10px; color: var(--gray-500); font-family: var(--font-mono);">#1F2937</div>
+                    </div>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="width: 40px; height: 40px; background: var(--gray-500); border-radius: var(--radius-sm);"></div>
+                    <div>
+                      <div style="font-size: 12px; font-weight: 500;">Gray 500</div>
+                      <div style="font-size: 10px; color: var(--gray-500); font-family: var(--font-mono);">#6B7280</div>
+                    </div>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="width: 40px; height: 40px; background: var(--gray-200); border-radius: var(--radius-sm); border: 1px solid var(--gray-300);"></div>
+                    <div>
+                      <div style="font-size: 12px; font-weight: 500;">Gray 200</div>
+                      <div style="font-size: 10px; color: var(--gray-500); font-family: var(--font-mono);">#E5E7EB</div>
+                    </div>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="width: 40px; height: 40px; background: var(--gray-50); border-radius: var(--radius-sm); border: 1px solid var(--gray-200);"></div>
+                    <div>
+                      <div style="font-size: 12px; font-weight: 500;">Gray 50</div>
+                      <div style="font-size: 10px; color: var(--gray-500); font-family: var(--font-mono);">#F9FAFB</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Staffing Colors -->
+              <div>
+                <div style="font-size: 12px; font-weight: 600; color: var(--gray-600); margin-bottom: 8px;">Staffing Indicators</div>
+                <div style="display: flex; flex-direction: column; gap: 6px;">
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="width: 40px; height: 40px; background: var(--overstaffed); border-radius: var(--radius-sm);"></div>
+                    <div>
+                      <div style="font-size: 12px; font-weight: 500;">Overstaffed</div>
+                      <div style="font-size: 10px; color: var(--gray-500);">Positive gap (green)</div>
+                    </div>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="width: 40px; height: 40px; background: var(--understaffed); border-radius: var(--radius-sm);"></div>
+                    <div>
+                      <div style="font-size: 12px; font-weight: 500;">Understaffed</div>
+                      <div style="font-size: 10px; color: var(--gray-500);">Negative gap (red)</div>
+                    </div>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="width: 40px; height: 40px; background: var(--editable); border-radius: var(--radius-sm); border: 1px solid var(--warning);"></div>
+                    <div>
+                      <div style="font-size: 12px; font-weight: 500;">Editable Cell</div>
+                      <div style="font-size: 10px; color: var(--gray-500);">User input fields</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Typography -->
+          <div style="background: white; border-radius: var(--radius-lg); padding: var(--space-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); margin-bottom: var(--space-lg);">
+            <h3 style="font-size: 18px; font-weight: 600; color: var(--gray-800); margin-bottom: var(--space-md);">📝 Typography</h3>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg);">
+              <div>
+                <div style="font-size: 12px; font-weight: 600; color: var(--gray-600); margin-bottom: 12px;">Font Family</div>
+                <div style="font-family: var(--font-primary); font-size: 24px; margin-bottom: 8px;">DM Sans / Inter</div>
+                <div style="font-size: 12px; color: var(--gray-500);">Primary font for all UI elements</div>
+                <code style="display: block; margin-top: 8px; padding: 8px; background: var(--gray-50); border-radius: var(--radius-sm); font-size: 11px;">font-family: var(--font-primary);</code>
+              </div>
+              
+              <div>
+                <div style="font-size: 12px; font-weight: 600; color: var(--gray-600); margin-bottom: 12px;">Type Scale</div>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                  <div><span style="font-size: 24px; font-weight: 600;">Page Title</span> <span style="font-size: 11px; color: var(--gray-500);">24px / 600</span></div>
+                  <div><span style="font-size: 18px; font-weight: 600;">Section Header</span> <span style="font-size: 11px; color: var(--gray-500);">18px / 600</span></div>
+                  <div><span style="font-size: 16px; font-weight: 600;">Card Title</span> <span style="font-size: 11px; color: var(--gray-500);">16px / 600</span></div>
+                  <div><span style="font-size: 14px;">Body Text</span> <span style="font-size: 11px; color: var(--gray-500);">14px / 400</span></div>
+                  <div><span style="font-size: 12px;">Small Text</span> <span style="font-size: 11px; color: var(--gray-500);">12px / 400</span></div>
+                  <div><span style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em;">Label</span> <span style="font-size: 11px; color: var(--gray-500);">10px / uppercase</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Components -->
+          <div style="background: white; border-radius: var(--radius-lg); padding: var(--space-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); margin-bottom: var(--space-lg);">
+            <h3 style="font-size: 18px; font-weight: 600; color: var(--gray-800); margin-bottom: var(--space-md);">🧩 Components</h3>
+            
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-lg);">
+              
+              <!-- Buttons -->
+              <div>
+                <div style="font-size: 12px; font-weight: 600; color: var(--gray-600); margin-bottom: 12px;">Buttons</div>
+                <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;">
+                  <button class="btn btn-primary">Primary</button>
+                  <button class="btn btn-secondary">Secondary</button>
+                  <button style="background: none; border: none; color: var(--gusto-teal); font-size: 13px; cursor: pointer;">Text Link</button>
+                </div>
+                <code style="display: block; padding: 8px; background: var(--gray-50); border-radius: var(--radius-sm); font-size: 11px;">class="btn btn-primary"</code>
+              </div>
+              
+              <!-- Cards -->
+              <div>
+                <div style="font-size: 12px; font-weight: 600; color: var(--gray-600); margin-bottom: 12px;">Cards</div>
+                <div style="background: white; border-radius: var(--radius-md); padding: 16px; box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200);">
+                  <div style="font-size: 14px; font-weight: 600; margin-bottom: 4px;">Card Title</div>
+                  <div style="font-size: 12px; color: var(--gray-500);">Card content goes here</div>
+                </div>
+                <code style="display: block; margin-top: 8px; padding: 8px; background: var(--gray-50); border-radius: var(--radius-sm); font-size: 11px;">border-radius: var(--radius-lg); box-shadow: var(--shadow-sm);</code>
+              </div>
+              
+              <!-- Status Badges -->
+              <div>
+                <div style="font-size: 12px; font-weight: 600; color: var(--gray-600); margin-bottom: 12px;">Status Badges</div>
+                <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;">
+                  <span style="background: var(--success-bg); color: var(--success); padding: 4px 12px; border-radius: 12px; font-size: 11px; font-weight: 600;">Active</span>
+                  <span style="background: var(--warning-bg); color: var(--warning); padding: 4px 12px; border-radius: 12px; font-size: 11px; font-weight: 600;">Pending</span>
+                  <span style="background: var(--error-bg); color: var(--error); padding: 4px 12px; border-radius: 12px; font-size: 11px; font-weight: 600;">Error</span>
+                  <span style="background: var(--info-bg); color: var(--info); padding: 4px 12px; border-radius: 12px; font-size: 11px; font-weight: 600;">Info</span>
+                </div>
+              </div>
+              
+              <!-- Table Headers -->
+              <div>
+                <div style="font-size: 12px; font-weight: 600; color: var(--gray-600); margin-bottom: 12px;">Table Header Gradient</div>
+                <div style="background: linear-gradient(180deg, var(--gusto-teal) 0%, var(--gusto-teal-dark) 100%); padding: 12px 16px; border-radius: var(--radius-sm); color: white; font-size: 12px; font-weight: 600;">
+                  Column Header
+                </div>
+                <code style="display: block; margin-top: 8px; padding: 8px; background: var(--gray-50); border-radius: var(--radius-sm); font-size: 11px;">linear-gradient(180deg, var(--gusto-teal) 0%, var(--gusto-teal-dark) 100%)</code>
+              </div>
+              
+            </div>
+          </div>
+          
+          <!-- Spacing & Layout -->
+          <div style="background: white; border-radius: var(--radius-lg); padding: var(--space-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200);">
+            <h3 style="font-size: 18px; font-weight: 600; color: var(--gray-800); margin-bottom: var(--space-md);">📐 Spacing & Layout</h3>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg);">
+              <div>
+                <div style="font-size: 12px; font-weight: 600; color: var(--gray-600); margin-bottom: 12px;">Spacing Scale</div>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="width: 4px; height: 20px; background: var(--gusto-teal);"></div>
+                    <code style="font-size: 11px;">--space-xs: 4px</code>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="width: 8px; height: 20px; background: var(--gusto-teal);"></div>
+                    <code style="font-size: 11px;">--space-sm: 8px</code>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="width: 16px; height: 20px; background: var(--gusto-teal);"></div>
+                    <code style="font-size: 11px;">--space-md: 16px</code>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="width: 24px; height: 20px; background: var(--gusto-teal);"></div>
+                    <code style="font-size: 11px;">--space-lg: 24px</code>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="width: 32px; height: 20px; background: var(--gusto-teal);"></div>
+                    <code style="font-size: 11px;">--space-xl: 32px</code>
+                  </div>
+                </div>
+              </div>
+              
+              <div>
+                <div style="font-size: 12px; font-weight: 600; color: var(--gray-600); margin-bottom: 12px;">Border Radius</div>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="width: 40px; height: 40px; background: var(--gray-200); border-radius: var(--radius-sm);"></div>
+                    <code style="font-size: 11px;">--radius-sm: 6px</code>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="width: 40px; height: 40px; background: var(--gray-200); border-radius: var(--radius-md);"></div>
+                    <code style="font-size: 11px;">--radius-md: 10px</code>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="width: 40px; height: 40px; background: var(--gray-200); border-radius: var(--radius-lg);"></div>
+                    <code style="font-size: 11px;">--radius-lg: 16px</code>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div><!-- END view-designsystem -->
+        
+        <!-- ═══════════════════════════════════════════════════════════════════════
              PUBLISHED PLANS VIEW - Archive of all published plans
              ═══════════════════════════════════════════════════════════════════════ -->
         <div id="view-published" class="view-container" style="display: none;">
@@ -7997,6 +8685,10 @@
         dropdown.style.display = 'none';
         comparisonToggle.style.display = 'none';
         if (scenariosBtn) scenariosBtn.style.display = 'none';
+      } else if (view === 'projecthub' || view === 'designsystem') {
+        dropdown.style.display = 'none';
+        comparisonToggle.style.display = 'none';
+        if (scenariosBtn) scenariosBtn.style.display = 'none';
       }
       
       // Update current view state
@@ -8618,6 +9310,140 @@
       window.open('/Users/bunny.bates/Desktop/Planning Web Tool/PRODUCT_REQUIREMENTS.html', '_blank');
       showToast('🏗️ Opening Architecture Documentation...', 'info');
     }
+    
+    // ═══════════════════════════════════════════════════════════════════════
+    // PROJECT HUB FUNCTIONS - Sprint tracking, notes, localStorage
+    // ═══════════════════════════════════════════════════════════════════════
+    
+    // Load saved notes from localStorage on page load
+    function loadProjectNotes() {
+      const savedNotes = localStorage.getItem('capacityPlanner_projectNotes');
+      const notesTextarea = document.getElementById('projectNotes');
+      if (savedNotes && notesTextarea) {
+        notesTextarea.value = savedNotes;
+      }
+    }
+    
+    // Save notes to localStorage
+    function saveProjectNotes() {
+      const notesTextarea = document.getElementById('projectNotes');
+      if (notesTextarea) {
+        localStorage.setItem('capacityPlanner_projectNotes', notesTextarea.value);
+        showToast('💾 Notes saved to browser storage!', 'success');
+      }
+    }
+    
+    // Update sprint progress based on checked items
+    function updateSprintProgress() {
+      const checklist = document.getElementById('sprintChecklist');
+      if (!checklist) return;
+      
+      const allCheckboxes = checklist.querySelectorAll('input[type="checkbox"]');
+      const checkedBoxes = checklist.querySelectorAll('input[type="checkbox"]:checked');
+      
+      const total = allCheckboxes.length;
+      const completed = checkedBoxes.length;
+      const percentage = Math.round((completed / total) * 100);
+      
+      // Update progress display
+      const progressEl = document.getElementById('sprintProgress');
+      const tasksEl = document.getElementById('tasksComplete');
+      
+      if (progressEl) {
+        progressEl.textContent = percentage + '%';
+        progressEl.parentElement.querySelector('div > div').style.width = percentage + '%';
+      }
+      if (tasksEl) {
+        tasksEl.textContent = completed + '/' + total;
+      }
+      
+      // Save checkbox states to localStorage
+      const checkboxStates = Array.from(allCheckboxes).map((cb, idx) => ({
+        index: idx,
+        checked: cb.checked
+      }));
+      localStorage.setItem('capacityPlanner_sprintChecklist', JSON.stringify(checkboxStates));
+    }
+    
+    // Load saved checkbox states
+    function loadSprintProgress() {
+      const saved = localStorage.getItem('capacityPlanner_sprintChecklist');
+      if (!saved) return;
+      
+      const checklist = document.getElementById('sprintChecklist');
+      if (!checklist) return;
+      
+      const checkboxStates = JSON.parse(saved);
+      const allCheckboxes = checklist.querySelectorAll('input[type="checkbox"]');
+      
+      checkboxStates.forEach(state => {
+        if (allCheckboxes[state.index]) {
+          allCheckboxes[state.index].checked = state.checked;
+        }
+      });
+      
+      // Update display
+      updateSprintProgress();
+    }
+    
+    // Add new sprint task
+    function addSprintTask() {
+      const taskName = prompt('Enter task name:');
+      if (!taskName) return;
+      
+      const taskDesc = prompt('Enter task description (optional):') || '';
+      const targetDate = prompt('Target date (e.g., Dec 20):') || 'TBD';
+      
+      const checklist = document.getElementById('sprintChecklist');
+      if (!checklist) return;
+      
+      // Find the upcoming section
+      const upcomingLabel = Array.from(checklist.querySelectorAll('div')).find(d => d.textContent.includes('Upcoming'));
+      
+      const newTask = document.createElement('label');
+      newTask.className = 'task-item';
+      newTask.style.cssText = 'display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; background: var(--gray-50); border-radius: var(--radius-sm); cursor: pointer; border-left: 3px solid var(--gray-300);';
+      newTask.innerHTML = '<input type="checkbox" onchange="updateSprintProgress()" style="margin-top: 2px;">' +
+        '<div style="flex: 1;">' +
+          '<div style="font-size: 13px; color: var(--gray-700);">' + taskName + '</div>' +
+          '<div style="font-size: 10px; color: var(--gray-500);">' + taskDesc + '</div>' +
+        '</div>' +
+        '<span style="font-size: 10px; color: var(--gray-400);">' + targetDate + '</span>';
+      
+      if (upcomingLabel) {
+        upcomingLabel.after(newTask);
+      } else {
+        checklist.appendChild(newTask);
+      }
+      
+      updateSprintProgress();
+      showToast('✅ Task added!', 'success');
+    }
+    
+    // Calculate days remaining
+    function updateDaysRemaining() {
+      const targetDate = new Date('2025-12-31');
+      const today = new Date();
+      const diffTime = targetDate - today;
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      
+      const daysEl = document.getElementById('daysLeft');
+      if (daysEl) {
+        daysEl.textContent = diffDays > 0 ? diffDays : '0';
+        if (diffDays <= 7) {
+          daysEl.style.color = 'var(--error)';
+        } else if (diffDays <= 14) {
+          daysEl.style.color = 'var(--warning)';
+        }
+      }
+    }
+    
+    // Initialize Project Hub on load
+    document.addEventListener('DOMContentLoaded', function() {
+      loadProjectNotes();
+      loadSprintProgress();
+      updateDaysRemaining();
+    });
     
     function openArchiveManager() {
       showToast('🗄️ Archive Manager - Coming soon!', 'info');
