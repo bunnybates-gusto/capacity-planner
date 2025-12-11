@@ -2363,6 +2363,25 @@
       </div>
       
       <div class="nav-content">
+        <!-- PROJECT SECTION - First for easy access -->
+        <div class="nav-section">
+          <div class="section-label">Project</div>
+          <div class="nav-items">
+            <div class="nav-item active" onclick="loadView('projecthub')" id="nav-projecthub">
+              <span class="nav-icon">🚀</span>
+              <span class="nav-text">Project Hub</span>
+            </div>
+            <div class="nav-item" onclick="window.open('ProductOverview.html', '_blank')" id="nav-overview">
+              <span class="nav-icon">📄</span>
+              <span class="nav-text">Product Overview</span>
+            </div>
+            <div class="nav-item" onclick="loadView('designsystem')" id="nav-designsystem">
+              <span class="nav-icon">🎨</span>
+              <span class="nav-text">Design System</span>
+            </div>
+          </div>
+        </div>
+        
         <div class="nav-section">
           <div class="section-label">Views</div>
           <div class="nav-items">
@@ -2433,20 +2452,6 @@
             <div class="nav-item" onclick="loadView('datamanagement')" id="nav-datamanagement">
               <span class="nav-icon">🗄️</span>
               <span class="nav-text">Data Management</span>
-            </div>
-          </div>
-        </div>
-        
-        <div class="nav-section">
-          <div class="section-label">Project</div>
-          <div class="nav-items">
-            <div class="nav-item" onclick="loadView('projecthub')" id="nav-projecthub">
-              <span class="nav-icon">🚀</span>
-              <span class="nav-text">Project Hub</span>
-            </div>
-            <div class="nav-item" onclick="loadView('designsystem')" id="nav-designsystem">
-              <span class="nav-icon">🎨</span>
-              <span class="nav-text">Design System</span>
             </div>
           </div>
         </div>
@@ -2731,26 +2736,26 @@
             <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-md); margin-bottom: var(--space-lg);">
               <div style="background: white; border-radius: var(--radius-lg); padding: 16px 20px; border: 1px solid var(--gray-200); box-shadow: var(--shadow-sm); text-align: center;">
                 <div style="width: 40px; height: 40px; background: var(--gusto-coral-light); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; margin: 0 auto 8px auto;">✏️</div>
-                <div style="font-size: 11px; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.5px;">Active Editing</div>
-                <div style="font-size: 28px; font-weight: 700; color: var(--gusto-coral);">2</div>
+                    <div style="font-size: 11px; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.5px;">Active Editing</div>
+                    <div style="font-size: 28px; font-weight: 700; color: var(--gusto-coral);">2</div>
                 <div style="font-size: 11px; color: var(--gray-500); margin-top: 4px;">Benefits, PAC in progress</div>
               </div>
               <div style="background: white; border-radius: var(--radius-lg); padding: 16px 20px; border: 1px solid var(--gray-200); box-shadow: var(--shadow-sm); text-align: center;">
                 <div style="width: 40px; height: 40px; background: var(--gusto-teal-light); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; margin: 0 auto 8px auto;">📊</div>
-                <div style="font-size: 11px; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.5px;">Total Pillars</div>
-                <div style="font-size: 28px; font-weight: 700; color: var(--gusto-teal);">6</div>
+                    <div style="font-size: 11px; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.5px;">Total Pillars</div>
+                    <div style="font-size: 28px; font-weight: 700; color: var(--gusto-teal);">6</div>
                 <div style="font-size: 11px; color: var(--gray-500); margin-top: 4px;">18 channels total</div>
               </div>
               <div style="background: white; border-radius: var(--radius-lg); padding: 16px 20px; border: 1px solid var(--gray-200); box-shadow: var(--shadow-sm); text-align: center;">
                 <div style="width: 40px; height: 40px; background: var(--warning-bg); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; margin: 0 auto 8px auto;">⚠️</div>
-                <div style="font-size: 11px; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.5px;">Unsaved Changes</div>
-                <div style="font-size: 28px; font-weight: 700; color: var(--warning);">5</div>
+                    <div style="font-size: 11px; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.5px;">Unsaved Changes</div>
+                    <div style="font-size: 28px; font-weight: 700; color: var(--warning);">5</div>
                 <div style="font-size: 11px; color: var(--gray-500); margin-top: 4px;">Across 2 pillars</div>
               </div>
               <div style="background: white; border-radius: var(--radius-lg); padding: 16px 20px; border: 1px solid var(--gray-200); box-shadow: var(--shadow-sm); text-align: center;">
                 <div style="width: 40px; height: 40px; background: var(--success-bg); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; margin: 0 auto 8px auto;">👥</div>
-                <div style="font-size: 11px; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.5px;">Active Users</div>
-                <div style="font-size: 28px; font-weight: 700; color: var(--success);">2</div>
+                    <div style="font-size: 11px; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.5px;">Active Users</div>
+                    <div style="font-size: 28px; font-weight: 700; color: var(--success);">2</div>
                 <div style="font-size: 11px; color: var(--gray-500); margin-top: 4px;">Online now</div>
               </div>
             </div>
@@ -3145,14 +3150,14 @@
                 <div style="margin-left: auto; display: flex; gap: 4px;">
                   <button class="table-action-btn" data-tooltip="Pop out" onclick="popOutAllInInsights()" style="font-size: 10px; padding: 4px;">⤢</button>
                   <button class="table-action-btn" data-tooltip="Save" style="font-size: 10px; padding: 4px;">💾</button>
-                </div>
               </div>
+                    </div>
               
               <div style="flex: 1; display: flex; flex-direction: column; gap: 6px; overflow-y: auto;" id="allInInsights">
                 <div style="display: flex; align-items: flex-start; gap: 6px; background: white; padding: 8px 10px; border-radius: 6px; font-size: 11px;">
                   <span>📞</span>
                   <span style="color: var(--gray-700); line-height: 1.4;" contenteditable="true"><strong>Phone</strong> understaffed by 12 HC in Dec-25 peak.</span>
-                </div>
+                  </div>
                 <div style="display: flex; align-items: flex-start; gap: 6px; background: white; padding: 8px 10px; border-radius: 6px; font-size: 11px;">
                   <span>💬</span>
                   <span style="color: var(--gray-700); line-height: 1.4;" contenteditable="true"><strong>Chat</strong> balanced — slight surplus expected Q2.</span>
@@ -3160,12 +3165,12 @@
                 <div style="display: flex; align-items: flex-start; gap: 6px; background: white; padding: 8px 10px; border-radius: 6px; font-size: 11px;">
                   <span>📧</span>
                   <span style="color: var(--gray-700); line-height: 1.4;" contenteditable="true"><strong>Email</strong> gap narrowing due to efficiency gains.</span>
-                </div>
+                  </div>
                 <div style="display: flex; align-items: flex-start; gap: 6px; background: white; padding: 8px 10px; border-radius: 6px; font-size: 11px;">
                   <span>💡</span>
                   <span style="color: var(--gray-700); line-height: 1.4;" contenteditable="true"><strong>Rec:</strong> Reallocate 3 FTE from Chat to Phone for Q4.</span>
+                  </div>
                 </div>
-              </div>
               
               <div style="margin-top: 8px; display: flex; gap: 6px;">
                 <button onclick="addAllInInsight()" style="flex: 1; background: none; border: 1px dashed #22C55E; border-radius: 4px; padding: 5px 8px; font-size: 10px; color: #166534; cursor: pointer;">
@@ -3620,7 +3625,7 @@
             </h2>
             <span style="font-size: 12px; color: var(--gray-500);">Organization-wide insights & metrics</span>
             <button class="btn btn-secondary" style="margin-left: auto; font-size: 12px;">📤 Export Report</button>
-          </div>
+                </div>
           
           <!-- Top Section: 3-Column Grid (like other views) -->
           <div class="dashboard-summary-grid" style="display: grid; grid-template-columns: 1fr 1.8fr 1fr; gap: 20px; margin-bottom: 24px; min-height: 220px;">
@@ -3656,29 +3661,29 @@
                 <div>
                   <label style="font-size: 10px; color: var(--gray-500); text-transform: uppercase; margin-bottom: 4px; display: block;">Time Range</label>
                   <select class="form-select" style="width: 100%; font-size: 12px; padding: 8px 10px;">
-                    <option>Last 6 Months</option>
-                    <option>Last 12 Months</option>
-                    <option>YTD</option>
-                    <option selected>Full Timeline (24 mo)</option>
-                  </select>
-                </div>
-              </div>
+                <option>Last 6 Months</option>
+                <option>Last 12 Months</option>
+                <option>YTD</option>
+                <option selected>Full Timeline (24 mo)</option>
+              </select>
             </div>
-            
+              </div>
+          </div>
+          
             <!-- SECTION 2: Quick Stats -->
             <div class="summary-section" style="background: white; border-radius: 12px; padding: 20px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column;">
               <div class="summary-header" style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
                 <span style="font-size: 16px;">📊</span>
                 <span style="font-weight: 600; font-size: 13px; color: var(--gray-700);">Key Metrics</span>
                 <span style="font-size: 10px; color: var(--gray-400); margin-left: auto;">Dec 2024</span>
-              </div>
+                </div>
               
               <div style="flex: 1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; align-content: center;">
                 <div style="background: var(--gusto-teal-light); padding: 16px; border-radius: 10px; text-align: center;">
                   <div style="font-size: 11px; color: var(--gusto-teal-dark); text-transform: uppercase; margin-bottom: 4px;">Total HC</div>
                   <div style="font-size: 28px; font-weight: 700; color: var(--gusto-teal);">342</div>
                   <div style="font-size: 11px; color: var(--success); margin-top: 4px;">↑ 3% MoM</div>
-                </div>
+              </div>
                 <div style="background: var(--gusto-coral-light); padding: 16px; border-radius: 10px; text-align: center;">
                   <div style="font-size: 11px; color: #9A3412; text-transform: uppercase; margin-bottom: 4px;">Gap</div>
                   <div style="font-size: 28px; font-weight: 700; color: var(--gusto-coral);">-26</div>
@@ -3702,13 +3707,13 @@
                 <span style="font-size: 16px;">🔮</span>
                 <span style="font-weight: 600; font-size: 13px; color: #1E40AF;">Trend Insights</span>
                 <span style="font-size: 8px; background: #3B82F6; color: white; padding: 2px 5px; border-radius: 3px;">AUTO</span>
-              </div>
+                </div>
               
               <div style="flex: 1; display: flex; flex-direction: column; gap: 6px; overflow-y: auto;">
                 <div style="display: flex; align-items: flex-start; gap: 6px; background: white; padding: 8px 10px; border-radius: 6px; font-size: 11px;">
                   <span>📈</span>
                   <span style="color: var(--gray-700); line-height: 1.4;"><strong>Volume</strong> trending up 8% over 6 months.</span>
-                </div>
+              </div>
                 <div style="display: flex; align-items: flex-start; gap: 6px; background: white; padding: 8px 10px; border-radius: 6px; font-size: 11px;">
                   <span>⚠️</span>
                   <span style="color: var(--gray-700); line-height: 1.4;"><strong>Gap widening</strong> — Dec-Feb forecasted -30.</span>
@@ -3716,14 +3721,14 @@
                 <div style="display: flex; align-items: flex-start; gap: 6px; background: white; padding: 8px 10px; border-radius: 6px; font-size: 11px;">
                   <span>💡</span>
                   <span style="color: var(--gray-700); line-height: 1.4;"><strong>Phone</strong> driving 65% of gap increase.</span>
-                </div>
               </div>
-              
+            </div>
+            
               <button class="btn btn-secondary" onclick="loadView('comparison')" style="margin-top: 8px; width: 100%; padding: 6px; font-size: 10px;">
                 ⚖️ Compare Plans
               </button>
-            </div>
-          </div>
+                </div>
+              </div>
           
           <!-- Charts Grid - Modernized -->
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;">
@@ -3734,7 +3739,7 @@
                 <div style="display: flex; align-items: center; gap: 10px;">
                   <span style="font-size: 16px;">📈</span>
                   <span style="font-weight: 600; font-size: 13px; color: var(--gray-800);">HC Need vs Actual</span>
-                </div>
+              </div>
                 <div style="display: flex; gap: 12px; font-size: 10px;">
                   <span style="display: flex; align-items: center; gap: 4px; color: var(--gray-600);"><span style="width: 12px; height: 3px; background: var(--gusto-teal); border-radius: 2px;"></span>Need</span>
                   <span style="display: flex; align-items: center; gap: 4px; color: var(--gray-600);"><span style="width: 12px; height: 3px; background: #F59E0B; border-radius: 2px;"></span>Actual</span>
@@ -3750,8 +3755,8 @@
                     <span>300</span>
                     <span>250</span>
                     <span>200</span>
-                  </div>
-                  
+            </div>
+            
                   <!-- Grid lines -->
                   <div style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-between; pointer-events: none;">
                     <div style="border-bottom: 1px solid var(--gray-100);"></div>
@@ -3759,7 +3764,7 @@
                     <div style="border-bottom: 1px solid var(--gray-100);"></div>
                     <div style="border-bottom: 1px solid var(--gray-100);"></div>
                     <div style="border-bottom: 1px solid var(--gray-200);"></div>
-                  </div>
+                </div>
                   
                   <!-- SVG Chart - Smooth curves -->
                   <svg style="width: 100%; height: 100%; position: relative; z-index: 1; overflow: visible;" viewBox="0 0 280 100" preserveAspectRatio="none">
@@ -3822,7 +3827,7 @@
                     <span>Jan</span>
                     <span>Mar</span>
                     <span>Apr</span>
-                  </div>
+              </div>
                 </div>
               </div>
             </div>
@@ -5043,27 +5048,27 @@
               <div style="margin-left: auto; display: flex; gap: 4px;">
                 <button class="table-action-btn" data-tooltip="Pop out" onclick="popOutPillarInsights()" style="font-size: 10px; padding: 4px;">⤢</button>
                 <button class="table-action-btn" data-tooltip="Save" style="font-size: 10px; padding: 4px;">💾</button>
-              </div>
             </div>
+                  </div>
             
             <div style="flex: 1; display: flex; flex-direction: column; gap: 6px; overflow-y: auto;" id="pillarInsights">
               <div style="display: flex; align-items: flex-start; gap: 6px; background: white; padding: 8px 10px; border-radius: 6px; font-size: 11px;">
                 <span>📈</span>
                 <span style="color: var(--gray-700); line-height: 1.4;" contenteditable="true"><strong>Jan-25</strong> peak: 5 additional HC needed for tax season.</span>
-              </div>
+                </div>
               <div style="display: flex; align-items: flex-start; gap: 6px; background: white; padding: 8px 10px; border-radius: 6px; font-size: 11px;">
                 <span>⚠️</span>
                 <span style="color: var(--gray-700); line-height: 1.4;" contenteditable="true"><strong>AHT</strong> trending up 3% — monitor training effectiveness.</span>
-              </div>
+                  </div>
               <div style="display: flex; align-items: flex-start; gap: 6px; background: white; padding: 8px 10px; border-radius: 6px; font-size: 11px;">
                 <span>📞</span>
                 <span style="color: var(--gray-700); line-height: 1.4;" contenteditable="true"><strong>Phone</strong> SL at risk in Dec — consider OT approval.</span>
-              </div>
+                </div>
               <div style="display: flex; align-items: flex-start; gap: 6px; background: white; padding: 8px 10px; border-radius: 6px; font-size: 11px;">
                 <span>💡</span>
                 <span style="color: var(--gray-700); line-height: 1.4;" contenteditable="true"><strong>Rec:</strong> Start hiring process by Oct for Dec readiness.</span>
               </div>
-            </div>
+                    </div>
             
             <div style="margin-top: 8px; display: flex; gap: 6px;">
               <button onclick="addPillarInsight()" style="flex: 1; background: none; border: 1px dashed #F97316; border-radius: 4px; padding: 5px 8px; font-size: 10px; color: #9A3412; cursor: pointer;">
@@ -6431,8 +6436,16 @@
                 </div>
               </div>
               
-              <button onclick="importData()" class="btn btn-primary" style="width: 100%; padding: 12px; font-size: 14px;" disabled>
+              <button onclick="openImportModal()" class="btn btn-primary" style="width: 100%; padding: 12px; font-size: 14px;">
                 📥 Import Data
+              </button>
+              
+              <button onclick="runCalculations()" class="btn btn-secondary" style="width: 100%; padding: 12px; font-size: 14px; margin-top: 10px;">
+                🧮 Run Calculations
+              </button>
+              
+              <button onclick="testCalculation()" class="btn btn-secondary" style="width: 100%; padding: 10px; font-size: 12px; margin-top: 8px; opacity: 0.7;">
+                🧪 Test Calculator (Sample Data)
               </button>
               
               <div style="margin-top: var(--space-md); padding: 12px; background: var(--warning-bg); border-radius: var(--radius-sm);">
@@ -6565,13 +6578,19 @@
             <div style="display: flex; flex-direction: column; gap: var(--space-lg);">
               
               <!-- Sprint Timeline -->
-              <div style="background: white; border-radius: var(--radius-lg); padding: var(--space-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200);">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-md);">
-                  <h3 style="font-size: 16px; font-weight: 600; color: var(--gray-800); display: flex; align-items: center; gap: 8px;">
+              <div style="background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); overflow: hidden;">
+                <div onclick="toggleProjectSection(this)" style="display: flex; justify-content: space-between; align-items: center; padding: var(--space-lg); cursor: pointer; background: linear-gradient(135deg, var(--gusto-teal-light) 0%, white 100%); border-bottom: 1px solid var(--gray-200);">
+                  <h3 style="font-size: 16px; font-weight: 600; color: var(--gray-800); display: flex; align-items: center; gap: 8px; margin: 0;">
+                    <span class="collapse-arrow" style="font-size: 12px; transition: transform 0.2s;">▼</span>
                     <span style="font-size: 18px;">📋</span> Sprint Checklist
                   </h3>
-                  <button onclick="addSprintTask()" style="background: var(--gusto-teal); color: white; border: none; padding: 6px 12px; border-radius: var(--radius-sm); font-size: 12px; cursor: pointer;">+ Add Task</button>
+                  <div style="display: flex; gap: 8px; align-items: center;">
+                    <span style="font-size: 11px; color: var(--gray-500);">Click to collapse</span>
+                    <button onclick="event.stopPropagation(); addSprintTask()" style="background: var(--gusto-teal); color: white; border: none; padding: 6px 12px; border-radius: var(--radius-sm); font-size: 12px; cursor: pointer;">+ Add Task</button>
+                  </div>
                 </div>
+                <div class="collapsible-content" style="padding: var(--space-lg); padding-top: var(--space-md);">
+                
                 
                 <!-- Checklist Items -->
                 <div id="sprintChecklist" style="display: flex; flex-direction: column; gap: 8px;">
@@ -6730,13 +6749,19 @@
                   </label>
                   
                 </div>
+                </div><!-- END collapsible-content -->
               </div>
               
               <!-- Calculations Validation -->
-              <div style="background: white; border-radius: var(--radius-lg); padding: var(--space-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200);">
-                <h3 style="font-size: 16px; font-weight: 600; color: var(--gray-800); margin-bottom: var(--space-md); display: flex; align-items: center; gap: 8px;">
-                  <span style="font-size: 18px;">🧮</span> Calculations Validation
-                </h3>
+              <div style="background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); overflow: hidden;">
+                <div onclick="toggleProjectSection(this)" style="display: flex; justify-content: space-between; align-items: center; padding: var(--space-md) var(--space-lg); cursor: pointer; background: linear-gradient(135deg, var(--warning-bg) 0%, white 100%); border-bottom: 1px solid var(--gray-200);">
+                  <h3 style="font-size: 16px; font-weight: 600; color: var(--gray-800); display: flex; align-items: center; gap: 8px; margin: 0;">
+                    <span class="collapse-arrow" style="font-size: 12px; transition: transform 0.2s;">▼</span>
+                    <span style="font-size: 18px;">🧮</span> Calculations Validation
+                  </h3>
+                  <span style="font-size: 11px; color: var(--gray-500);">Click to collapse</span>
+                </div>
+                <div class="collapsible-content" style="padding: var(--space-lg);">
                 <p style="font-size: 12px; color: var(--gray-500); margin-bottom: var(--space-md);">Verify tool calculations match your spreadsheet formulas</p>
                 
                 <div style="display: flex; flex-direction: column; gap: 8px;">
@@ -6804,6 +6829,7 @@
                     <span style="font-size: 10px; color: var(--gray-400);">Final position</span>
                   </label>
                 </div>
+                </div><!-- END collapsible-content -->
               </div>
               
             </div>
@@ -6812,13 +6838,18 @@
             <div style="display: flex; flex-direction: column; gap: var(--space-lg);">
               
               <!-- Quick Notes -->
-              <div style="background: white; border-radius: var(--radius-lg); padding: var(--space-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200);">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-md);">
-                  <h3 style="font-size: 16px; font-weight: 600; color: var(--gray-800); display: flex; align-items: center; gap: 8px;">
+              <div style="background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); overflow: hidden;">
+                <div onclick="toggleProjectSection(this)" style="display: flex; justify-content: space-between; align-items: center; padding: var(--space-md) var(--space-lg); cursor: pointer; background: linear-gradient(135deg, var(--info-bg) 0%, white 100%); border-bottom: 1px solid var(--gray-200);">
+                  <h3 style="font-size: 16px; font-weight: 600; color: var(--gray-800); display: flex; align-items: center; gap: 8px; margin: 0;">
+                    <span class="collapse-arrow" style="font-size: 12px; transition: transform 0.2s;">▼</span>
                     <span style="font-size: 18px;">📝</span> Notes & Decisions
                   </h3>
-                  <button onclick="saveProjectNotes()" style="background: var(--gusto-teal); color: white; border: none; padding: 6px 12px; border-radius: var(--radius-sm); font-size: 12px; cursor: pointer;">💾 Save</button>
+                  <div style="display: flex; gap: 8px; align-items: center;">
+                    <span style="font-size: 11px; color: var(--gray-500);">Click to collapse</span>
+                    <button onclick="event.stopPropagation(); saveProjectNotes()" style="background: var(--gusto-teal); color: white; border: none; padding: 6px 12px; border-radius: var(--radius-sm); font-size: 12px; cursor: pointer;">💾 Save</button>
+                  </div>
                 </div>
+                <div class="collapsible-content" style="padding: var(--space-lg);">
                 
                 <textarea id="projectNotes" style="width: 100%; min-height: 300px; padding: 12px; border: 1px solid var(--gray-200); border-radius: var(--radius-sm); font-family: var(--font-primary); font-size: 13px; line-height: 1.6; resize: vertical;" placeholder="Document decisions, feedback, and ideas here...
 
@@ -6838,13 +6869,19 @@ Next steps:
 • Create training documentation
 ---"></textarea>
                 <div style="font-size: 11px; color: var(--gray-400); margin-top: 8px;">💡 Notes are saved to browser localStorage</div>
+                </div><!-- END collapsible-content -->
               </div>
               
               <!-- Key Decisions -->
-              <div style="background: white; border-radius: var(--radius-lg); padding: var(--space-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200);">
-                <h3 style="font-size: 16px; font-weight: 600; color: var(--gray-800); margin-bottom: var(--space-md); display: flex; align-items: center; gap: 8px;">
-                  <span style="font-size: 18px;">🎯</span> Key Decisions Log
-                </h3>
+              <div style="background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); overflow: hidden;">
+                <div onclick="toggleProjectSection(this)" style="display: flex; justify-content: space-between; align-items: center; padding: var(--space-md) var(--space-lg); cursor: pointer; background: linear-gradient(135deg, var(--gusto-teal-light) 0%, white 100%); border-bottom: 1px solid var(--gray-200);">
+                  <h3 style="font-size: 16px; font-weight: 600; color: var(--gray-800); display: flex; align-items: center; gap: 8px; margin: 0;">
+                    <span class="collapse-arrow" style="font-size: 12px; transition: transform 0.2s;">▼</span>
+                    <span style="font-size: 18px;">🎯</span> Key Decisions Log
+                  </h3>
+                  <span style="font-size: 11px; color: var(--gray-500);">Click to collapse</span>
+                </div>
+                <div class="collapsible-content" style="padding: var(--space-lg);">
                 
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                   <div style="padding: 12px; background: var(--gusto-teal-light); border-radius: var(--radius-sm); border-left: 3px solid var(--gusto-teal);">
@@ -6871,13 +6908,19 @@ Next steps:
                     <div style="font-size: 10px; color: var(--gray-500); margin-top: 4px;">Dec 10, 2025</div>
                   </div>
                 </div>
+                </div><!-- END collapsible-content -->
               </div>
               
               <!-- Roadmap Quick View -->
-              <div style="background: white; border-radius: var(--radius-lg); padding: var(--space-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200);">
-                <h3 style="font-size: 16px; font-weight: 600; color: var(--gray-800); margin-bottom: var(--space-md); display: flex; align-items: center; gap: 8px;">
-                  <span style="font-size: 18px;">🗺️</span> Roadmap Overview
-                </h3>
+              <div style="background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); overflow: hidden;">
+                <div onclick="toggleProjectSection(this)" style="display: flex; justify-content: space-between; align-items: center; padding: var(--space-md) var(--space-lg); cursor: pointer; background: linear-gradient(135deg, var(--gusto-coral-light) 0%, white 100%); border-bottom: 1px solid var(--gray-200);">
+                  <h3 style="font-size: 16px; font-weight: 600; color: var(--gray-800); display: flex; align-items: center; gap: 8px; margin: 0;">
+                    <span class="collapse-arrow" style="font-size: 12px; transition: transform 0.2s;">▼</span>
+                    <span style="font-size: 18px;">🗺️</span> Roadmap Overview
+                  </h3>
+                  <span style="font-size: 11px; color: var(--gray-500);">Click to collapse</span>
+                </div>
+                <div class="collapsible-content" style="padding: var(--space-lg);">
                 
                 <div style="display: flex; flex-direction: column; gap: 8px;">
                   <div style="display: flex; align-items: center; gap: 10px;">
@@ -6912,6 +6955,7 @@ Next steps:
                     <span style="font-size: 10px; color: var(--gray-500);">TBD</span>
                   </div>
                 </div>
+                </div><!-- END collapsible-content -->
               </div>
               
             </div>
@@ -8076,6 +8120,90 @@ Next steps:
       <div class="modal-footer">
         <button class="btn btn-secondary" onclick="closeModal('scenarios')">Close</button>
         <button class="btn btn-coral" onclick="openModal('save')">💾 Save New Scenario</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Data Import Modal -->
+  <div class="modal-overlay" id="importModal" onclick="if(event.target === this) closeImportModal()" style="display: none;">
+    <div class="modal" style="max-width: 800px; max-height: 90vh; overflow: hidden; display: flex; flex-direction: column;">
+      <div class="modal-header" style="background: linear-gradient(135deg, var(--gusto-teal) 0%, var(--gusto-teal-dark) 100%); color: white;">
+        <h3 class="modal-title" style="color: white;">📥 Import Data</h3>
+        <button class="modal-close" onclick="closeImportModal()" style="background: rgba(255,255,255,0.2); color: white; border: none; width: 28px; height: 28px; border-radius: 4px; font-size: 16px; cursor: pointer;">✕</button>
+      </div>
+      <div class="modal-body" style="overflow-y: auto; flex: 1; padding: 20px;">
+        
+        <!-- Import Type Selection -->
+        <div style="margin-bottom: 20px;">
+          <label style="font-size: 13px; font-weight: 600; color: var(--gray-700); display: block; margin-bottom: 10px;">1. Select Data Type</label>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+            <div onclick="selectImportType('baseline')" id="modal-import-baseline" style="background: var(--gusto-teal-light); border: 2px solid var(--gusto-teal); border-radius: var(--radius-sm); padding: 14px; cursor: pointer; text-align: center;">
+              <div style="font-size: 24px; margin-bottom: 6px;">📈</div>
+              <div style="font-weight: 600; font-size: 12px; color: var(--gray-800);">Baseline Forecast</div>
+              <div style="font-size: 10px; color: var(--gray-500);">Volume, AHT, SL</div>
+            </div>
+            <div onclick="selectImportType('active-hc')" id="modal-import-active-hc" style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-sm); padding: 14px; cursor: pointer; text-align: center;">
+              <div style="font-size: 24px; margin-bottom: 6px;">👥</div>
+              <div style="font-weight: 600; font-size: 12px; color: var(--gray-800);">Active Headcount</div>
+              <div style="font-size: 10px; color: var(--gray-500);">HC by site</div>
+            </div>
+            <div onclick="selectImportType('overlays')" id="modal-import-overlays" style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-sm); padding: 14px; cursor: pointer; text-align: center;">
+              <div style="font-size: 24px; margin-bottom: 6px;">🎚️</div>
+              <div style="font-weight: 600; font-size: 12px; color: var(--gray-800);">Overlays</div>
+              <div style="font-size: 10px; color: var(--gray-500);">Business impacts</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Paste Area -->
+        <div style="margin-bottom: 20px;">
+          <label style="font-size: 13px; font-weight: 600; color: var(--gray-700); display: block; margin-bottom: 10px;">2. Paste Data (from Excel/Sheets)</label>
+          <textarea id="importPasteArea" style="width: 100%; height: 150px; padding: 12px; border: 2px dashed var(--gray-300); border-radius: var(--radius-sm); font-family: var(--font-mono); font-size: 11px; resize: vertical;" placeholder="Copy your data from Excel or Google Sheets and paste here...
+
+Expected columns for Baseline Forecast:
+Pillar, Channel, Month, Volume, AHT, Shrink, Occupancy, Concurrency, SL Target, SL Uplift
+
+Expected columns for Active Headcount:
+Pillar, Month, Site, Headcount
+
+Tip: Include header row with column names!"></textarea>
+          <button onclick="parseImportData()" class="btn btn-secondary" style="margin-top: 10px;">
+            🔍 Parse & Preview Data
+          </button>
+        </div>
+        
+        <!-- Preview Area -->
+        <div id="importPreview" style="display: none; margin-bottom: 20px;">
+          <!-- Preview content will be inserted here by JavaScript -->
+        </div>
+        
+        <!-- Sample Data Templates -->
+        <div style="background: var(--gray-50); border-radius: var(--radius-sm); padding: 14px; margin-bottom: 16px;">
+          <div style="font-size: 12px; font-weight: 600; color: var(--gray-700); margin-bottom: 8px;">📋 Need sample templates?</div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button onclick="loadSampleBaseline()" style="background: white; border: 1px solid var(--gray-200); padding: 6px 12px; border-radius: var(--radius-sm); font-size: 11px; cursor: pointer;">
+              Load Sample Baseline
+            </button>
+            <button onclick="loadSampleActiveHC()" style="background: white; border: 1px solid var(--gray-200); padding: 6px 12px; border-radius: var(--radius-sm); font-size: 11px; cursor: pointer;">
+              Load Sample Active HC
+            </button>
+            <a href="https://docs.google.com/spreadsheets/d/1Jfm3Gv7xkaHtl5Vrf8qQpFtOElQu4MX-xl2OykBpuVs/edit" target="_blank" style="background: white; border: 1px solid var(--gray-200); padding: 6px 12px; border-radius: var(--radius-sm); font-size: 11px; cursor: pointer; text-decoration: none; color: var(--gray-700);">
+              Open Source Sheet ↗
+            </a>
+          </div>
+        </div>
+        
+      </div>
+      <div class="modal-footer" style="border-top: 1px solid var(--gray-200); padding: 16px 20px; display: flex; justify-content: space-between; align-items: center;">
+        <div style="font-size: 11px; color: var(--gray-500);">
+          <span id="importStatus">No data loaded</span>
+        </div>
+        <div style="display: flex; gap: 10px;">
+          <button class="btn btn-secondary" onclick="closeImportModal()">Cancel</button>
+          <button id="confirmImportBtn" class="btn btn-primary" onclick="confirmImport()" disabled>
+            📥 Import Data
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -9438,6 +9566,22 @@ Next steps:
       }
     }
     
+    // Toggle collapsible sections in Project Hub
+    function toggleProjectSection(headerElement) {
+      const content = headerElement.nextElementSibling;
+      const arrow = headerElement.querySelector('.collapse-arrow');
+      
+      if (content && content.classList.contains('collapsible-content')) {
+        if (content.style.display === 'none') {
+          content.style.display = 'block';
+          if (arrow) arrow.style.transform = 'rotate(0deg)';
+        } else {
+          content.style.display = 'none';
+          if (arrow) arrow.style.transform = 'rotate(-90deg)';
+        }
+      }
+    }
+    
     // Initialize Project Hub on load
     document.addEventListener('DOMContentLoaded', function() {
       loadProjectNotes();
@@ -9448,6 +9592,563 @@ Next steps:
     function openArchiveManager() {
       showToast('🗄️ Archive Manager - Coming soon!', 'info');
     }
+    
+    // ═══════════════════════════════════════════════════════════════════════
+    // CAPACITY CALCULATOR ENGINE - Core HC Calculations
+    // ═══════════════════════════════════════════════════════════════════════
+    
+    const CapacityCalculator = {
+      
+      // Configuration defaults (can be overridden per pillar/channel)
+      defaults: {
+        standardWorkDays: {
+          'Jan': 23, 'Feb': 20, 'Mar': 21, 'Apr': 22, 'May': 22, 'Jun': 21,
+          'Jul': 23, 'Aug': 21, 'Sep': 21, 'Oct': 23, 'Nov': 20, 'Dec': 21
+        },
+        dailyWorkHours: 8,
+        standardHoursPerFTE: 173.33 // Monthly average
+      },
+      
+      /**
+       * Calculate Productive Hours for a month
+       * Formula: Working Days × Daily Hours × (1 - Shrink%)
+       */
+      calculateProductiveHours: function(workingDays, dailyHours, shrinkPercent) {
+        const shrink = shrinkPercent / 100;
+        return workingDays * dailyHours * (1 - shrink);
+      },
+      
+      /**
+       * Calculate Base HC Need (before SL and shrink adjustments)
+       * Formula: Volume / (AHT × Occupancy × Concurrency × Productive Hours)
+       * 
+       * @param {number} volume - Monthly contact volume
+       * @param {number} aht - Average Handle Time in minutes
+       * @param {number} occupancy - Occupancy percentage (e.g., 85 for 85%)
+       * @param {number} concurrency - Concurrent sessions (1 for phone, 2-3 for chat)
+       * @param {number} productiveHours - Monthly productive hours per agent
+       */
+      calculateBaseHCNeed: function(volume, aht, occupancy, concurrency, productiveHours) {
+        const occ = occupancy / 100;
+        // AHT is in minutes, productive hours is in hours
+        const ahtHours = aht / 60;
+        const denominator = ahtHours * occ * concurrency * productiveHours;
+        
+        if (denominator === 0) return 0;
+        return volume * ahtHours / (occ * concurrency * productiveHours);
+      },
+      
+      /**
+       * Calculate SL FTE Need (with SL uplift factor)
+       * Formula: Base HC × SL Uplift Factor
+       */
+      calculateSLFTENeed: function(baseHC, slUpliftFactor) {
+        return baseHC * slUpliftFactor;
+      },
+      
+      /**
+       * Calculate Shrink Adjusted HC
+       * Formula: SL FTE / (1 - Shrink%)
+       */
+      calculateShrinkAdjustedHC: function(slFTE, shrinkPercent) {
+        const shrink = shrinkPercent / 100;
+        if (shrink >= 1) return Infinity;
+        return slFTE / (1 - shrink);
+      },
+      
+      /**
+       * Calculate Active HC Need (with overlay impacts)
+       * Formula: Shrink Adjusted × (1 + Overlay Impact%)
+       */
+      calculateActiveHCNeed: function(shrinkAdjustedHC, overlayImpactPercent) {
+        const impact = overlayImpactPercent / 100;
+        return shrinkAdjustedHC * (1 + impact);
+      },
+      
+      /**
+       * Calculate Net Staffing Gap
+       * Formula: Actual HC - Active HC Need
+       * Positive = overstaffed, Negative = understaffed
+       */
+      calculateNetStaffingGap: function(actualHC, activeHCNeed) {
+        return actualHC - activeHCNeed;
+      },
+      
+      /**
+       * Calculate OT Coverage (FTE equivalent)
+       * Formula: Planned OT Hours / Standard Hours per FTE
+       */
+      calculateOTCoverage: function(plannedOTHours, standardHoursPerFTE) {
+        standardHoursPerFTE = standardHoursPerFTE || this.defaults.standardHoursPerFTE;
+        return plannedOTHours / standardHoursPerFTE;
+      },
+      
+      /**
+       * Calculate Net Gap with OT
+       * Formula: Net Staffing Gap + OT Coverage FTE
+       */
+      calculateNetGapWithOT: function(netStaffingGap, otCoverageFTE) {
+        return netStaffingGap + otCoverageFTE;
+      },
+      
+      /**
+       * Full calculation pipeline for a single channel/month
+       * Returns all intermediate and final values
+       */
+      calculateFull: function(inputs) {
+        const {
+          volume,
+          aht,
+          occupancy,
+          concurrency,
+          shrinkPercent,
+          slUpliftFactor,
+          overlayImpactPercent,
+          actualHC,
+          plannedOTHours,
+          workingDays,
+          dailyHours
+        } = inputs;
+        
+        // Step 1: Productive Hours
+        const productiveHours = this.calculateProductiveHours(
+          workingDays || 21,
+          dailyHours || 8,
+          shrinkPercent || 30
+        );
+        
+        // Step 2: Base HC Need
+        const baseHCNeed = this.calculateBaseHCNeed(
+          volume || 0,
+          aht || 0,
+          occupancy || 85,
+          concurrency || 1,
+          productiveHours
+        );
+        
+        // Step 3: SL FTE Need
+        const slFTENeed = this.calculateSLFTENeed(
+          baseHCNeed,
+          slUpliftFactor || 1.0
+        );
+        
+        // Step 4: Shrink Adjusted
+        const shrinkAdjustedHC = this.calculateShrinkAdjustedHC(
+          slFTENeed,
+          shrinkPercent || 30
+        );
+        
+        // Step 5: Active HC Need (with overlays)
+        const activeHCNeed = this.calculateActiveHCNeed(
+          shrinkAdjustedHC,
+          overlayImpactPercent || 0
+        );
+        
+        // Step 6: Net Staffing Gap
+        const netStaffingGap = this.calculateNetStaffingGap(
+          actualHC || 0,
+          activeHCNeed
+        );
+        
+        // Step 7: OT Coverage
+        const otCoverage = this.calculateOTCoverage(
+          plannedOTHours || 0
+        );
+        
+        // Step 8: Net Gap with OT
+        const netGapWithOT = this.calculateNetGapWithOT(
+          netStaffingGap,
+          otCoverage
+        );
+        
+        return {
+          inputs: inputs,
+          productiveHours: Math.round(productiveHours * 100) / 100,
+          baseHCNeed: Math.round(baseHCNeed * 100) / 100,
+          slFTENeed: Math.round(slFTENeed * 100) / 100,
+          shrinkAdjustedHC: Math.round(shrinkAdjustedHC * 100) / 100,
+          activeHCNeed: Math.round(activeHCNeed * 100) / 100,
+          netStaffingGap: Math.round(netStaffingGap * 100) / 100,
+          otCoverage: Math.round(otCoverage * 100) / 100,
+          netGapWithOT: Math.round(netGapWithOT * 100) / 100
+        };
+      },
+      
+      /**
+       * Calculate for multiple months at once
+       */
+      calculateMultipleMonths: function(monthlyInputs) {
+        return monthlyInputs.map(inputs => this.calculateFull(inputs));
+      }
+    };
+    
+    // ═══════════════════════════════════════════════════════════════════════
+    // DATA IMPORT FUNCTIONS - CSV Parsing, Validation, Preview
+    // ═══════════════════════════════════════════════════════════════════════
+    
+    let importedData = null;
+    let importType = 'baseline';
+    
+    // Select import type
+    function selectImportType(type) {
+      importType = type;
+      
+      // Update UI
+      document.querySelectorAll('[id^="import-"]').forEach(el => {
+        if (el.id === 'import-' + type) {
+          el.style.background = 'var(--gusto-teal-light)';
+          el.style.border = '2px solid var(--gusto-teal)';
+        } else {
+          el.style.background = 'var(--gray-50)';
+          el.style.border = '1px solid var(--gray-200)';
+        }
+      });
+      
+      showToast('Selected: ' + type.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase()), 'info');
+    }
+    
+    // Select export format
+    function selectExportFormat(format) {
+      document.querySelectorAll('[id^="export-"]').forEach(el => {
+        if (el.id === 'export-' + format) {
+          el.style.background = 'var(--gusto-teal-light)';
+          el.style.border = '2px solid var(--gusto-teal)';
+        } else {
+          el.style.background = 'var(--gray-50)';
+          el.style.border = '1px solid var(--gray-200)';
+        }
+      });
+    }
+    
+    // Open import modal
+    function openImportModal() {
+      document.getElementById('importModal').style.display = 'flex';
+      document.getElementById('importPasteArea').value = '';
+      document.getElementById('importPreview').innerHTML = '';
+      document.getElementById('importPreview').style.display = 'none';
+      document.getElementById('confirmImportBtn').disabled = true;
+    }
+    
+    // Close import modal
+    function closeImportModal() {
+      document.getElementById('importModal').style.display = 'none';
+      importedData = null;
+    }
+    
+    // Parse CSV data from paste area
+    function parseImportData() {
+      const pasteArea = document.getElementById('importPasteArea');
+      const rawData = pasteArea.value.trim();
+      
+      if (!rawData) {
+        showToast('Please paste data first', 'warning');
+        return;
+      }
+      
+      // Parse CSV/TSV
+      const lines = rawData.split('\n');
+      const delimiter = rawData.includes('\t') ? '\t' : ',';
+      
+      const headers = lines[0].split(delimiter).map(h => h.trim().replace(/"/g, ''));
+      const rows = [];
+      
+      for (let i = 1; i < lines.length; i++) {
+        if (lines[i].trim()) {
+          const values = lines[i].split(delimiter).map(v => v.trim().replace(/"/g, ''));
+          const row = {};
+          headers.forEach((h, idx) => {
+            row[h] = values[idx] || '';
+          });
+          rows.push(row);
+        }
+      }
+      
+      importedData = { headers, rows };
+      
+      // Show preview
+      showImportPreview(headers, rows.slice(0, 10));
+      
+      // Enable confirm button
+      document.getElementById('confirmImportBtn').disabled = false;
+      
+      showToast('Parsed ' + rows.length + ' rows. Review preview below.', 'success');
+    }
+    
+    // Show preview of imported data
+    function showImportPreview(headers, rows) {
+      const previewDiv = document.getElementById('importPreview');
+      previewDiv.style.display = 'block';
+      
+      let html = '<div style="font-size: 12px; font-weight: 600; color: var(--gray-700); margin-bottom: 8px;">Preview (first 10 rows):</div>';
+      html += '<div style="overflow-x: auto; max-height: 300px; border: 1px solid var(--gray-200); border-radius: var(--radius-sm);">';
+      html += '<table style="width: 100%; border-collapse: collapse; font-size: 11px;">';
+      
+      // Headers
+      html += '<thead><tr style="background: var(--gusto-teal); color: white; position: sticky; top: 0;">';
+      headers.forEach(h => {
+        html += '<th style="padding: 8px 10px; text-align: left; white-space: nowrap;">' + h + '</th>';
+      });
+      html += '</tr></thead>';
+      
+      // Rows
+      html += '<tbody>';
+      rows.forEach((row, idx) => {
+        html += '<tr style="background: ' + (idx % 2 === 0 ? 'white' : 'var(--gray-50)') + ';">';
+        headers.forEach(h => {
+          const val = row[h] || '';
+          const isNumeric = !isNaN(parseFloat(val)) && isFinite(val);
+          html += '<td style="padding: 6px 10px; border-bottom: 1px solid var(--gray-100); ' + 
+                  (isNumeric ? 'text-align: right; font-family: var(--font-mono);' : '') + '">' + 
+                  val + '</td>';
+        });
+        html += '</tr>';
+      });
+      html += '</tbody></table></div>';
+      
+      // Column mapping section
+      html += '<div style="margin-top: 16px; padding: 12px; background: var(--info-bg); border-radius: var(--radius-sm);">';
+      html += '<div style="font-size: 12px; font-weight: 600; color: var(--info); margin-bottom: 8px;">📊 Detected Columns:</div>';
+      html += '<div style="display: flex; flex-wrap: wrap; gap: 6px;">';
+      headers.forEach(h => {
+        const mapped = mapColumnToField(h);
+        const color = mapped ? 'var(--success)' : 'var(--gray-500)';
+        const bg = mapped ? 'var(--success-bg)' : 'var(--gray-100)';
+        html += '<span style="padding: 4px 8px; background: ' + bg + '; color: ' + color + '; border-radius: 4px; font-size: 10px;">';
+        html += h + (mapped ? ' → ' + mapped : ' (unmapped)');
+        html += '</span>';
+      });
+      html += '</div></div>';
+      
+      previewDiv.innerHTML = html;
+    }
+    
+    // Map column headers to expected fields
+    function mapColumnToField(header) {
+      const headerLower = header.toLowerCase().replace(/[_\s-]/g, '');
+      
+      const mappings = {
+        // Baseline forecast mappings
+        'volume': 'volume',
+        'contacts': 'volume',
+        'aht': 'aht',
+        'averagehandletime': 'aht',
+        'shrink': 'shrink',
+        'shrinkpercent': 'shrink',
+        'occupancy': 'occupancy',
+        'occ': 'occupancy',
+        'concurrency': 'concurrency',
+        'sltarget': 'slTarget',
+        'servicelevel': 'slTarget',
+        'sluplift': 'slUplift',
+        'pillar': 'pillar',
+        'channel': 'channel',
+        'month': 'month',
+        'date': 'month',
+        'organization': 'organization',
+        'org': 'organization',
+        
+        // Active HC mappings
+        'headcount': 'actualHC',
+        'hc': 'actualHC',
+        'activehc': 'actualHC',
+        'ftecount': 'actualHC',
+        'site': 'site',
+        'location': 'site',
+        
+        // Overlay mappings
+        'overlayimpact': 'overlayImpact',
+        'impact': 'overlayImpact',
+        'ottarget': 'plannedOT',
+        'plannedhours': 'plannedOT'
+      };
+      
+      return mappings[headerLower] || null;
+    }
+    
+    // Confirm and process import
+    function confirmImport() {
+      if (!importedData || !importedData.rows.length) {
+        showToast('No data to import', 'error');
+        return;
+      }
+      
+      // Store in localStorage for now (will be replaced with Sheets API)
+      const storageKey = 'capacityPlanner_import_' + importType;
+      localStorage.setItem(storageKey, JSON.stringify(importedData));
+      
+      showToast('✅ Imported ' + importedData.rows.length + ' rows as ' + importType, 'success');
+      closeImportModal();
+      
+      // Trigger recalculation if we have both baseline and HC
+      if (localStorage.getItem('capacityPlanner_import_baseline') && 
+          localStorage.getItem('capacityPlanner_import_active-hc')) {
+        showToast('📊 Ready to calculate! Both baseline and HC data loaded.', 'success');
+      }
+    }
+    
+    // Run calculations on imported data
+    function runCalculations() {
+      const baseline = JSON.parse(localStorage.getItem('capacityPlanner_import_baseline') || 'null');
+      const activeHC = JSON.parse(localStorage.getItem('capacityPlanner_import_active-hc') || 'null');
+      
+      if (!baseline) {
+        showToast('Please import Baseline Forecast data first', 'warning');
+        return;
+      }
+      
+      // Process calculations
+      const results = [];
+      baseline.rows.forEach(row => {
+        const inputs = {
+          volume: parseFloat(row.Volume || row.Contacts || 0),
+          aht: parseFloat(row.AHT || row['Average Handle Time'] || 0),
+          occupancy: parseFloat(row.Occupancy || row['Occ'] || 85),
+          concurrency: parseFloat(row.Concurrency || 1),
+          shrinkPercent: parseFloat(row.Shrink || row['Shrink %'] || 30),
+          slUpliftFactor: parseFloat(row['SL Uplift'] || 1),
+          overlayImpactPercent: 0,
+          actualHC: 0,
+          plannedOTHours: 0,
+          workingDays: 21,
+          dailyHours: 8
+        };
+        
+        // Match with active HC if available
+        if (activeHC) {
+          const hcMatch = activeHC.rows.find(hc => 
+            (hc.Pillar || hc.pillar) === (row.Pillar || row.pillar) &&
+            (hc.Month || hc.Date) === (row.Month || row.Date)
+          );
+          if (hcMatch) {
+            inputs.actualHC = parseFloat(hcMatch.HC || hcMatch.Headcount || hcMatch['Active HC'] || 0);
+          }
+        }
+        
+        const calc = CapacityCalculator.calculateFull(inputs);
+        results.push({
+          pillar: row.Pillar || row.pillar,
+          channel: row.Channel || row.channel,
+          month: row.Month || row.Date,
+          ...calc
+        });
+      });
+      
+      // Store results
+      localStorage.setItem('capacityPlanner_calculations', JSON.stringify(results));
+      
+      showToast('✅ Calculated ' + results.length + ' rows!', 'success');
+      
+      // Show results summary
+      console.log('Calculation Results:', results);
+      
+      return results;
+    }
+    
+    // Test calculation with sample data
+    function testCalculation() {
+      const testInputs = {
+        volume: 10000,
+        aht: 8, // minutes
+        occupancy: 85,
+        concurrency: 1,
+        shrinkPercent: 30,
+        slUpliftFactor: 1.15,
+        overlayImpactPercent: 5,
+        actualHC: 45,
+        plannedOTHours: 200,
+        workingDays: 21,
+        dailyHours: 8
+      };
+      
+      const result = CapacityCalculator.calculateFull(testInputs);
+      
+      console.log('=== Test Calculation ===');
+      console.log('Inputs:', testInputs);
+      console.log('Results:', result);
+      console.log('========================');
+      
+      let msg = 'Test Calc Results:\n';
+      msg += '• Productive Hours: ' + result.productiveHours + '\n';
+      msg += '• Base HC Need: ' + result.baseHCNeed + '\n';
+      msg += '• Active HC Need: ' + result.activeHCNeed + '\n';
+      msg += '• Net Gap: ' + result.netStaffingGap + '\n';
+      msg += '• Net Gap w/OT: ' + result.netGapWithOT;
+      
+      alert(msg);
+      return result;
+    }
+    
+    // Load sample baseline forecast data
+    function loadSampleBaseline() {
+      const sampleData = `Pillar\tChannel\tMonth\tVolume\tAHT\tShrink\tOccupancy\tConcurrency\tSL Target\tSL Uplift
+Payroll\tPhone\tJan-25\t12500\t8.5\t30\t85\t1\t80\t1.15
+Payroll\tPhone\tFeb-25\t11800\t8.2\t30\t85\t1\t80\t1.15
+Payroll\tPhone\tMar-25\t13200\t8.8\t30\t85\t1\t80\t1.15
+Payroll\tChat\tJan-25\t8500\t6.0\t25\t80\t2.5\t85\t1.10
+Payroll\tChat\tFeb-25\t7900\t5.8\t25\t80\t2.5\t85\t1.10
+Payroll\tChat\tMar-25\t9100\t6.2\t25\t80\t2.5\t85\t1.10
+Benefits\tPhone\tJan-25\t9800\t10.2\t32\t82\t1\t75\t1.18
+Benefits\tPhone\tFeb-25\t8500\t9.8\t32\t82\t1\t75\t1.18
+Benefits\tPhone\tMar-25\t10500\t10.5\t32\t82\t1\t75\t1.18
+Accountant\tPhone\tJan-25\t6200\t12.0\t28\t88\t1\t85\t1.12
+Accountant\tPhone\tFeb-25\t5800\t11.5\t28\t88\t1\t85\t1.12
+Accountant\tPhone\tMar-25\t7500\t12.8\t28\t88\t1\t85\t1.12`;
+      
+      document.getElementById('importPasteArea').value = sampleData;
+      selectImportType('baseline');
+      showToast('📋 Sample baseline data loaded! Click "Parse & Preview"', 'info');
+    }
+    
+    // Load sample active HC data
+    function loadSampleActiveHC() {
+      const sampleData = `Pillar\tMonth\tSite\tHeadcount
+Payroll\tJan-25\tGusto\t28
+Payroll\tJan-25\tApex\t12
+Payroll\tJan-25\tTaskUs\t8
+Payroll\tFeb-25\tGusto\t29
+Payroll\tFeb-25\tApex\t12
+Payroll\tFeb-25\tTaskUs\t8
+Payroll\tMar-25\tGusto\t30
+Payroll\tMar-25\tApex\t13
+Payroll\tMar-25\tTaskUs\t9
+Benefits\tJan-25\tGusto\t22
+Benefits\tJan-25\tApex\t10
+Benefits\tFeb-25\tGusto\t21
+Benefits\tFeb-25\tApex\t10
+Benefits\tMar-25\tGusto\t23
+Benefits\tMar-25\tApex\t11
+Accountant\tJan-25\tGusto\t15
+Accountant\tFeb-25\tGusto\t15
+Accountant\tMar-25\tGusto\t16`;
+      
+      document.getElementById('importPasteArea').value = sampleData;
+      selectImportType('active-hc');
+      showToast('📋 Sample HC data loaded! Click "Parse & Preview"', 'info');
+    }
+    
+    // Update selectImportType to also update modal cards
+    (function() {
+      const originalSelectImportType = selectImportType;
+      selectImportType = function(type) {
+        importType = type;
+        
+        // Update both data management and modal UIs
+        ['', 'modal-'].forEach(prefix => {
+          document.querySelectorAll('[id^="' + prefix + 'import-"]').forEach(el => {
+            const elType = el.id.replace(prefix, '').replace('import-', '');
+            if (elType === type) {
+              el.style.background = 'var(--gusto-teal-light)';
+              el.style.border = '2px solid var(--gusto-teal)';
+            } else if (!el.id.includes('Preview') && !el.id.includes('Btn') && !el.id.includes('Area') && !el.id.includes('Status')) {
+              el.style.background = 'var(--gray-50)';
+              el.style.border = '1px solid var(--gray-200)';
+            }
+          });
+        });
+        
+        showToast('Selected: ' + type.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()), 'info');
+      };
+    })();
     
     // ═══════════════════════════════════════════════════════════════════════
     // OVERLAY TRACKER FUNCTIONS
@@ -10656,20 +11357,20 @@ ACTION ITEMS:
     document.addEventListener('DOMContentLoaded', function() {
       console.log('DOM loaded, initializing view...');
       
-      // First, make sure Control Panel is shown by default
-      const controlPanelView = document.getElementById('view-controlpanel');
-      if (controlPanelView) {
-        controlPanelView.style.display = 'block';
-        console.log('Control Panel view displayed');
+      // First, make sure Project Hub is shown by default
+      const projectHubView = document.getElementById('view-projecthub');
+      if (projectHubView) {
+        projectHubView.style.display = 'block';
+        console.log('Project Hub view displayed');
       }
       
       // Set nav active
-      const controlPanelNav = document.getElementById('nav-controlpanel');
-      if (controlPanelNav) {
-        controlPanelNav.classList.add('active');
+      const projectHubNav = document.getElementById('nav-projecthub');
+      if (projectHubNav) {
+        projectHubNav.classList.add('active');
       }
       
-      // Set greeting and hide toggle for Control Panel default
+      // Set greeting and hide toggle for Project Hub default
       document.getElementById('pageTitle').textContent = '👋 Hello, Bunny B!';
       document.getElementById('comparisonToggle').style.display = 'none';
       document.getElementById('pillarDropdown').style.display = 'none';
@@ -10678,12 +11379,12 @@ ACTION ITEMS:
       
       // Now check if there's a hash to override
       const hash = window.location.hash.slice(1);
-      if (hash && hash !== 'controlpanel') {
+      if (hash && hash !== 'projecthub') {
         console.log('Hash found:', hash);
         if (hash.startsWith('pillar-')) {
           const pillarName = hash.replace('pillar-', '');
           selectPillar(pillarName);
-        } else if (['allin', 'dashboard', 'comparison'].includes(hash)) {
+        } else if (['controlpanel', 'allin', 'dashboard', 'comparison', 'datamanagement', 'overlays', 'published', 'scenarios', 'designsystem'].includes(hash)) {
           loadView(hash);
         }
       }
@@ -10700,7 +11401,7 @@ ACTION ITEMS:
         if (hash.startsWith('pillar-')) {
           const pillarName = hash.replace('pillar-', '');
           selectPillarDirect(pillarName);
-        } else if (['controlpanel', 'allin', 'dashboard', 'comparison'].includes(hash)) {
+        } else if (['controlpanel', 'allin', 'dashboard', 'comparison', 'projecthub', 'datamanagement', 'overlays', 'published', 'scenarios', 'designsystem'].includes(hash)) {
           loadViewDirect(hash);
         }
       }
