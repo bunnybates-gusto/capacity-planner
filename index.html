@@ -6981,80 +6981,39 @@
               <!-- Today's Events -->
               <div style="background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); overflow: hidden;">
                 <div style="padding: var(--space-md); background: linear-gradient(135deg, var(--info-bg) 0%, white 100%); border-bottom: 1px solid var(--gray-200);">
-                  <h3 style="font-size: 14px; font-weight: 600; color: var(--gray-800); margin: 0;">📍 Today — Dec 11</h3>
+                  <h3 id="todayHeader" style="font-size: 14px; font-weight: 600; color: var(--gray-800); margin: 0;">📍 Today</h3>
                 </div>
-                <div style="padding: var(--space-md); display: flex; flex-direction: column; gap: 8px;">
-                  <div style="padding: 8px 10px; background: var(--gusto-teal-light); border-radius: var(--radius-sm); border-left: 3px solid var(--gusto-teal);">
-                    <div style="font-size: 12px; font-weight: 500; color: var(--gray-700);">📊 Forecast Review</div>
-                    <div style="font-size: 10px; color: var(--gray-500);">WFM Cycle • 9:00 AM</div>
-                  </div>
-                  <div style="padding: 8px 10px; background: var(--info-bg); border-radius: var(--radius-sm); border-left: 3px solid var(--info);">
-                    <div style="font-size: 12px; font-weight: 500; color: var(--gray-700);">👥 Stakeholder Sync</div>
-                    <div style="font-size: 10px; color: var(--gray-500);">Meeting • 2:00 PM</div>
-                  </div>
-                  <div style="padding: 8px 10px; background: var(--warning-bg); border-radius: var(--radius-sm); border-left: 3px solid var(--warning);">
-                    <div style="font-size: 12px; font-weight: 500; color: var(--gray-700);">✏️ Upload Baseline Data</div>
-                    <div style="font-size: 10px; color: var(--gray-500);">Task • Due today</div>
-                  </div>
+                <div id="todaysEvents" style="padding: var(--space-md); display: flex; flex-direction: column; gap: 8px;">
+                  <!-- Dynamically populated -->
                 </div>
               </div>
               
-              <!-- WFM Planning Cycle (Mini) -->
+              <!-- WFM Planning Cycle (Mini) - Dynamic -->
               <div style="background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); overflow: hidden;">
                 <div style="padding: var(--space-md); background: linear-gradient(135deg, var(--gusto-coral-light) 0%, white 100%); border-bottom: 1px solid var(--gray-200);">
-                  <h3 style="font-size: 14px; font-weight: 600; color: var(--gray-800); margin: 0;">🔄 Monthly WFM Cycle</h3>
+                  <h3 style="font-size: 14px; font-weight: 600; color: var(--gray-800); margin: 0;">🔄 Monthly Milestones</h3>
                 </div>
-                <div style="padding: var(--space-md); display: flex; flex-direction: column; gap: 6px;">
-                  <div style="display: flex; align-items: center; gap: 8px;">
-                    <span style="width: 20px; height: 20px; background: var(--success); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px;">✓</span>
-                    <div style="flex: 1;">
-                      <div style="font-size: 11px; font-weight: 500; color: var(--gray-700);">Baseline Data Upload</div>
-                      <div style="font-size: 9px; color: var(--gray-400);">1st of month</div>
-                    </div>
-                  </div>
-                  <div style="display: flex; align-items: center; gap: 8px;">
-                    <span style="width: 20px; height: 20px; background: var(--gusto-teal); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px;">●</span>
-                    <div style="flex: 1;">
-                      <div style="font-size: 11px; font-weight: 500; color: var(--gray-700);">Forecast Review</div>
-                      <div style="font-size: 9px; color: var(--gray-400);">1st Monday</div>
-                    </div>
-                  </div>
-                  <div style="display: flex; align-items: center; gap: 8px;">
-                    <span style="width: 20px; height: 20px; background: var(--gray-300); color: var(--gray-600); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px;">○</span>
-                    <div style="flex: 1;">
-                      <div style="font-size: 11px; font-weight: 500; color: var(--gray-700);">Overlay Input Window</div>
-                      <div style="font-size: 9px; color: var(--gray-400);">1st - 10th</div>
-                    </div>
-                  </div>
-                  <div style="display: flex; align-items: center; gap: 8px;">
-                    <span style="width: 20px; height: 20px; background: var(--gray-300); color: var(--gray-600); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px;">○</span>
-                    <div style="flex: 1;">
-                      <div style="font-size: 11px; font-weight: 500; color: var(--gray-700);">Scenario Building</div>
-                      <div style="font-size: 9px; color: var(--gray-400);">2nd week</div>
-                    </div>
-                  </div>
-                  <div style="display: flex; align-items: center; gap: 8px;">
-                    <span style="width: 20px; height: 20px; background: var(--gray-300); color: var(--gray-600); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px;">○</span>
-                    <div style="flex: 1;">
-                      <div style="font-size: 11px; font-weight: 500; color: var(--gray-700);">Stakeholder Review</div>
-                      <div style="font-size: 9px; color: var(--gray-400);">3rd Thursday</div>
-                    </div>
-                  </div>
-                  <div style="display: flex; align-items: center; gap: 8px;">
-                    <span style="width: 20px; height: 20px; background: var(--gray-300); color: var(--gray-600); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px;">○</span>
-                    <div style="flex: 1;">
-                      <div style="font-size: 11px; font-weight: 500; color: var(--gray-700);">Plan Finalization</div>
-                      <div style="font-size: 9px; color: var(--gray-400);">4th Monday</div>
-                    </div>
-                  </div>
-                  <div style="display: flex; align-items: center; gap: 8px;">
-                    <span style="width: 20px; height: 20px; background: var(--gray-300); color: var(--gray-600); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px;">○</span>
-                    <div style="flex: 1;">
-                      <div style="font-size: 11px; font-weight: 500; color: var(--gray-700);">Publish & Archive</div>
-                      <div style="font-size: 9px; color: var(--gray-400);">Last Friday</div>
-                    </div>
-                  </div>
-                  <button onclick="editWFMCycle()" style="margin-top: 8px; width: 100%; padding: 6px; background: white; border: 1px dashed var(--gray-300); border-radius: var(--radius-sm); color: var(--gray-500); font-size: 11px; cursor: pointer;">✏️ Edit Cycle</button>
+                <div id="wfmCycleList" style="padding: var(--space-md); display: flex; flex-direction: column; gap: 6px;">
+                  <!-- Dynamically populated -->
+                </div>
+                <div style="padding: 0 var(--space-md) var(--space-md);">
+                  <button onclick="editWFMCycle()" style="width: 100%; padding: 6px; background: white; border: 1px dashed var(--gray-300); border-radius: var(--radius-sm); color: var(--gray-500); font-size: 11px; cursor: pointer;">✏️ Edit Cycle</button>
+                </div>
+              </div>
+              
+              <!-- Category Legend -->
+              <div style="background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); overflow: hidden;">
+                <div style="padding: var(--space-md); background: linear-gradient(135deg, var(--gray-100) 0%, white 100%); border-bottom: 1px solid var(--gray-200);">
+                  <h3 style="font-size: 14px; font-weight: 600; color: var(--gray-800); margin: 0;">🏷️ Categories</h3>
+                </div>
+                <div style="padding: var(--space-md); display: flex; flex-wrap: wrap; gap: 6px;">
+                  <span style="display: flex; align-items: center; gap: 4px; font-size: 10px; color: var(--gray-600);"><span style="width: 8px; height: 8px; background: #3B82F6; border-radius: 2px;"></span> LT Forecast</span>
+                  <span style="display: flex; align-items: center; gap: 4px; font-size: 10px; color: var(--gray-600);"><span style="width: 8px; height: 8px; background: #8B5CF6; border-radius: 2px;"></span> ST Forecast</span>
+                  <span style="display: flex; align-items: center; gap: 4px; font-size: 10px; color: var(--gray-600);"><span style="width: 8px; height: 8px; background: #10B981; border-radius: 2px;"></span> LT Capacity</span>
+                  <span style="display: flex; align-items: center; gap: 4px; font-size: 10px; color: var(--gray-600);"><span style="width: 8px; height: 8px; background: #F59E0B; border-radius: 2px;"></span> ST Capacity</span>
+                  <span style="display: flex; align-items: center; gap: 4px; font-size: 10px; color: var(--gray-600);"><span style="width: 8px; height: 8px; background: #EC4899; border-radius: 2px;"></span> IDPs</span>
+                  <span style="display: flex; align-items: center; gap: 4px; font-size: 10px; color: var(--gray-600);"><span style="width: 8px; height: 8px; background: #6366F1; border-radius: 2px;"></span> Headcount</span>
+                  <span style="display: flex; align-items: center; gap: 4px; font-size: 10px; color: var(--gray-600);"><span style="width: 8px; height: 8px; background: #94A3B8; border-radius: 2px;"></span> Holiday</span>
                 </div>
               </div>
               
@@ -7070,28 +7029,13 @@
                 </div>
               </div>
               
-              <!-- Upcoming -->
+              <!-- Upcoming - Dynamic -->
               <div style="background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); overflow: hidden;">
                 <div style="padding: var(--space-md); background: linear-gradient(135deg, var(--success-bg) 0%, white 100%); border-bottom: 1px solid var(--gray-200);">
-                  <h3 style="font-size: 14px; font-weight: 600; color: var(--gray-800); margin: 0;">📆 Upcoming</h3>
+                  <h3 style="font-size: 14px; font-weight: 600; color: var(--gray-800); margin: 0;">📆 Upcoming (30 days)</h3>
                 </div>
-                <div style="padding: var(--space-md); display: flex; flex-direction: column; gap: 6px; max-height: 200px; overflow-y: auto;">
-                  <div style="display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--gray-100);">
-                    <span style="font-size: 10px; color: var(--gray-500); width: 50px;">Dec 15</span>
-                    <span style="font-size: 11px; color: var(--gray-700);">📊 Calculations Validation</span>
-                  </div>
-                  <div style="display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--gray-100);">
-                    <span style="font-size: 10px; color: var(--gray-500); width: 50px;">Dec 20</span>
-                    <span style="font-size: 11px; color: var(--gray-700);">🔗 Connect Real Data</span>
-                  </div>
-                  <div style="display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--gray-100);">
-                    <span style="font-size: 10px; color: var(--gray-500); width: 50px;">Dec 25</span>
-                    <span style="font-size: 11px; color: var(--gray-700);">🎄 Christmas (Holiday)</span>
-                  </div>
-                  <div style="display: flex; align-items: center; gap: 8px; padding: 6px 0;">
-                    <span style="font-size: 10px; color: var(--gray-500); width: 50px;">Jan 1</span>
-                    <span style="font-size: 11px; color: var(--gray-700);">🎊 New Year's Day</span>
-                  </div>
+                <div id="upcomingEvents" style="padding: var(--space-md); display: flex; flex-direction: column; gap: 6px; max-height: 200px; overflow-y: auto;">
+                  <!-- Dynamically populated -->
                 </div>
               </div>
               
@@ -11104,13 +11048,179 @@ Tip: Include header row with column names!"></textarea>
     });
     
     // ═══════════════════════════════════════════════════════════════════════
-    // PLANNING CALENDAR FUNCTIONS
+    // PLANNING CALENDAR FUNCTIONS - Dynamic WFM Cycle Engine
     // ═══════════════════════════════════════════════════════════════════════
     
     let currentCalendarDate = new Date();
     
+    // WFM Cycle Activities with Dynamic Date Rules
+    const wfmCycleActivities = [
+      // Long Term Forecasting
+      { category: 'LT Forecast', name: 'Forecast Accuracy Analysis', rule: 'businessDayOfMonth', day: 5, owner: 'LT Planners', color: '#3B82F6' },
+      { category: 'LT Forecast', name: 'Re-forecasting (if needed)', rule: 'businessDayOfMonth', day: 10, owner: 'LT Planners', color: '#3B82F6' },
+      { category: 'LT Forecast', name: 'LT Forecasts LOCKED 🔒', rule: 'businessDayOfMonth', day: 15, owner: 'LT Planners', color: '#3B82F6', critical: true },
+      
+      // Short Term Forecasting
+      { category: 'ST Forecast', name: 'Weekly Accuracy Analysis', rule: 'dayOfWeek', day: 2, owner: 'ST Planners', color: '#8B5CF6' }, // Tuesday
+      { category: 'ST Forecast', name: 'Re-forecast & Load to IEX', rule: 'dayOfWeek', day: 4, owner: 'ST Planners', color: '#8B5CF6' }, // Thursday
+      { category: 'ST Forecast', name: 'RTA/Scheduler Feedback', rule: 'dayOfWeek', day: 5, owner: 'ST Planners', color: '#8B5CF6' }, // Friday
+      
+      // Long Term Capacity Planning
+      { category: 'LT Capacity', name: 'Input & Output Analysis', rule: 'businessDayOfMonth', day: 10, owner: 'LT Capacity', color: '#10B981' },
+      { category: 'LT Capacity', name: 'Stakeholder Input Changes', rule: 'businessDayOfMonth', day: 10, owner: 'LT Capacity', color: '#10B981' },
+      { category: 'LT Capacity', name: 'Capacity Plan Complete', rule: 'businessDayOfMonth', day: 15, owner: 'LT Capacity', color: '#10B981', critical: true },
+      { category: 'LT Capacity', name: 'Exec Summary Delivered', rule: 'businessDayOfMonth', day: 17, owner: 'LT Capacity', color: '#10B981' },
+      
+      // Short Term Capacity
+      { category: 'ST Capacity', name: 'Channel Mix & Staffing Audit', rule: 'dayOfWeek', day: 5, owner: 'ST Capacity', color: '#F59E0B' }, // Friday
+      { category: 'ST Capacity', name: 'Vendor Recommendations', rule: 'dayOfWeek', day: 5, owner: 'ST Capacity', color: '#F59E0B' }, // Friday
+      
+      // IDPs
+      { category: 'IDPs', name: 'Previous Week Post-Mortem', rule: 'dayOfWeek', day: 2, owner: 'IDP Planners', color: '#EC4899' }, // Tuesday
+      { category: 'IDPs', name: 'IDP Template Updated', rule: 'dayOfWeek', day: 4, owner: 'IDP Planners', color: '#EC4899' }, // Thursday
+      
+      // Headcount Updates
+      { category: 'Headcount', name: 'HC Updates from Business', rule: 'dayOfWeek', day: 2, owner: 'Business Leaders', color: '#6366F1' }, // Tuesday
+      
+      // Version Control
+      { category: 'Version Control', name: 'Monthly Archive', rule: 'lastBusinessDay', day: 0, owner: 'LT Planners', color: '#64748B' },
+    ];
+    
+    // US Holidays (can be toggled on/off)
+    const usHolidays2025 = [
+      { month: 0, day: 1, name: "New Year's Day" },
+      { month: 0, day: 20, name: "MLK Day" },
+      { month: 1, day: 17, name: "Presidents Day" },
+      { month: 4, day: 26, name: "Memorial Day" },
+      { month: 6, day: 4, name: "Independence Day" },
+      { month: 8, day: 1, name: "Labor Day" },
+      { month: 9, day: 13, name: "Columbus Day" },
+      { month: 10, day: 11, name: "Veterans Day" },
+      { month: 10, day: 27, name: "Thanksgiving" },
+      { month: 11, day: 25, name: "Christmas" },
+    ];
+    
+    // Dynamic Date Calculation Functions
+    function getNthDayOfWeek(year, month, dayOfWeek, n) {
+      // Get the nth occurrence of a day of week (e.g., 1st Monday, 3rd Thursday)
+      const firstDay = new Date(year, month, 1);
+      let count = 0;
+      for (let d = 1; d <= 31; d++) {
+        const date = new Date(year, month, d);
+        if (date.getMonth() !== month) break;
+        if (date.getDay() === dayOfWeek) {
+          count++;
+          if (count === n) return d;
+        }
+      }
+      return null;
+    }
+    
+    function getLastDayOfWeek(year, month, dayOfWeek) {
+      const lastDay = new Date(year, month + 1, 0).getDate();
+      for (let d = lastDay; d >= 1; d--) {
+        const date = new Date(year, month, d);
+        if (date.getDay() === dayOfWeek) return d;
+      }
+      return null;
+    }
+    
+    function getBusinessDayOfMonth(year, month, businessDay) {
+      // Get the nth business day of the month (excludes weekends)
+      let count = 0;
+      for (let d = 1; d <= 31; d++) {
+        const date = new Date(year, month, d);
+        if (date.getMonth() !== month) break;
+        const dow = date.getDay();
+        if (dow !== 0 && dow !== 6) { // Not weekend
+          count++;
+          if (count === businessDay) return d;
+        }
+      }
+      return null;
+    }
+    
+    function getLastBusinessDay(year, month) {
+      const lastDay = new Date(year, month + 1, 0).getDate();
+      for (let d = lastDay; d >= 1; d--) {
+        const date = new Date(year, month, d);
+        const dow = date.getDay();
+        if (dow !== 0 && dow !== 6) return d;
+      }
+      return null;
+    }
+    
+    function getAllDaysOfWeekInMonth(year, month, dayOfWeek) {
+      // Returns all occurrences of a day of week in the month
+      const days = [];
+      for (let d = 1; d <= 31; d++) {
+        const date = new Date(year, month, d);
+        if (date.getMonth() !== month) break;
+        if (date.getDay() === dayOfWeek) days.push(d);
+      }
+      return days;
+    }
+    
+    function calculateEventsForMonth(year, month) {
+      const events = {};
+      
+      // Add WFM cycle activities
+      wfmCycleActivities.forEach(activity => {
+        let days = [];
+        
+        switch (activity.rule) {
+          case 'businessDayOfMonth':
+            const bd = getBusinessDayOfMonth(year, month, activity.day);
+            if (bd) days = [bd];
+            break;
+          case 'dayOfWeek':
+            days = getAllDaysOfWeekInMonth(year, month, activity.day);
+            break;
+          case 'nthDayOfWeek':
+            const nth = getNthDayOfWeek(year, month, activity.dayOfWeek, activity.n);
+            if (nth) days = [nth];
+            break;
+          case 'lastDayOfWeek':
+            const last = getLastDayOfWeek(year, month, activity.dayOfWeek);
+            if (last) days = [last];
+            break;
+          case 'lastBusinessDay':
+            const lbd = getLastBusinessDay(year, month);
+            if (lbd) days = [lbd];
+            break;
+        }
+        
+        days.forEach(day => {
+          if (!events[day]) events[day] = [];
+          events[day].push({
+            type: 'wfm',
+            name: activity.name,
+            category: activity.category,
+            owner: activity.owner,
+            color: activity.color,
+            critical: activity.critical
+          });
+        });
+      });
+      
+      // Add holidays
+      usHolidays2025.forEach(holiday => {
+        if (holiday.month === month) {
+          if (!events[holiday.day]) events[holiday.day] = [];
+          events[holiday.day].push({
+            type: 'holiday',
+            name: holiday.name,
+            color: '#94A3B8'
+          });
+        }
+      });
+      
+      return events;
+    }
+    
     function initCalendar() {
       renderCalendar();
+      updateWFMCycleSidebar();
     }
     
     function renderCalendar() {
@@ -11129,47 +11239,169 @@ Tip: Include header row with column names!"></textarea>
       const daysInMonth = new Date(year, month + 1, 0).getDate();
       const today = new Date();
       
-      // Sample events (in production, fetch from storage/API)
-      const events = {
-        1: [{ type: 'wfm', name: 'Baseline Upload' }],
-        2: [{ type: 'wfm', name: 'Forecast Review' }],
-        11: [{ type: 'wfm', name: 'Forecast Review' }, { type: 'meeting', name: 'Stakeholder Sync' }],
-        15: [{ type: 'task', name: 'Calc Validation' }],
-        19: [{ type: 'wfm', name: 'Stakeholder Review' }],
-        20: [{ type: 'task', name: 'Connect Real Data' }],
-        25: [{ type: 'holiday', name: 'Christmas' }],
-        27: [{ type: 'wfm', name: 'Plan Finalization' }]
-      };
+      // Calculate events dynamically
+      const events = calculateEventsForMonth(year, month);
       
       let html = '';
       
       // Empty cells for days before first of month
       for (let i = 0; i < firstDay; i++) {
-        html += '<div style="min-height: 70px; background: var(--gray-50); border-radius: 4px;"></div>';
+        html += '<div style="min-height: 80px; background: var(--gray-50); border-radius: 4px;"></div>';
       }
       
       // Days of the month
       for (let day = 1; day <= daysInMonth; day++) {
         const isToday = today.getDate() === day && today.getMonth() === month && today.getFullYear() === year;
         const dayEvents = events[day] || [];
+        const isWeekend = new Date(year, month, day).getDay() === 0 || new Date(year, month, day).getDay() === 6;
         
-        const eventDots = dayEvents.map(e => {
-          const colors = { wfm: 'var(--gusto-teal)', meeting: 'var(--info)', task: 'var(--warning)', special: 'var(--gusto-coral)', holiday: 'var(--gray-400)' };
-          return `<span style="width: 6px; height: 6px; background: ${colors[e.type]}; border-radius: 50%;"></span>`;
-        }).join('');
+        // Create event dots with actual colors
+        const eventDots = dayEvents.slice(0, 5).map(e => 
+          `<span style="width: 6px; height: 6px; background: ${e.color || 'var(--gusto-teal)'}; border-radius: 50%; ${e.critical ? 'box-shadow: 0 0 0 2px white, 0 0 0 3px ' + e.color + ';' : ''}"></span>`
+        ).join('');
+        
+        // First event name (truncated)
+        const firstEvent = dayEvents[0];
+        const eventLabel = firstEvent ? 
+          `<div style="font-size: 8px; color: ${firstEvent.color || 'var(--gray-500)'}; margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: ${firstEvent.critical ? '600' : '400'};">${firstEvent.name}</div>` : '';
+        
+        const moreCount = dayEvents.length > 1 ? `<div style="font-size: 8px; color: var(--gray-400);">+${dayEvents.length - 1} more</div>` : '';
         
         html += `
-          <div onclick="selectCalendarDay(${day})" style="min-height: 70px; background: ${isToday ? 'var(--gusto-teal-light)' : 'white'}; border: 1px solid ${isToday ? 'var(--gusto-teal)' : 'var(--gray-200)'}; border-radius: 4px; padding: 6px; cursor: pointer; transition: all 0.2s;">
+          <div onclick="selectCalendarDay(${day})" style="min-height: 80px; background: ${isToday ? 'var(--gusto-teal-light)' : isWeekend ? 'var(--gray-50)' : 'white'}; border: 1px solid ${isToday ? 'var(--gusto-teal)' : 'var(--gray-200)'}; border-radius: 4px; padding: 6px; cursor: pointer; transition: all 0.2s; ${isWeekend ? 'opacity: 0.7;' : ''}">
             <div style="font-size: 13px; font-weight: ${isToday ? '600' : '400'}; color: ${isToday ? 'var(--gusto-teal)' : 'var(--gray-700)'};">${day}</div>
-            <div style="display: flex; gap: 3px; flex-wrap: wrap; margin-top: 4px;">
+            <div style="display: flex; gap: 2px; flex-wrap: wrap; margin-top: 4px;">
               ${eventDots}
             </div>
-            ${dayEvents.length > 0 ? `<div style="font-size: 9px; color: var(--gray-500); margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${dayEvents[0].name}</div>` : ''}
+            ${eventLabel}
+            ${moreCount}
           </div>
         `;
       }
       
       grid.innerHTML = html;
+      
+      // Update sidebar
+      updateWFMCycleSidebar();
+      updateTodaysEvents();
+      updateUpcomingEvents();
+    }
+    
+    function updateWFMCycleSidebar() {
+      const container = document.getElementById('wfmCycleList');
+      if (!container) return;
+      
+      const year = currentCalendarDate.getFullYear();
+      const month = currentCalendarDate.getMonth();
+      const today = new Date();
+      
+      // Get key milestones for this month
+      const milestones = [
+        { name: 'Forecast Accuracy Analysis', rule: 'businessDayOfMonth', day: 5 },
+        { name: 'Input & Output Analysis', rule: 'businessDayOfMonth', day: 10 },
+        { name: 'Capacity Plan Complete', rule: 'businessDayOfMonth', day: 15, critical: true },
+        { name: 'Exec Summary Delivered', rule: 'businessDayOfMonth', day: 17 },
+        { name: 'Monthly Archive', rule: 'lastBusinessDay', day: 0 },
+      ];
+      
+      let html = '';
+      milestones.forEach(m => {
+        let actualDay;
+        if (m.rule === 'businessDayOfMonth') {
+          actualDay = getBusinessDayOfMonth(year, month, m.day);
+        } else if (m.rule === 'lastBusinessDay') {
+          actualDay = getLastBusinessDay(year, month);
+        }
+        
+        const eventDate = new Date(year, month, actualDay);
+        const isPast = eventDate < today;
+        const isToday = eventDate.toDateString() === today.toDateString();
+        
+        const status = isPast ? '✓' : isToday ? '●' : '○';
+        const statusColor = isPast ? 'var(--success)' : isToday ? 'var(--gusto-teal)' : 'var(--gray-300)';
+        
+        html += `
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="width: 20px; height: 20px; background: ${statusColor}; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px;">${status}</span>
+            <div style="flex: 1;">
+              <div style="font-size: 11px; font-weight: ${m.critical ? '600' : '500'}; color: var(--gray-700);">${m.name}</div>
+              <div style="font-size: 9px; color: var(--gray-400);">Day ${actualDay}</div>
+            </div>
+          </div>
+        `;
+      });
+      
+      container.innerHTML = html;
+    }
+    
+    function updateTodaysEvents() {
+      const container = document.getElementById('todaysEvents');
+      if (!container) return;
+      
+      const today = new Date();
+      const events = calculateEventsForMonth(today.getFullYear(), today.getMonth());
+      const todaysEvents = events[today.getDate()] || [];
+      
+      if (todaysEvents.length === 0) {
+        container.innerHTML = '<div style="padding: 12px; color: var(--gray-400); font-size: 12px; text-align: center;">No events today</div>';
+        return;
+      }
+      
+      let html = '';
+      todaysEvents.forEach(e => {
+        html += `
+          <div style="padding: 8px 10px; background: ${e.color}15; border-radius: var(--radius-sm); border-left: 3px solid ${e.color};">
+            <div style="font-size: 12px; font-weight: 500; color: var(--gray-700);">${e.name}</div>
+            <div style="font-size: 10px; color: var(--gray-500);">${e.category || e.type} ${e.owner ? '• ' + e.owner : ''}</div>
+          </div>
+        `;
+      });
+      
+      container.innerHTML = html;
+    }
+    
+    function updateUpcomingEvents() {
+      const container = document.getElementById('upcomingEvents');
+      if (!container) return;
+      
+      const today = new Date();
+      const upcoming = [];
+      
+      // Get events for next 30 days
+      for (let i = 1; i <= 30; i++) {
+        const checkDate = new Date(today);
+        checkDate.setDate(today.getDate() + i);
+        const events = calculateEventsForMonth(checkDate.getFullYear(), checkDate.getMonth());
+        const dayEvents = events[checkDate.getDate()] || [];
+        
+        dayEvents.forEach(e => {
+          if (upcoming.length < 8) {
+            upcoming.push({
+              ...e,
+              date: checkDate,
+              dateStr: checkDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+            });
+          }
+        });
+      }
+      
+      if (upcoming.length === 0) {
+        container.innerHTML = '<div style="padding: 12px; color: var(--gray-400); font-size: 12px; text-align: center;">No upcoming events</div>';
+        return;
+      }
+      
+      let html = '';
+      upcoming.forEach(e => {
+        html += `
+          <div style="display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--gray-100);">
+            <span style="font-size: 10px; color: var(--gray-500); width: 50px;">${e.dateStr}</span>
+            <span style="width: 6px; height: 6px; background: ${e.color || 'var(--gray-400)'}; border-radius: 50%;"></span>
+            <span style="font-size: 11px; color: var(--gray-700); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${e.name}</span>
+          </div>
+        `;
+      });
+      
+      container.innerHTML = html;
     }
     
     function changeMonth(delta) {
