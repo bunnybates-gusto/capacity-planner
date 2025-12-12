@@ -183,7 +183,7 @@
     }
     
     .nav-section {
-      margin-bottom: var(--space-sm);
+      margin-bottom: 2px;
     }
     
     .section-label {
@@ -191,7 +191,7 @@
       text-transform: uppercase;
       letter-spacing: 0.08em;
       color: var(--gusto-teal);
-      padding: var(--space-sm) var(--space-md);
+      padding: 8px var(--space-md);
       font-weight: 700;
       cursor: pointer;
       display: flex;
@@ -223,13 +223,13 @@
     .nav-item {
       display: flex;
       align-items: center;
-      gap: var(--space-sm);
-      padding: 8px var(--space-md);
+      gap: 8px;
+      padding: 7px var(--space-md);
       color: var(--gray-600);
       text-decoration: none;
       cursor: pointer;
       transition: all 0.2s ease;
-      border-left: 3px solid transparent;
+      border-left: 2px solid transparent;
       font-size: 13px;
       margin: 2px 8px;
       border-radius: var(--radius-sm);
@@ -258,9 +258,15 @@
     }
     
     .nav-text {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 500;
       transition: opacity 0.3s ease;
+    }
+    
+    .nav-icon {
+      font-size: 15px;
+      width: 20px;
+      text-align: center;
     }
     
     .nav-badge {
@@ -2362,8 +2368,22 @@
         <span class="logo-text">Capacity Planner</span>
       </div>
       
+      <!-- Quick Jump Search -->
+      <div class="nav-search" style="padding: 8px 12px;">
+        <div style="position: relative;">
+          <input type="text" id="quickJumpSearch" placeholder="🔍 Quick jump..." 
+            oninput="filterQuickJump(this.value)" 
+            onfocus="showQuickJumpResults()" 
+            onblur="setTimeout(() => hideQuickJumpResults(), 200)"
+            style="width: 100%; padding: 8px 10px; border: 1px solid var(--gray-200); border-radius: var(--radius-sm); font-size: 12px; background: var(--gray-50);">
+          <div id="quickJumpResults" style="display: none; position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1px solid var(--gray-200); border-radius: var(--radius-sm); box-shadow: var(--shadow-md); max-height: 300px; overflow-y: auto; z-index: 1000; margin-top: 4px;">
+            <!-- Results populated by JS -->
+          </div>
+        </div>
+      </div>
+      
       <div class="nav-content">
-        <!-- PROJECT SECTION - First for easy access -->
+        <!-- PROJECT SECTION - At top for easy access -->
         <div class="nav-section">
           <div class="section-label">Project</div>
           <div class="nav-items">
@@ -2382,13 +2402,34 @@
           </div>
         </div>
         
+        <!-- WORKFORCE DATA SECTION - Control center + HC management -->
         <div class="nav-section">
-          <div class="section-label">Views</div>
+          <div class="section-label">Workforce Data</div>
           <div class="nav-items">
             <div class="nav-item" onclick="loadView('controlpanel')" id="nav-controlpanel">
               <span class="nav-icon">🎛️</span>
-              <span class="nav-text">Control Panel</span>
+              <span class="nav-text">Control Center</span>
             </div>
+            <div class="nav-item" onclick="loadView('calendar')" id="nav-calendar">
+              <span class="nav-icon">📅</span>
+              <span class="nav-text">Planning Calendar</span>
+              <span style="font-size: 8px; background: var(--gusto-coral); color: white; padding: 2px 6px; border-radius: 8px; margin-left: auto;">NEW</span>
+            </div>
+            <div class="nav-item" onclick="loadView('stafftracker')" id="nav-stafftracker">
+              <span class="nav-icon">👥</span>
+              <span class="nav-text">Staff Tracker</span>
+            </div>
+            <div class="nav-item" onclick="loadView('overlays')" id="nav-overlays">
+              <span class="nav-icon">🎚️</span>
+              <span class="nav-text">Overlay Tracker</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- PLANNING SECTION - Core planning views -->
+        <div class="nav-section">
+          <div class="section-label">Planning</div>
+          <div class="nav-items">
             <div class="nav-item" onclick="loadView('allin')" id="nav-allin">
               <span class="nav-icon">🔗</span>
               <span class="nav-text">All-In View</span>
@@ -2404,12 +2445,13 @@
           </div>
         </div>
         
+        <!-- PILLARS SECTION - Individual pillar views -->
         <div class="nav-section">
           <div class="section-label">Pillars</div>
           <div class="nav-items">
             <div class="nav-item" onclick="openModal('createPillar')" style="border-left-color: var(--success); background: rgba(16,185,129,0.08);">
               <span class="nav-icon">➕</span>
-              <span class="nav-text">Create New Pillar</span>
+              <span class="nav-text">Create New</span>
             </div>
             <div class="nav-item" onclick="selectPillar('Accountant')" id="pillar-Accountant">
               <span class="nav-icon">👤</span>
@@ -2434,12 +2476,13 @@
           </div>
         </div>
         
+        <!-- DATA & EXPORT SECTION - Storage and exports -->
         <div class="nav-section">
-          <div class="section-label">Data</div>
+          <div class="section-label">Data & Export</div>
           <div class="nav-items">
-            <div class="nav-item" onclick="loadView('overlays')" id="nav-overlays">
-              <span class="nav-icon">🎚️</span>
-              <span class="nav-text">Overlay Tracker</span>
+            <div class="nav-item" onclick="loadView('datamanagement')" id="nav-datamanagement">
+              <span class="nav-icon">🗄️</span>
+              <span class="nav-text">Data Management</span>
             </div>
             <div class="nav-item" onclick="loadView('published')" id="nav-published">
               <span class="nav-icon">📋</span>
@@ -2449,23 +2492,21 @@
               <span class="nav-icon">💾</span>
               <span class="nav-text">Scenarios</span>
             </div>
-            <div class="nav-item" onclick="loadView('datamanagement')" id="nav-datamanagement">
-              <span class="nav-icon">🗄️</span>
-              <span class="nav-text">Data Management</span>
-            </div>
-            <div class="nav-item" onclick="loadView('stafftracker')" id="nav-stafftracker">
-              <span class="nav-icon">👥</span>
-              <span class="nav-text">Staff Tracker</span>
-              <span style="font-size: 8px; background: var(--gusto-teal); color: white; padding: 2px 6px; border-radius: 8px; margin-left: auto;">NEW</span>
-            </div>
+          </div>
+        </div>
+        
+        <!-- CONFIGURATION SECTION - System settings -->
+        <div class="nav-section">
+          <div class="section-label">Configuration</div>
+          <div class="nav-items">
             <div class="nav-item" onclick="loadView('settingshub')" id="nav-settingshub">
               <span class="nav-icon">⚙️</span>
               <span class="nav-text">Settings Hub</span>
-              <span style="font-size: 8px; background: var(--gusto-teal); color: white; padding: 2px 6px; border-radius: 8px; margin-left: auto;">NEW</span>
             </div>
           </div>
         </div>
         
+        <!-- HELP SECTION -->
         <div class="nav-section">
           <div class="section-label">Help</div>
           <div class="nav-items">
@@ -6856,6 +6897,210 @@
         </div><!-- END view-stafftracker -->
         
         <!-- ═══════════════════════════════════════════════════════════════════════
+             PLANNING CALENDAR VIEW - WFM Cycle, Tasks, Meetings
+             ═══════════════════════════════════════════════════════════════════════ -->
+        <div id="view-calendar" class="view-container" style="display: none;">
+          
+          <!-- Page Header -->
+          <div style="margin-bottom: var(--space-lg);">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <h1 style="font-size: 24px; font-weight: 600; color: var(--gray-800);">📅 Planning Calendar</h1>
+                <span style="background: var(--gusto-coral); color: white; padding: 4px 12px; border-radius: 12px; font-size: 11px; font-weight: 600;">NEW</span>
+              </div>
+              <div style="display: flex; gap: 8px;">
+                <button class="btn btn-secondary" onclick="syncGoogleCalendar()">🔗 Sync GCal</button>
+                <button class="btn btn-primary" onclick="addCalendarEvent()">➕ Add Event</button>
+              </div>
+            </div>
+            <p style="color: var(--gray-500); font-size: 14px; margin: 0;">WFM planning cycle, meetings, tasks, and special days</p>
+          </div>
+          
+          <!-- View Toggle -->
+          <div style="display: flex; gap: 8px; margin-bottom: var(--space-lg);">
+            <button onclick="setCalendarView('calendar')" class="calendar-view-btn active" style="padding: 8px 16px; background: var(--gusto-teal); color: white; border: none; border-radius: var(--radius-sm); cursor: pointer; font-size: 13px;">📅 Calendar</button>
+            <button onclick="setCalendarView('timeline')" class="calendar-view-btn" style="padding: 8px 16px; background: var(--gray-100); color: var(--gray-700); border: 1px solid var(--gray-200); border-radius: var(--radius-sm); cursor: pointer; font-size: 13px;">📊 Timeline</button>
+            <button onclick="setCalendarView('cycle')" class="calendar-view-btn" style="padding: 8px 16px; background: var(--gray-100); color: var(--gray-700); border: 1px solid var(--gray-200); border-radius: var(--radius-sm); cursor: pointer; font-size: 13px;">🔄 WFM Cycle</button>
+          </div>
+          
+          <div style="display: grid; grid-template-columns: 1fr 320px; gap: var(--space-lg);">
+            
+            <!-- LEFT: Main Calendar View -->
+            <div>
+              <!-- Calendar Header -->
+              <div style="background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); overflow: hidden;">
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: var(--space-md) var(--space-lg); background: linear-gradient(135deg, var(--gusto-teal-light) 0%, white 100%); border-bottom: 1px solid var(--gray-200);">
+                  <button onclick="changeMonth(-1)" style="background: none; border: none; font-size: 18px; cursor: pointer; padding: 4px 8px;">◀</button>
+                  <h2 id="calendarMonth" style="font-size: 18px; font-weight: 600; color: var(--gray-800); margin: 0;">December 2025</h2>
+                  <button onclick="changeMonth(1)" style="background: none; border: none; font-size: 18px; cursor: pointer; padding: 4px 8px;">▶</button>
+                </div>
+                
+                <!-- Calendar Grid -->
+                <div style="padding: var(--space-md);">
+                  <!-- Day Headers -->
+                  <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; margin-bottom: 8px;">
+                    <div style="text-align: center; font-size: 11px; font-weight: 600; color: var(--gray-500); padding: 8px;">SUN</div>
+                    <div style="text-align: center; font-size: 11px; font-weight: 600; color: var(--gray-500); padding: 8px;">MON</div>
+                    <div style="text-align: center; font-size: 11px; font-weight: 600; color: var(--gray-500); padding: 8px;">TUE</div>
+                    <div style="text-align: center; font-size: 11px; font-weight: 600; color: var(--gray-500); padding: 8px;">WED</div>
+                    <div style="text-align: center; font-size: 11px; font-weight: 600; color: var(--gray-500); padding: 8px;">THU</div>
+                    <div style="text-align: center; font-size: 11px; font-weight: 600; color: var(--gray-500); padding: 8px;">FRI</div>
+                    <div style="text-align: center; font-size: 11px; font-weight: 600; color: var(--gray-500); padding: 8px;">SAT</div>
+                  </div>
+                  
+                  <!-- Calendar Days -->
+                  <div id="calendarGrid" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px;">
+                    <!-- Days will be generated by JavaScript -->
+                  </div>
+                </div>
+                
+                <!-- Legend -->
+                <div style="padding: var(--space-md); border-top: 1px solid var(--gray-200); display: flex; gap: 16px; flex-wrap: wrap;">
+                  <div style="display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--gray-600);">
+                    <span style="width: 12px; height: 12px; background: var(--gusto-teal); border-radius: 2px;"></span> WFM Cycle
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--gray-600);">
+                    <span style="width: 12px; height: 12px; background: var(--info); border-radius: 2px;"></span> Meeting
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--gray-600);">
+                    <span style="width: 12px; height: 12px; background: var(--warning); border-radius: 2px;"></span> Task
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--gray-600);">
+                    <span style="width: 12px; height: 12px; background: var(--gusto-coral); border-radius: 2px;"></span> Special Day
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--gray-600);">
+                    <span style="width: 12px; height: 12px; background: var(--gray-300); border-radius: 2px;"></span> Holiday
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- RIGHT: Sidebar -->
+            <div style="display: flex; flex-direction: column; gap: var(--space-md);">
+              
+              <!-- Today's Events -->
+              <div style="background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); overflow: hidden;">
+                <div style="padding: var(--space-md); background: linear-gradient(135deg, var(--info-bg) 0%, white 100%); border-bottom: 1px solid var(--gray-200);">
+                  <h3 style="font-size: 14px; font-weight: 600; color: var(--gray-800); margin: 0;">📍 Today — Dec 11</h3>
+                </div>
+                <div style="padding: var(--space-md); display: flex; flex-direction: column; gap: 8px;">
+                  <div style="padding: 8px 10px; background: var(--gusto-teal-light); border-radius: var(--radius-sm); border-left: 3px solid var(--gusto-teal);">
+                    <div style="font-size: 12px; font-weight: 500; color: var(--gray-700);">📊 Forecast Review</div>
+                    <div style="font-size: 10px; color: var(--gray-500);">WFM Cycle • 9:00 AM</div>
+                  </div>
+                  <div style="padding: 8px 10px; background: var(--info-bg); border-radius: var(--radius-sm); border-left: 3px solid var(--info);">
+                    <div style="font-size: 12px; font-weight: 500; color: var(--gray-700);">👥 Stakeholder Sync</div>
+                    <div style="font-size: 10px; color: var(--gray-500);">Meeting • 2:00 PM</div>
+                  </div>
+                  <div style="padding: 8px 10px; background: var(--warning-bg); border-radius: var(--radius-sm); border-left: 3px solid var(--warning);">
+                    <div style="font-size: 12px; font-weight: 500; color: var(--gray-700);">✏️ Upload Baseline Data</div>
+                    <div style="font-size: 10px; color: var(--gray-500);">Task • Due today</div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- WFM Planning Cycle (Mini) -->
+              <div style="background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); overflow: hidden;">
+                <div style="padding: var(--space-md); background: linear-gradient(135deg, var(--gusto-coral-light) 0%, white 100%); border-bottom: 1px solid var(--gray-200);">
+                  <h3 style="font-size: 14px; font-weight: 600; color: var(--gray-800); margin: 0;">🔄 Monthly WFM Cycle</h3>
+                </div>
+                <div style="padding: var(--space-md); display: flex; flex-direction: column; gap: 6px;">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="width: 20px; height: 20px; background: var(--success); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px;">✓</span>
+                    <div style="flex: 1;">
+                      <div style="font-size: 11px; font-weight: 500; color: var(--gray-700);">Baseline Data Upload</div>
+                      <div style="font-size: 9px; color: var(--gray-400);">1st of month</div>
+                    </div>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="width: 20px; height: 20px; background: var(--gusto-teal); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px;">●</span>
+                    <div style="flex: 1;">
+                      <div style="font-size: 11px; font-weight: 500; color: var(--gray-700);">Forecast Review</div>
+                      <div style="font-size: 9px; color: var(--gray-400);">1st Monday</div>
+                    </div>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="width: 20px; height: 20px; background: var(--gray-300); color: var(--gray-600); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px;">○</span>
+                    <div style="flex: 1;">
+                      <div style="font-size: 11px; font-weight: 500; color: var(--gray-700);">Overlay Input Window</div>
+                      <div style="font-size: 9px; color: var(--gray-400);">1st - 10th</div>
+                    </div>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="width: 20px; height: 20px; background: var(--gray-300); color: var(--gray-600); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px;">○</span>
+                    <div style="flex: 1;">
+                      <div style="font-size: 11px; font-weight: 500; color: var(--gray-700);">Scenario Building</div>
+                      <div style="font-size: 9px; color: var(--gray-400);">2nd week</div>
+                    </div>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="width: 20px; height: 20px; background: var(--gray-300); color: var(--gray-600); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px;">○</span>
+                    <div style="flex: 1;">
+                      <div style="font-size: 11px; font-weight: 500; color: var(--gray-700);">Stakeholder Review</div>
+                      <div style="font-size: 9px; color: var(--gray-400);">3rd Thursday</div>
+                    </div>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="width: 20px; height: 20px; background: var(--gray-300); color: var(--gray-600); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px;">○</span>
+                    <div style="flex: 1;">
+                      <div style="font-size: 11px; font-weight: 500; color: var(--gray-700);">Plan Finalization</div>
+                      <div style="font-size: 9px; color: var(--gray-400);">4th Monday</div>
+                    </div>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="width: 20px; height: 20px; background: var(--gray-300); color: var(--gray-600); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px;">○</span>
+                    <div style="flex: 1;">
+                      <div style="font-size: 11px; font-weight: 500; color: var(--gray-700);">Publish & Archive</div>
+                      <div style="font-size: 9px; color: var(--gray-400);">Last Friday</div>
+                    </div>
+                  </div>
+                  <button onclick="editWFMCycle()" style="margin-top: 8px; width: 100%; padding: 6px; background: white; border: 1px dashed var(--gray-300); border-radius: var(--radius-sm); color: var(--gray-500); font-size: 11px; cursor: pointer;">✏️ Edit Cycle</button>
+                </div>
+              </div>
+              
+              <!-- Quick Add -->
+              <div style="background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); overflow: hidden;">
+                <div style="padding: var(--space-md); background: linear-gradient(135deg, var(--warning-bg) 0%, white 100%); border-bottom: 1px solid var(--gray-200);">
+                  <h3 style="font-size: 14px; font-weight: 600; color: var(--gray-800); margin: 0;">⚡ Quick Add</h3>
+                </div>
+                <div style="padding: var(--space-md); display: flex; flex-direction: column; gap: 8px;">
+                  <button onclick="addCalendarEvent('task')" style="width: 100%; padding: 8px; background: var(--warning-bg); border: 1px solid var(--warning); border-radius: var(--radius-sm); color: var(--gray-700); font-size: 12px; cursor: pointer; text-align: left;">✏️ New Task</button>
+                  <button onclick="addCalendarEvent('meeting')" style="width: 100%; padding: 8px; background: var(--info-bg); border: 1px solid var(--info); border-radius: var(--radius-sm); color: var(--gray-700); font-size: 12px; cursor: pointer; text-align: left;">👥 New Meeting</button>
+                  <button onclick="addCalendarEvent('special')" style="width: 100%; padding: 8px; background: var(--gusto-coral-light); border: 1px solid var(--gusto-coral); border-radius: var(--radius-sm); color: var(--gray-700); font-size: 12px; cursor: pointer; text-align: left;">⭐ Special Day</button>
+                </div>
+              </div>
+              
+              <!-- Upcoming -->
+              <div style="background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); overflow: hidden;">
+                <div style="padding: var(--space-md); background: linear-gradient(135deg, var(--success-bg) 0%, white 100%); border-bottom: 1px solid var(--gray-200);">
+                  <h3 style="font-size: 14px; font-weight: 600; color: var(--gray-800); margin: 0;">📆 Upcoming</h3>
+                </div>
+                <div style="padding: var(--space-md); display: flex; flex-direction: column; gap: 6px; max-height: 200px; overflow-y: auto;">
+                  <div style="display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--gray-100);">
+                    <span style="font-size: 10px; color: var(--gray-500); width: 50px;">Dec 15</span>
+                    <span style="font-size: 11px; color: var(--gray-700);">📊 Calculations Validation</span>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--gray-100);">
+                    <span style="font-size: 10px; color: var(--gray-500); width: 50px;">Dec 20</span>
+                    <span style="font-size: 11px; color: var(--gray-700);">🔗 Connect Real Data</span>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--gray-100);">
+                    <span style="font-size: 10px; color: var(--gray-500); width: 50px;">Dec 25</span>
+                    <span style="font-size: 11px; color: var(--gray-700);">🎄 Christmas (Holiday)</span>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 8px; padding: 6px 0;">
+                    <span style="font-size: 10px; color: var(--gray-500); width: 50px;">Jan 1</span>
+                    <span style="font-size: 11px; color: var(--gray-700);">🎊 New Year's Day</span>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+          
+        </div><!-- END view-calendar -->
+        
+        <!-- ═══════════════════════════════════════════════════════════════════════
              SETTINGS HUB VIEW - Centralized Configuration
              ═══════════════════════════════════════════════════════════════════════ -->
         <div id="view-settingshub" class="view-container" style="display: none;">
@@ -7198,6 +7443,16 @@
               <span style="background: var(--info-bg); color: var(--info); padding: 4px 12px; border-radius: 12px; font-size: 11px; font-weight: 600;">Phase 1 Prototype</span>
             </div>
             <p style="color: var(--gray-500); font-size: 14px;">Track progress, manage tasks, and document decisions</p>
+            
+            <!-- Section TOC - Jump Links -->
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px;">
+              <span style="font-size: 11px; color: var(--gray-400); padding: 4px 0;">Jump to:</span>
+              <a onclick="scrollToSection('sprintChecklist')" style="font-size: 11px; color: var(--gusto-teal); cursor: pointer; padding: 4px 8px; background: var(--gusto-teal-light); border-radius: 12px; text-decoration: none;">📋 Checklist</a>
+              <a onclick="scrollToSection('projectNotes')" style="font-size: 11px; color: var(--info); cursor: pointer; padding: 4px 8px; background: var(--info-bg); border-radius: 12px; text-decoration: none;">📝 Notes</a>
+              <a onclick="scrollToSection('sessionLog')" style="font-size: 11px; color: var(--warning); cursor: pointer; padding: 4px 8px; background: var(--warning-bg); border-radius: 12px; text-decoration: none;">📅 Sessions</a>
+              <a onclick="scrollToSection('openQuestions')" style="font-size: 11px; color: #DC2626; cursor: pointer; padding: 4px 8px; background: #FEE2E2; border-radius: 12px; text-decoration: none;">❓ Questions</a>
+              <a onclick="scrollToSection('roadmapItems')" style="font-size: 11px; color: var(--gusto-coral); cursor: pointer; padding: 4px 8px; background: var(--gusto-coral-light); border-radius: 12px; text-decoration: none;">🗺️ Roadmap</a>
+            </div>
           </div>
           
           <!-- Quick Stats Row -->
@@ -7244,143 +7499,105 @@
                 <div class="collapsible-content" style="padding: var(--space-lg); padding-top: var(--space-md);">
                 
                 
-                <!-- Checklist Items -->
-                <div id="sprintChecklist" style="display: flex; flex-direction: column; gap: 8px;">
+                <!-- Checklist Items - Auto-sorts completed to bottom -->
+                <div id="sprintChecklist" style="display: flex; flex-direction: column; gap: 6px;">
                   
-                  <!-- COMPLETED SECTION -->
-                  <div style="font-size: 11px; color: var(--success); text-transform: uppercase; font-weight: 600; margin-top: 8px; margin-bottom: 4px;">✅ Completed</div>
-                  
-                  <label class="task-item completed" style="display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; background: var(--success-bg); border-radius: var(--radius-sm); cursor: pointer; border-left: 3px solid var(--success);">
-                    <input type="checkbox" checked onchange="updateSprintProgress()" style="margin-top: 2px; accent-color: var(--success);">
-                    <div style="flex: 1;">
-                      <div style="font-size: 13px; color: var(--gray-600); text-decoration: line-through;">Control Panel View</div>
-                      <div style="font-size: 10px; color: var(--gray-400);">Pillar overview, settings, quick stats</div>
-                    </div>
-                    <span style="font-size: 10px; color: var(--success);">Dec 8</span>
-                  </label>
-                  
-                  <label class="task-item completed" style="display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; background: var(--success-bg); border-radius: var(--radius-sm); cursor: pointer; border-left: 3px solid var(--success);">
-                    <input type="checkbox" checked onchange="updateSprintProgress()" style="margin-top: 2px; accent-color: var(--success);">
-                    <div style="flex: 1;">
-                      <div style="font-size: 13px; color: var(--gray-600); text-decoration: line-through;">All-In View</div>
-                      <div style="font-size: 10px; color: var(--gray-400);">Combined pillar data with expandable sections</div>
-                    </div>
-                    <span style="font-size: 10px; color: var(--success);">Dec 9</span>
-                  </label>
-                  
-                  <label class="task-item completed" style="display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; background: var(--success-bg); border-radius: var(--radius-sm); cursor: pointer; border-left: 3px solid var(--success);">
-                    <input type="checkbox" checked onchange="updateSprintProgress()" style="margin-top: 2px; accent-color: var(--success);">
-                    <div style="flex: 1;">
-                      <div style="font-size: 13px; color: var(--gray-600); text-decoration: line-through;">Plan Comparison View</div>
-                      <div style="font-size: 10px; color: var(--gray-400);">Compare plans with key insights</div>
-                    </div>
-                    <span style="font-size: 10px; color: var(--success);">Dec 10</span>
-                  </label>
-                  
-                  <label class="task-item completed" style="display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; background: var(--success-bg); border-radius: var(--radius-sm); cursor: pointer; border-left: 3px solid var(--success);">
-                    <input type="checkbox" checked onchange="updateSprintProgress()" style="margin-top: 2px; accent-color: var(--success);">
-                    <div style="flex: 1;">
-                      <div style="font-size: 13px; color: var(--gray-600); text-decoration: line-through;">Dashboard View</div>
-                      <div style="font-size: 10px; color: var(--gray-400);">Charts, trends, site-level breakdowns</div>
-                    </div>
-                    <span style="font-size: 10px; color: var(--success);">Dec 10</span>
-                  </label>
-                  
-                  <label class="task-item completed" style="display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; background: var(--success-bg); border-radius: var(--radius-sm); cursor: pointer; border-left: 3px solid var(--success);">
-                    <input type="checkbox" checked onchange="updateSprintProgress()" style="margin-top: 2px; accent-color: var(--success);">
-                    <div style="flex: 1;">
-                      <div style="font-size: 13px; color: var(--gray-600); text-decoration: line-through;">Pillar View Template</div>
-                      <div style="font-size: 10px; color: var(--gray-400);">Channel staffing, overlays, insights</div>
-                    </div>
-                    <span style="font-size: 10px; color: var(--success);">Dec 9</span>
-                  </label>
-                  
-                  <label class="task-item completed" style="display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; background: var(--success-bg); border-radius: var(--radius-sm); cursor: pointer; border-left: 3px solid var(--success);">
-                    <input type="checkbox" checked onchange="updateSprintProgress()" style="margin-top: 2px; accent-color: var(--success);">
-                    <div style="flex: 1;">
-                      <div style="font-size: 13px; color: var(--gray-600); text-decoration: line-through;">Overlay Tracker</div>
-                      <div style="font-size: 10px; color: var(--gray-400);">Track quantified & unquantified overlays</div>
-                    </div>
-                    <span style="font-size: 10px; color: var(--success);">Dec 10</span>
-                  </label>
-                  
-                  <label class="task-item completed" style="display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; background: var(--success-bg); border-radius: var(--radius-sm); cursor: pointer; border-left: 3px solid var(--success);">
-                    <input type="checkbox" checked onchange="updateSprintProgress()" style="margin-top: 2px; accent-color: var(--success);">
-                    <div style="flex: 1;">
-                      <div style="font-size: 13px; color: var(--gray-600); text-decoration: line-through;">Data Management View</div>
-                      <div style="font-size: 10px; color: var(--gray-400);">Import/export, storage summary</div>
-                    </div>
-                    <span style="font-size: 10px; color: var(--success);">Dec 10</span>
-                  </label>
-                  
-                  <label class="task-item completed" style="display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; background: var(--success-bg); border-radius: var(--radius-sm); cursor: pointer; border-left: 3px solid var(--success);">
-                    <input type="checkbox" checked onchange="updateSprintProgress()" style="margin-top: 2px; accent-color: var(--success);">
-                    <div style="flex: 1;">
-                      <div style="font-size: 13px; color: var(--gray-600); text-decoration: line-through;">GitHub Pages Deployment</div>
-                      <div style="font-size: 10px; color: var(--gray-400);">Shareable prototype URL</div>
-                    </div>
-                    <span style="font-size: 10px; color: var(--success);">Dec 10</span>
-                  </label>
-                  
-                  <label class="task-item completed" style="display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; background: var(--success-bg); border-radius: var(--radius-sm); cursor: pointer; border-left: 3px solid var(--success);">
-                    <input type="checkbox" checked onchange="updateSprintProgress()" style="margin-top: 2px; accent-color: var(--success);">
-                    <div style="flex: 1;">
-                      <div style="font-size: 13px; color: var(--gray-600); text-decoration: line-through;">Google Sheets Data Architecture</div>
-                      <div style="font-size: 10px; color: var(--gray-400);">Plans_Registry, Inputs, Outputs, Manual_Inputs</div>
-                    </div>
-                    <span style="font-size: 10px; color: var(--success);">Dec 10</span>
-                  </label>
-                  
-                  <label class="task-item completed" style="display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; background: var(--success-bg); border-radius: var(--radius-sm); cursor: pointer; border-left: 3px solid var(--success);">
-                    <input type="checkbox" checked onchange="updateSprintProgress()" style="margin-top: 2px; accent-color: var(--success);">
-                    <div style="flex: 1;">
-                      <div style="font-size: 13px; color: var(--gray-600); text-decoration: line-through;">Product Overview Document</div>
-                      <div style="font-size: 10px; color: var(--gray-400);">Scope, purpose, roadmap</div>
-                    </div>
-                    <span style="font-size: 10px; color: var(--success);">Dec 11</span>
-                  </label>
-                  
-                  <label class="task-item completed" style="display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; background: var(--success-bg); border-radius: var(--radius-sm); cursor: pointer; border-left: 3px solid var(--success);">
-                    <input type="checkbox" checked onchange="updateSprintProgress()" style="margin-top: 2px; accent-color: var(--success);">
-                    <div style="flex: 1;">
-                      <div style="font-size: 13px; color: var(--gray-600); text-decoration: line-through;">Responsive Design (basic)</div>
-                      <div style="font-size: 10px; color: var(--gray-400);">Adapts to different screen sizes</div>
-                    </div>
-                    <span style="font-size: 10px; color: var(--success);">Dec 11</span>
-                  </label>
-                  
-                  <!-- IN PROGRESS SECTION -->
-                  <div style="font-size: 11px; color: var(--warning); text-transform: uppercase; font-weight: 600; margin-top: 16px; margin-bottom: 4px;">🔄 In Progress</div>
-                  
-                  <label class="task-item" style="display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; background: var(--warning-bg); border-radius: var(--radius-sm); cursor: pointer; border-left: 3px solid var(--warning);">
-                    <input type="checkbox" onchange="updateSprintProgress()" style="margin-top: 2px; accent-color: var(--warning);">
-                    <div style="flex: 1;">
-                      <div style="font-size: 13px; color: var(--gray-800); font-weight: 500;">Calculations Validation</div>
-                      <div style="font-size: 10px; color: var(--gray-500);">Verify HC formulas match spreadsheet logic</div>
-                    </div>
-                    <span style="font-size: 10px; color: var(--warning);">Dec 15</span>
-                  </label>
-                  
-                  <label class="task-item" style="display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; background: var(--warning-bg); border-radius: var(--radius-sm); cursor: pointer; border-left: 3px solid var(--warning);">
-                    <input type="checkbox" onchange="updateSprintProgress()" style="margin-top: 2px; accent-color: var(--warning);">
-                    <div style="flex: 1;">
-                      <div style="font-size: 13px; color: var(--gray-800); font-weight: 500;">Connect Real Data (1 Pillar)</div>
-                      <div style="font-size: 10px; color: var(--gray-500);">Test with actual baseline & HC data</div>
-                    </div>
-                    <span style="font-size: 10px; color: var(--warning);">Dec 20</span>
-                  </label>
-                  
-                  <!-- UPCOMING SECTION -->
-                  <div style="font-size: 11px; color: var(--gray-500); text-transform: uppercase; font-weight: 600; margin-top: 16px; margin-bottom: 4px;">📅 Upcoming</div>
-                  
-                  <label class="task-item" style="display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; background: var(--gray-50); border-radius: var(--radius-sm); cursor: pointer; border-left: 3px solid var(--gray-300);">
+                  <!-- Incomplete tasks (will auto-sort to top) -->
+                  <label class="task-item" style="display: flex; align-items: flex-start; gap: 10px; padding: 8px 12px; background: var(--gray-50); border-radius: var(--radius-sm); cursor: pointer; border-left: 3px solid var(--gray-300);">
                     <input type="checkbox" onchange="updateSprintProgress()" style="margin-top: 2px;">
                     <div style="flex: 1;">
-                      <div style="font-size: 13px; color: var(--gray-700);">Training Documentation</div>
+                      <div style="font-size: 12px; color: var(--gray-700);">Calculations Validation</div>
+                      <div style="font-size: 10px; color: var(--gray-500);">Verify HC formulas match spreadsheet logic</div>
+                    </div>
+                    <span style="font-size: 10px; color: var(--gray-400);">Dec 15</span>
+                  </label>
+                  
+                  <label class="task-item" style="display: flex; align-items: flex-start; gap: 10px; padding: 8px 12px; background: var(--gray-50); border-radius: var(--radius-sm); cursor: pointer; border-left: 3px solid var(--gray-300);">
+                    <input type="checkbox" onchange="updateSprintProgress()" style="margin-top: 2px;">
+                    <div style="flex: 1;">
+                      <div style="font-size: 12px; color: var(--gray-700);">Connect Real Data (1 Pillar)</div>
+                      <div style="font-size: 10px; color: var(--gray-500);">Test with actual baseline & HC data</div>
+                    </div>
+                    <span style="font-size: 10px; color: var(--gray-400);">Dec 20</span>
+                  </label>
+                  
+                  <label class="task-item" style="display: flex; align-items: flex-start; gap: 10px; padding: 8px 12px; background: var(--gray-50); border-radius: var(--radius-sm); cursor: pointer; border-left: 3px solid var(--gray-300);">
+                    <input type="checkbox" onchange="updateSprintProgress()" style="margin-top: 2px;">
+                    <div style="flex: 1;">
+                      <div style="font-size: 12px; color: var(--gray-700);">Training Documentation</div>
                       <div style="font-size: 10px; color: var(--gray-500);">Quick start guide for new users</div>
                     </div>
                     <span style="font-size: 10px; color: var(--gray-400);">Dec 23</span>
                   </label>
+                  
+                  <label class="task-item" style="display: flex; align-items: flex-start; gap: 10px; padding: 8px 12px; background: var(--gray-50); border-radius: var(--radius-sm); cursor: pointer; border-left: 3px solid var(--gray-300);">
+                    <input type="checkbox" onchange="updateSprintProgress()" style="margin-top: 2px;">
+                    <div style="flex: 1;">
+                      <div style="font-size: 12px; color: var(--gray-700);">User Testing with Team</div>
+                      <div style="font-size: 10px; color: var(--gray-500);">Get feedback from planners</div>
+                    </div>
+                    <span style="font-size: 10px; color: var(--gray-400);">Dec 27</span>
+                  </label>
+                  
+                  <label class="task-item" style="display: flex; align-items: flex-start; gap: 10px; padding: 8px 12px; background: var(--gray-50); border-radius: var(--radius-sm); cursor: pointer; border-left: 3px solid var(--gray-300);">
+                    <input type="checkbox" onchange="updateSprintProgress()" style="margin-top: 2px;">
+                    <div style="flex: 1;">
+                      <div style="font-size: 12px; color: var(--gray-700);">Multi-Pillar Support</div>
+                      <div style="font-size: 10px; color: var(--gray-500);">Extend to all pillars</div>
+                    </div>
+                    <span style="font-size: 10px; color: var(--gray-400);">Jan 10</span>
+                  </label>
+                  
+                  <!-- Completed tasks (will auto-sort to bottom) -->
+                  <label class="task-item" style="display: flex; align-items: flex-start; gap: 10px; padding: 8px 12px; background: var(--success-bg); border-radius: var(--radius-sm); cursor: pointer; border-left: 3px solid var(--success);">
+                    <input type="checkbox" checked onchange="updateSprintProgress()" style="margin-top: 2px;">
+                    <div style="flex: 1;">
+                      <div style="font-size: 12px; color: var(--gray-500); text-decoration: line-through;">Control Panel View</div>
+                      <div style="font-size: 10px; color: var(--gray-400);">Dec 8</div>
+                    </div>
+                  </label>
+                  
+                  <label class="task-item" style="display: flex; align-items: flex-start; gap: 10px; padding: 8px 12px; background: var(--success-bg); border-radius: var(--radius-sm); cursor: pointer; border-left: 3px solid var(--success);">
+                    <input type="checkbox" checked onchange="updateSprintProgress()" style="margin-top: 2px;">
+                    <div style="flex: 1;">
+                      <div style="font-size: 12px; color: var(--gray-500); text-decoration: line-through;">All-In View</div>
+                      <div style="font-size: 10px; color: var(--gray-400);">Dec 9</div>
+                    </div>
+                  </label>
+                  
+                  <label class="task-item" style="display: flex; align-items: flex-start; gap: 10px; padding: 8px 12px; background: var(--success-bg); border-radius: var(--radius-sm); cursor: pointer; border-left: 3px solid var(--success);">
+                    <input type="checkbox" checked onchange="updateSprintProgress()" style="margin-top: 2px;">
+                    <div style="flex: 1;">
+                      <div style="font-size: 12px; color: var(--gray-500); text-decoration: line-through;">Plan Comparison, Dashboard, Pillar Views</div>
+                      <div style="font-size: 10px; color: var(--gray-400);">Dec 10</div>
+                    </div>
+                  </label>
+                  
+                  <label class="task-item" style="display: flex; align-items: flex-start; gap: 10px; padding: 8px 12px; background: var(--success-bg); border-radius: var(--radius-sm); cursor: pointer; border-left: 3px solid var(--success);">
+                    <input type="checkbox" checked onchange="updateSprintProgress()" style="margin-top: 2px;">
+                    <div style="flex: 1;">
+                      <div style="font-size: 12px; color: var(--gray-500); text-decoration: line-through;">GitHub Deployment + Data Architecture</div>
+                      <div style="font-size: 10px; color: var(--gray-400);">Dec 10</div>
+                    </div>
+                  </label>
+                  
+                  <label class="task-item" style="display: flex; align-items: flex-start; gap: 10px; padding: 8px 12px; background: var(--success-bg); border-radius: var(--radius-sm); cursor: pointer; border-left: 3px solid var(--success);">
+                    <input type="checkbox" checked onchange="updateSprintProgress()" style="margin-top: 2px;">
+                    <div style="flex: 1;">
+                      <div style="font-size: 12px; color: var(--gray-500); text-decoration: line-through;">Staff Tracker + Settings Hub</div>
+                      <div style="font-size: 10px; color: var(--gray-400);">Dec 11</div>
+                    </div>
+                  </label>
+                  
+                  <label class="task-item" style="display: flex; align-items: flex-start; gap: 10px; padding: 8px 12px; background: var(--success-bg); border-radius: var(--radius-sm); cursor: pointer; border-left: 3px solid var(--success);">
+                    <input type="checkbox" checked onchange="updateSprintProgress()" style="margin-top: 2px;">
+                    <div style="flex: 1;">
+                      <div style="font-size: 12px; color: var(--gray-500); text-decoration: line-through;">Navigation Restructure</div>
+                      <div style="font-size: 10px; color: var(--gray-400);">Dec 11</div>
+                    </div>
+                  </label>
+                  
+                </div>
                   
                   <label class="task-item" style="display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; background: var(--gray-50); border-radius: var(--radius-sm); cursor: pointer; border-left: 3px solid var(--gray-300);">
                     <input type="checkbox" onchange="updateSprintProgress()" style="margin-top: 2px;">
@@ -7571,8 +7788,120 @@ Next steps:
                     <div style="font-size: 13px; color: var(--gray-700); margin-top: 4px;">Pillar Settings include default shrink, hours, etc. as fallbacks when baseline data is incomplete</div>
                     <div style="font-size: 10px; color: var(--gray-500); margin-top: 4px;">Dec 11, 2025</div>
                   </div>
+                  
+                  <button onclick="addKeyDecision()" style="width: 100%; margin-top: 8px; padding: 8px; background: white; border: 1px dashed var(--gray-300); border-radius: var(--radius-sm); color: var(--gray-500); font-size: 12px; cursor: pointer;">+ Add Decision</button>
                 </div>
                 </div><!-- END collapsible-content -->
+              </div>
+              
+              <!-- Quick Links -->
+              <div id="quickLinks" style="background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); overflow: hidden;">
+                <div onclick="toggleProjectSection(this)" style="display: flex; justify-content: space-between; align-items: center; padding: var(--space-md) var(--space-lg); cursor: pointer; background: linear-gradient(135deg, #E8F4FD 0%, white 100%); border-bottom: 1px solid var(--gray-200);">
+                  <h3 style="font-size: 16px; font-weight: 600; color: var(--gray-800); display: flex; align-items: center; gap: 8px; margin: 0;">
+                    <span class="collapse-arrow" style="font-size: 12px; transition: transform 0.2s;">▼</span>
+                    <span style="font-size: 18px;">🔗</span> Quick Links
+                  </h3>
+                  <span style="font-size: 11px; color: var(--gray-500);">Click to collapse</span>
+                </div>
+                <div class="collapsible-content" style="padding: var(--space-md);">
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                    <a href="https://bunnybates.github.io/capacity-planner/" target="_blank" style="display: flex; align-items: center; gap: 8px; padding: 10px; background: var(--gray-50); border-radius: var(--radius-sm); text-decoration: none; color: var(--gray-700); font-size: 12px; border: 1px solid var(--gray-200);">
+                      <span>🌐</span> Live Prototype
+                    </a>
+                    <a href="https://github.com/bunnybates/capacity-planner" target="_blank" style="display: flex; align-items: center; gap: 8px; padding: 10px; background: var(--gray-50); border-radius: var(--radius-sm); text-decoration: none; color: var(--gray-700); font-size: 12px; border: 1px solid var(--gray-200);">
+                      <span>📦</span> GitHub Repo
+                    </a>
+                    <a href="https://docs.google.com/spreadsheets/d/1Jfm3Gv7xkaHtl5Vrf8qQpFtOElQu4MX-xl2OykBpuVs/edit" target="_blank" style="display: flex; align-items: center; gap: 8px; padding: 10px; background: var(--gray-50); border-radius: var(--radius-sm); text-decoration: none; color: var(--gray-700); font-size: 12px; border: 1px solid var(--gray-200);">
+                      <span>📊</span> Sandbox Sheet
+                    </a>
+                    <a onclick="loadView('overview')" style="display: flex; align-items: center; gap: 8px; padding: 10px; background: var(--gray-50); border-radius: var(--radius-sm); text-decoration: none; color: var(--gray-700); font-size: 12px; border: 1px solid var(--gray-200); cursor: pointer;">
+                      <span>📄</span> Product Overview
+                    </a>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Session Log -->
+              <div style="background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); overflow: hidden;">
+                <div onclick="toggleProjectSection(this)" style="display: flex; justify-content: space-between; align-items: center; padding: var(--space-md) var(--space-lg); cursor: pointer; background: linear-gradient(135deg, #FEF3C7 0%, white 100%); border-bottom: 1px solid var(--gray-200);">
+                  <h3 style="font-size: 16px; font-weight: 600; color: var(--gray-800); display: flex; align-items: center; gap: 8px; margin: 0;">
+                    <span class="collapse-arrow" style="font-size: 12px; transition: transform 0.2s;">▼</span>
+                    <span style="font-size: 18px;">📅</span> Session Log
+                  </h3>
+                  <div style="display: flex; gap: 8px; align-items: center;">
+                    <span style="font-size: 11px; color: var(--gray-500);">Click to collapse</span>
+                    <button onclick="event.stopPropagation(); addSessionEntry()" style="background: var(--gusto-teal); color: white; border: none; padding: 4px 10px; border-radius: var(--radius-sm); font-size: 11px; cursor: pointer;">+ Entry</button>
+                  </div>
+                </div>
+                <div class="collapsible-content" style="padding: var(--space-md); max-height: 300px; overflow-y: auto;">
+                  <div id="sessionLog" style="display: flex; flex-direction: column; gap: 8px;">
+                    <div style="padding: 10px; background: var(--gray-50); border-radius: var(--radius-sm); border-left: 3px solid var(--warning);">
+                      <div style="font-size: 11px; font-weight: 600; color: var(--warning);">Dec 11, 2025 — Session 5</div>
+                      <div style="font-size: 12px; color: var(--gray-700); margin-top: 4px;">✅ Added Staff Tracker & Settings Hub views. Reorganized navigation structure. Updated Project Hub with expandable roadmap and auto-sorting checklist.</div>
+                    </div>
+                    <div style="padding: 10px; background: var(--gray-50); border-radius: var(--radius-sm); border-left: 3px solid var(--success);">
+                      <div style="font-size: 11px; font-weight: 600; color: var(--success);">Dec 11, 2025 — Presentation</div>
+                      <div style="font-size: 12px; color: var(--gray-700); margin-top: 4px;">🎉 Stakeholder presentation successful! Got great feedback. Team wants full WFM suite but understands Phase 1 scope.</div>
+                    </div>
+                    <div style="padding: 10px; background: var(--gray-50); border-radius: var(--radius-sm); border-left: 3px solid var(--info);">
+                      <div style="font-size: 11px; font-weight: 600; color: var(--info);">Dec 10, 2025 — Session 4</div>
+                      <div style="font-size: 12px; color: var(--gray-700); margin-top: 4px;">Built Data Management, Overlay Tracker. Deployed to GitHub Pages. Discussed data architecture and plan versioning.</div>
+                    </div>
+                    <div style="padding: 10px; background: var(--gray-50); border-radius: var(--radius-sm); border-left: 3px solid var(--info);">
+                      <div style="font-size: 11px; font-weight: 600; color: var(--info);">Dec 9, 2025 — Session 3</div>
+                      <div style="font-size: 12px; color: var(--gray-700); margin-top: 4px;">Plan Comparison view with key insights. Fixed collapsible sections. Started dashboard charts.</div>
+                    </div>
+                    <div style="padding: 10px; background: var(--gray-50); border-radius: var(--radius-sm); border-left: 3px solid var(--info);">
+                      <div style="font-size: 11px; font-weight: 600; color: var(--info);">Dec 8, 2025 — Session 2</div>
+                      <div style="font-size: 12px; color: var(--gray-700); margin-top: 4px;">Control Panel and All-In views. Pillar template. Established design system.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Open Questions / Blockers -->
+              <div style="background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); overflow: hidden;">
+                <div onclick="toggleProjectSection(this)" style="display: flex; justify-content: space-between; align-items: center; padding: var(--space-md) var(--space-lg); cursor: pointer; background: linear-gradient(135deg, #FEE2E2 0%, white 100%); border-bottom: 1px solid var(--gray-200);">
+                  <h3 style="font-size: 16px; font-weight: 600; color: var(--gray-800); display: flex; align-items: center; gap: 8px; margin: 0;">
+                    <span class="collapse-arrow" style="font-size: 12px; transition: transform 0.2s;">▼</span>
+                    <span style="font-size: 18px;">❓</span> Open Questions & Blockers
+                  </h3>
+                  <div style="display: flex; gap: 8px; align-items: center;">
+                    <span style="font-size: 11px; color: var(--gray-500);">Click to collapse</span>
+                    <button onclick="event.stopPropagation(); addQuestion()" style="background: var(--gusto-coral); color: white; border: none; padding: 4px 10px; border-radius: var(--radius-sm); font-size: 11px; cursor: pointer;">+ Add</button>
+                  </div>
+                </div>
+                <div class="collapsible-content" style="padding: var(--space-md);">
+                  <div id="openQuestions" style="display: flex; flex-direction: column; gap: 8px;">
+                    <div style="padding: 10px; background: #FEE2E2; border-radius: var(--radius-sm); border-left: 3px solid #DC2626;">
+                      <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <div>
+                          <div style="font-size: 12px; font-weight: 500; color: var(--gray-700);">🔴 Server/Hosting Resources</div>
+                          <div style="font-size: 11px; color: var(--gray-500); margin-top: 2px;">Need engineering approval for production deployment</div>
+                        </div>
+                        <span style="font-size: 10px; background: #DC2626; color: white; padding: 2px 6px; border-radius: 8px;">Blocker</span>
+                      </div>
+                    </div>
+                    <div style="padding: 10px; background: #FEF3C7; border-radius: var(--radius-sm); border-left: 3px solid #F59E0B;">
+                      <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <div>
+                          <div style="font-size: 12px; font-weight: 500; color: var(--gray-700);">🟡 Multi-Team Scalability</div>
+                          <div style="font-size: 11px; color: var(--gray-500); margin-top: 2px;">How will org/pillar/channel structure scale across teams?</div>
+                        </div>
+                        <span style="font-size: 10px; background: #F59E0B; color: white; padding: 2px 6px; border-radius: 8px;">Question</span>
+                      </div>
+                    </div>
+                    <div style="padding: 10px; background: #E0F2FE; border-radius: var(--radius-sm); border-left: 3px solid #0EA5E9;">
+                      <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <div>
+                          <div style="font-size: 12px; font-weight: 500; color: var(--gray-700);">🔵 Dashboard/Plan Comparison Usefulness</div>
+                          <div style="font-size: 11px; color: var(--gray-500); margin-top: 2px;">Need user feedback to validate if these views are valuable</div>
+                        </div>
+                        <span style="font-size: 10px; background: #0EA5E9; color: white; padding: 2px 6px; border-radius: 8px;">Validate</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
               
               <!-- Roadmap Quick View -->
@@ -7620,41 +7949,124 @@ Next steps:
                   </div>
                 </div>
                 
-                <!-- Future Features List -->
+                <!-- Future Features List - Expandable -->
                 <div style="margin-top: var(--space-md); padding-top: var(--space-md); border-top: 1px solid var(--gray-200);">
-                  <div style="font-size: 12px; font-weight: 600; color: var(--gray-600); margin-bottom: 8px;">📋 Future Requirements Log</div>
-                  <div style="display: flex; flex-wrap: wrap; gap: 6px; font-size: 11px;">
-                    <!-- NOW BUILDING - Phase 1 -->
-                    <span style="background: var(--gusto-teal); color: white; padding: 4px 10px; border-radius: 12px; font-weight: 600;">📊 Staff Tracker ✓ BUILDING</span>
-                    <span style="background: var(--gusto-teal); color: white; padding: 4px 10px; border-radius: 12px; font-weight: 600;">⚙️ Settings Hub ✓ BUILDING</span>
-                    <!-- Data & Calendar -->
-                    <span style="background: var(--success-bg); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">🗓️ US Holidays System (check/uncheck)</span>
-                    <span style="background: var(--success-bg); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">📓 Captain's Log (Special Dates)</span>
-                    <span style="background: var(--info-bg); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">📖 Metric Dictionary</span>
-                    <!-- Settings & Config -->
-                    <span style="background: var(--warning-bg); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">Working Days Type Scheduling</span>
-                    <span style="background: var(--warning-bg); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">Part-Time / Full-Time HC Calculations</span>
-                    <span style="background: var(--warning-bg); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">Settings Change Audit Log</span>
-                    <span style="background: var(--warning-bg); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">Admin Notifications per Pillar</span>
-                    <span style="background: var(--warning-bg); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">Export Settings with Pillar Template</span>
-                    <!-- Advanced Analytics -->
-                    <span style="background: var(--gusto-coral-light); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">📊 Seasonal Pattern Detection</span>
-                    <span style="background: var(--gusto-coral-light); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">⚠️ Anomaly Alerts</span>
-                    <span style="background: var(--gusto-coral-light); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">🧪 What-If Simulator</span>
-                    <span style="background: var(--gusto-coral-light); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">📈 Trend Forecasting</span>
-                    <!-- Collaboration & Integration -->
-                    <span style="background: var(--gray-200); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">💬 Slack Integration</span>
-                    <span style="background: var(--gray-200); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">✅ Approval Workflows</span>
-                    <span style="background: var(--gray-200); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">👤 Role-Based Views</span>
-                    <span style="background: var(--gray-200); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">📱 Mobile Dashboard</span>
-                    <span style="background: var(--gray-200); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">📧 Export Scheduler</span>
-                    <!-- UX & Design -->
-                    <span style="background: var(--gusto-coral-light); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">📱 Responsive Design (Laptop/Desktop)</span>
-                    <span style="background: var(--gusto-coral-light); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">🔐 Admin Permissions & Ticket System</span>
-                    <span style="background: var(--gusto-coral-light); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">📊 HC Source of Truth Logic</span>
-                    <!-- AI & Dream Features -->
-                    <span style="background: linear-gradient(135deg, var(--gusto-teal-light), var(--info-bg)); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">🤖 AI Notes Interaction</span>
-                    <span style="background: linear-gradient(135deg, var(--gusto-teal-light), var(--info-bg)); color: var(--gray-700); padding: 4px 10px; border-radius: 12px;">📉 Data Health Score</span>
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                    <div style="font-size: 12px; font-weight: 600; color: var(--gray-600);">📋 Future Requirements Log</div>
+                    <button onclick="addRoadmapItem()" style="background: var(--gusto-teal); color: white; border: none; padding: 4px 10px; border-radius: var(--radius-sm); font-size: 11px; cursor: pointer;">+ Add Item</button>
+                  </div>
+                  
+                  <div id="roadmapItems" style="display: flex; flex-direction: column; gap: 6px;">
+                    <!-- Expandable Roadmap Items -->
+                    <div class="roadmap-item" style="border: 1px solid var(--gray-200); border-radius: var(--radius-sm); overflow: hidden;">
+                      <div onclick="toggleRoadmapItem(this)" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: var(--gusto-teal); cursor: pointer;">
+                        <span style="color: white; font-size: 10px;">▶</span>
+                        <span style="font-size: 12px; color: white; font-weight: 600;">📊 Staff Tracker</span>
+                        <span style="font-size: 9px; background: rgba(255,255,255,0.3); color: white; padding: 2px 6px; border-radius: 8px; margin-left: auto;">✓ BUILDING</span>
+                      </div>
+                      <div class="roadmap-details" style="display: none; padding: 12px; background: var(--gray-50); font-size: 12px;">
+                        <textarea style="width: 100%; min-height: 60px; border: 1px solid var(--gray-200); border-radius: 4px; padding: 8px; font-size: 12px; resize: vertical;" placeholder="Add details...">View and edit actual headcount by Pillar, Site, and Management Unit. Includes inline editing for future months, bulk import, and change tracking.</textarea>
+                      </div>
+                    </div>
+                    
+                    <div class="roadmap-item" style="border: 1px solid var(--gray-200); border-radius: var(--radius-sm); overflow: hidden;">
+                      <div onclick="toggleRoadmapItem(this)" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: var(--gusto-teal); cursor: pointer;">
+                        <span style="color: white; font-size: 10px;">▶</span>
+                        <span style="font-size: 12px; color: white; font-weight: 600;">⚙️ Settings Hub</span>
+                        <span style="font-size: 9px; background: rgba(255,255,255,0.3); color: white; padding: 2px 6px; border-radius: 8px; margin-left: auto;">✓ BUILDING</span>
+                      </div>
+                      <div class="roadmap-details" style="display: none; padding: 12px; background: var(--gray-50); font-size: 12px;">
+                        <textarea style="width: 100%; min-height: 60px; border: 1px solid var(--gray-200); border-radius: 4px; padding: 8px; font-size: 12px; resize: vertical;" placeholder="Add details...">Centralized configuration for planning period, metrics, sites, orgs, SL uplifts, holidays, and pillar settings. Replaces scattered Setup tab.</textarea>
+                      </div>
+                    </div>
+                    
+                    <div class="roadmap-item" style="border: 1px solid var(--gray-200); border-radius: var(--radius-sm); overflow: hidden;">
+                      <div onclick="toggleRoadmapItem(this)" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: var(--success-bg); cursor: pointer;">
+                        <span style="color: var(--gray-600); font-size: 10px;">▶</span>
+                        <span style="font-size: 12px; color: var(--gray-700); font-weight: 500;">🗓️ US Holidays System</span>
+                        <span style="font-size: 9px; background: var(--success); color: white; padding: 2px 6px; border-radius: 8px; margin-left: auto;">Data</span>
+                      </div>
+                      <div class="roadmap-details" style="display: none; padding: 12px; background: var(--gray-50); font-size: 12px;">
+                        <textarea style="width: 100%; min-height: 60px; border: 1px solid var(--gray-200); border-radius: 4px; padding: 8px; font-size: 12px; resize: vertical;" placeholder="Add details...">Pre-populated US holiday list at system level. Users check/uncheck which holidays apply. Factors into productive days calculations automatically.</textarea>
+                      </div>
+                    </div>
+                    
+                    <div class="roadmap-item" style="border: 1px solid var(--gray-200); border-radius: var(--radius-sm); overflow: hidden;">
+                      <div onclick="toggleRoadmapItem(this)" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: var(--success-bg); cursor: pointer;">
+                        <span style="color: var(--gray-600); font-size: 10px;">▶</span>
+                        <span style="font-size: 12px; color: var(--gray-700); font-weight: 500;">📓 Captain's Log</span>
+                        <span style="font-size: 9px; background: var(--success); color: white; padding: 2px 6px; border-radius: 8px; margin-left: auto;">Data</span>
+                      </div>
+                      <div class="roadmap-details" style="display: none; padding: 12px; background: var(--gray-50); font-size: 12px;">
+                        <textarea style="width: 100%; min-height: 60px; border: 1px solid var(--gray-200); border-radius: 4px; padding: 8px; font-size: 12px; resize: vertical;" placeholder="Add details...">Special dates tracker. Input date, note what's special, categorize as note/volume impact/metric impact. Persists across admin changes.</textarea>
+                      </div>
+                    </div>
+                    
+                    <div class="roadmap-item" style="border: 1px solid var(--gray-200); border-radius: var(--radius-sm); overflow: hidden;">
+                      <div onclick="toggleRoadmapItem(this)" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: var(--info-bg); cursor: pointer;">
+                        <span style="color: var(--gray-600); font-size: 10px;">▶</span>
+                        <span style="font-size: 12px; color: var(--gray-700); font-weight: 500;">🛠️ Custom Dashboard Builder</span>
+                        <span style="font-size: 9px; background: var(--info); color: white; padding: 2px 6px; border-radius: 8px; margin-left: auto;">Analytics</span>
+                      </div>
+                      <div class="roadmap-details" style="display: none; padding: 12px; background: var(--gray-50); font-size: 12px;">
+                        <textarea style="width: 100%; min-height: 60px; border: 1px solid var(--gray-200); border-radius: 4px; padding: 8px; font-size: 12px; resize: vertical;" placeholder="Add details...">Let users drag/drop widgets to build their own dashboard view. Connect to historical data for actual trends and HC comparison.</textarea>
+                      </div>
+                    </div>
+                    
+                    <div class="roadmap-item" style="border: 1px solid var(--gray-200); border-radius: var(--radius-sm); overflow: hidden;">
+                      <div onclick="toggleRoadmapItem(this)" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: var(--gusto-coral-light); cursor: pointer;">
+                        <span style="color: var(--gray-600); font-size: 10px;">▶</span>
+                        <span style="font-size: 12px; color: var(--gray-700); font-weight: 500;">📱 Responsive Design</span>
+                        <span style="font-size: 9px; background: var(--gusto-coral); color: white; padding: 2px 6px; border-radius: 8px; margin-left: auto;">UX</span>
+                      </div>
+                      <div class="roadmap-details" style="display: none; padding: 12px; background: var(--gray-50); font-size: 12px;">
+                        <textarea style="width: 100%; min-height: 60px; border: 1px solid var(--gray-200); border-radius: 4px; padding: 8px; font-size: 12px; resize: vertical;" placeholder="Add details...">Optimize layouts for laptop vs desktop. CSS breakpoints, flexible grids, collapsible elements. Ensure consistent experience across screen sizes.</textarea>
+                      </div>
+                    </div>
+                    
+                    <div class="roadmap-item" style="border: 1px solid var(--gray-200); border-radius: var(--radius-sm); overflow: hidden;">
+                      <div onclick="toggleRoadmapItem(this)" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: var(--gusto-coral-light); cursor: pointer;">
+                        <span style="color: var(--gray-600); font-size: 10px;">▶</span>
+                        <span style="font-size: 12px; color: var(--gray-700); font-weight: 500;">📊 HC Source of Truth</span>
+                        <span style="font-size: 9px; background: var(--gusto-coral); color: white; padding: 2px 6px; border-radius: 8px; margin-left: auto;">Architecture</span>
+                      </div>
+                      <div class="roadmap-details" style="display: none; padding: 12px; background: var(--gray-50); font-size: 12px;">
+                        <textarea style="width: 100%; min-height: 60px; border: 1px solid var(--gray-200); border-radius: 4px; padding: 8px; font-size: 12px; resize: vertical;" placeholder="Add details...">Define hierarchy: Staff Tracker = source for historical/current HC. Pillar Model = calculates future HC. Conflict detection and resolution UI.</textarea>
+                      </div>
+                    </div>
+                    
+                    <div class="roadmap-item" style="border: 1px solid var(--gray-200); border-radius: var(--radius-sm); overflow: hidden;">
+                      <div onclick="toggleRoadmapItem(this)" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: var(--warning-bg); cursor: pointer;">
+                        <span style="color: var(--gray-600); font-size: 10px;">▶</span>
+                        <span style="font-size: 12px; color: var(--gray-700); font-weight: 500;">🔐 Admin Permissions</span>
+                        <span style="font-size: 9px; background: var(--warning); color: white; padding: 2px 6px; border-radius: 8px; margin-left: auto;">Config</span>
+                      </div>
+                      <div class="roadmap-details" style="display: none; padding: 12px; background: var(--gray-50); font-size: 12px;">
+                        <textarea style="width: 100%; min-height: 60px; border: 1px solid var(--gray-200); border-radius: 4px; padding: 8px; font-size: 12px; resize: vertical;" placeholder="Add details...">Role-based access control. Admins can edit settings, non-admins can submit tickets. Audit log for all changes. Notifications per pillar.</textarea>
+                      </div>
+                    </div>
+                    
+                    <div class="roadmap-item" style="border: 1px solid var(--gray-200); border-radius: var(--radius-sm); overflow: hidden;">
+                      <div onclick="toggleRoadmapItem(this)" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: var(--gray-200); cursor: pointer;">
+                        <span style="color: var(--gray-600); font-size: 10px;">▶</span>
+                        <span style="font-size: 12px; color: var(--gray-700); font-weight: 500;">💬 Slack Integration</span>
+                        <span style="font-size: 9px; background: var(--gray-500); color: white; padding: 2px 6px; border-radius: 8px; margin-left: auto;">Future</span>
+                      </div>
+                      <div class="roadmap-details" style="display: none; padding: 12px; background: var(--gray-50); font-size: 12px;">
+                        <textarea style="width: 100%; min-height: 60px; border: 1px solid var(--gray-200); border-radius: 4px; padding: 8px; font-size: 12px; resize: vertical;" placeholder="Add details...">Push alerts to Slack, receive overlay requests, share summaries. Notify pillar owners of changes.</textarea>
+                      </div>
+                    </div>
+                    
+                    <div class="roadmap-item" style="border: 1px solid var(--gray-200); border-radius: var(--radius-sm); overflow: hidden;">
+                      <div onclick="toggleRoadmapItem(this)" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: linear-gradient(135deg, var(--gusto-teal-light), var(--info-bg)); cursor: pointer;">
+                        <span style="color: var(--gray-600); font-size: 10px;">▶</span>
+                        <span style="font-size: 12px; color: var(--gray-700); font-weight: 500;">🤖 AI Notes Interaction</span>
+                        <span style="font-size: 9px; background: #7C3AED; color: white; padding: 2px 6px; border-radius: 8px; margin-left: auto;">Dream</span>
+                      </div>
+                      <div class="roadmap-details" style="display: none; padding: 12px; background: var(--gray-50); font-size: 12px;">
+                        <textarea style="width: 100%; min-height: 60px; border: 1px solid var(--gray-200); border-radius: 4px; padding: 8px; font-size: 12px; resize: vertical;" placeholder="Add details...">Chat with your notes and data within the tool. Ask questions about trends, get summaries, explore scenarios conversationally.</textarea>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 </div><!-- END collapsible-content -->
@@ -9851,6 +10263,10 @@ Tip: Include header row with column names!"></textarea>
     function loadView(view) {
       console.log('loadView called with:', view);
       
+      // Scroll to top of page for visual feedback
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      document.querySelector('.workspace')?.scrollTo({ top: 0, behavior: 'smooth' });
+      
       // Hide all view containers
       document.querySelectorAll('.view-container').forEach(v => {
         v.style.display = 'none';
@@ -9917,6 +10333,16 @@ Tip: Include header row with column names!"></textarea>
         comparisonToggle.style.display = 'none';
         if (scenariosBtn) scenariosBtn.style.display = 'none';
       } else if (view === 'projecthub' || view === 'designsystem' || view === 'overview') {
+        dropdown.style.display = 'none';
+        comparisonToggle.style.display = 'none';
+        if (scenariosBtn) scenariosBtn.style.display = 'none';
+      } else if (view === 'calendar') {
+        dropdown.style.display = 'none';
+        comparisonToggle.style.display = 'none';
+        if (scenariosBtn) scenariosBtn.style.display = 'none';
+        // Initialize calendar when view loads
+        renderCalendar();
+      } else if (view === 'stafftracker' || view === 'settingshub') {
         dropdown.style.display = 'none';
         comparisonToggle.style.display = 'none';
         if (scenariosBtn) scenariosBtn.style.display = 'none';
@@ -10543,6 +10969,261 @@ Tip: Include header row with column names!"></textarea>
     }
     
     // ═══════════════════════════════════════════════════════════════════════
+    // ═══════════════════════════════════════════════════════════════════════
+    // QUICK JUMP SEARCH FUNCTIONS
+    // ═══════════════════════════════════════════════════════════════════════
+    
+    const quickJumpItems = [
+      // Views
+      { name: 'Project Hub', type: 'view', action: () => loadView('projecthub'), icon: '🚀', section: 'Views' },
+      { name: 'Product Overview', type: 'view', action: () => loadView('overview'), icon: '📄', section: 'Views' },
+      { name: 'Design System', type: 'view', action: () => loadView('designsystem'), icon: '🎨', section: 'Views' },
+      { name: 'Control Center', type: 'view', action: () => loadView('controlpanel'), icon: '🎛️', section: 'Views' },
+      { name: 'Planning Calendar', type: 'view', action: () => loadView('calendar'), icon: '📅', section: 'Views' },
+      { name: 'Staff Tracker', type: 'view', action: () => loadView('stafftracker'), icon: '👥', section: 'Views' },
+      { name: 'Overlay Tracker', type: 'view', action: () => loadView('overlays'), icon: '🎚️', section: 'Views' },
+      { name: 'All-In View', type: 'view', action: () => loadView('allin'), icon: '🔗', section: 'Views' },
+      { name: 'Plan Comparison', type: 'view', action: () => loadView('comparison'), icon: '⚖️', section: 'Views' },
+      { name: 'Dashboard', type: 'view', action: () => loadView('dashboard'), icon: '📊', section: 'Views' },
+      { name: 'Data Management', type: 'view', action: () => loadView('datamanagement'), icon: '🗄️', section: 'Views' },
+      { name: 'Published Plans', type: 'view', action: () => loadView('published'), icon: '📋', section: 'Views' },
+      { name: 'Scenarios', type: 'view', action: () => loadView('scenarios'), icon: '💾', section: 'Views' },
+      { name: 'Settings Hub', type: 'view', action: () => loadView('settingshub'), icon: '⚙️', section: 'Views' },
+      
+      // Pillars
+      { name: 'Accountant', type: 'pillar', action: () => selectPillar('Accountant'), icon: '👤', section: 'Pillars' },
+      { name: 'Accountant - Phone', type: 'channel', action: () => { selectPillar('Accountant'); setTimeout(() => scrollToSection('channel-phone'), 300); }, icon: '📞', section: 'Pillars' },
+      { name: 'Accountant - Email', type: 'channel', action: () => { selectPillar('Accountant'); setTimeout(() => scrollToSection('channel-email'), 300); }, icon: '📧', section: 'Pillars' },
+      { name: 'Benefits', type: 'pillar', action: () => selectPillar('Benefits'), icon: '🏥', section: 'Pillars' },
+      { name: 'PAC', type: 'pillar', action: () => selectPillar('PAC'), icon: '📞', section: 'Pillars' },
+      { name: 'Payroll', type: 'pillar', action: () => selectPillar('Payroll'), icon: '💰', section: 'Pillars' },
+      { name: 'Premier', type: 'pillar', action: () => selectPillar('Premier'), icon: '⭐', section: 'Pillars' },
+      
+      // Project Hub Sections
+      { name: 'Sprint Checklist', type: 'section', action: () => { loadView('projecthub'); setTimeout(() => scrollToSection('sprintChecklist'), 300); }, icon: '📋', section: 'Project Hub' },
+      { name: 'Notes & Decisions', type: 'section', action: () => { loadView('projecthub'); setTimeout(() => scrollToSection('projectNotes'), 300); }, icon: '📝', section: 'Project Hub' },
+      { name: 'Key Decisions Log', type: 'section', action: () => { loadView('projecthub'); setTimeout(() => scrollToSection('keyDecisions'), 300); }, icon: '🎯', section: 'Project Hub' },
+      { name: 'Session Log', type: 'section', action: () => { loadView('projecthub'); setTimeout(() => scrollToSection('sessionLog'), 300); }, icon: '📅', section: 'Project Hub' },
+      { name: 'Open Questions', type: 'section', action: () => { loadView('projecthub'); setTimeout(() => scrollToSection('openQuestions'), 300); }, icon: '❓', section: 'Project Hub' },
+      { name: 'Roadmap', type: 'section', action: () => { loadView('projecthub'); setTimeout(() => scrollToSection('roadmapItems'), 300); }, icon: '🗺️', section: 'Project Hub' },
+      { name: 'Quick Links', type: 'section', action: () => { loadView('projecthub'); setTimeout(() => scrollToSection('quickLinks'), 300); }, icon: '🔗', section: 'Project Hub' },
+      
+      // Actions
+      { name: 'Add Task', type: 'action', action: () => addSprintTask(), icon: '➕', section: 'Actions' },
+      { name: 'Add Roadmap Item', type: 'action', action: () => addRoadmapItem(), icon: '➕', section: 'Actions' },
+      { name: 'Add Session Entry', type: 'action', action: () => addSessionEntry(), icon: '➕', section: 'Actions' },
+      { name: 'Add Calendar Event', type: 'action', action: () => { loadView('calendar'); addCalendarEvent(); }, icon: '📅', section: 'Actions' },
+      { name: 'Recalculate', type: 'action', action: () => recalculate(), icon: '🔄', section: 'Actions' },
+      { name: 'Save Scenario', type: 'action', action: () => openModal('save'), icon: '💾', section: 'Actions' },
+      { name: 'Import Data', type: 'action', action: () => openImportModal('baseline'), icon: '📥', section: 'Actions' },
+    ];
+    
+    function scrollToSection(sectionId) {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Highlight briefly
+        element.style.boxShadow = '0 0 0 3px var(--gusto-teal)';
+        setTimeout(() => element.style.boxShadow = '', 2000);
+      }
+    }
+    
+    function filterQuickJump(query) {
+      const results = document.getElementById('quickJumpResults');
+      if (!query.trim()) {
+        results.style.display = 'none';
+        return;
+      }
+      
+      const filtered = quickJumpItems.filter(item => 
+        item.name.toLowerCase().includes(query.toLowerCase()) ||
+        item.section.toLowerCase().includes(query.toLowerCase())
+      );
+      
+      if (filtered.length === 0) {
+        results.innerHTML = '<div style="padding: 12px; color: var(--gray-500); font-size: 12px;">No matches found</div>';
+        results.style.display = 'block';
+        return;
+      }
+      
+      // Group by section
+      const grouped = {};
+      filtered.forEach(item => {
+        if (!grouped[item.section]) grouped[item.section] = [];
+        grouped[item.section].push(item);
+      });
+      
+      let html = '';
+      for (const [section, items] of Object.entries(grouped)) {
+        html += `<div style="padding: 6px 10px; background: var(--gray-50); font-size: 10px; font-weight: 600; color: var(--gray-500); text-transform: uppercase;">${section}</div>`;
+        items.forEach((item, idx) => {
+          html += `
+            <div class="quick-jump-item" onclick="executeQuickJump(${quickJumpItems.indexOf(item)})" 
+              style="padding: 8px 12px; cursor: pointer; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--gray-100);"
+              onmouseover="this.style.background='var(--gusto-teal-light)'" 
+              onmouseout="this.style.background='white'">
+              <span style="font-size: 14px;">${item.icon}</span>
+              <span style="font-size: 12px; color: var(--gray-700);">${item.name}</span>
+              <span style="font-size: 10px; color: var(--gray-400); margin-left: auto;">${item.type}</span>
+            </div>
+          `;
+        });
+      }
+      
+      results.innerHTML = html;
+      results.style.display = 'block';
+    }
+    
+    function executeQuickJump(index) {
+      const item = quickJumpItems[index];
+      if (item && item.action) {
+        item.action();
+        document.getElementById('quickJumpSearch').value = '';
+        document.getElementById('quickJumpResults').style.display = 'none';
+        showToast(`🚀 Jumped to: ${item.name}`, 'success');
+      }
+    }
+    
+    function showQuickJumpResults() {
+      const query = document.getElementById('quickJumpSearch').value;
+      if (query.trim()) {
+        filterQuickJump(query);
+      }
+    }
+    
+    function hideQuickJumpResults() {
+      document.getElementById('quickJumpResults').style.display = 'none';
+    }
+    
+    // Keyboard shortcut: Cmd/Ctrl + K to focus search
+    document.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        document.getElementById('quickJumpSearch').focus();
+      }
+    });
+    
+    // ═══════════════════════════════════════════════════════════════════════
+    // PLANNING CALENDAR FUNCTIONS
+    // ═══════════════════════════════════════════════════════════════════════
+    
+    let currentCalendarDate = new Date();
+    
+    function initCalendar() {
+      renderCalendar();
+    }
+    
+    function renderCalendar() {
+      const grid = document.getElementById('calendarGrid');
+      if (!grid) return;
+      
+      const year = currentCalendarDate.getFullYear();
+      const month = currentCalendarDate.getMonth();
+      
+      // Update header
+      const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      document.getElementById('calendarMonth').textContent = `${monthNames[month]} ${year}`;
+      
+      // Get first day of month and total days
+      const firstDay = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      const today = new Date();
+      
+      // Sample events (in production, fetch from storage/API)
+      const events = {
+        1: [{ type: 'wfm', name: 'Baseline Upload' }],
+        2: [{ type: 'wfm', name: 'Forecast Review' }],
+        11: [{ type: 'wfm', name: 'Forecast Review' }, { type: 'meeting', name: 'Stakeholder Sync' }],
+        15: [{ type: 'task', name: 'Calc Validation' }],
+        19: [{ type: 'wfm', name: 'Stakeholder Review' }],
+        20: [{ type: 'task', name: 'Connect Real Data' }],
+        25: [{ type: 'holiday', name: 'Christmas' }],
+        27: [{ type: 'wfm', name: 'Plan Finalization' }]
+      };
+      
+      let html = '';
+      
+      // Empty cells for days before first of month
+      for (let i = 0; i < firstDay; i++) {
+        html += '<div style="min-height: 70px; background: var(--gray-50); border-radius: 4px;"></div>';
+      }
+      
+      // Days of the month
+      for (let day = 1; day <= daysInMonth; day++) {
+        const isToday = today.getDate() === day && today.getMonth() === month && today.getFullYear() === year;
+        const dayEvents = events[day] || [];
+        
+        const eventDots = dayEvents.map(e => {
+          const colors = { wfm: 'var(--gusto-teal)', meeting: 'var(--info)', task: 'var(--warning)', special: 'var(--gusto-coral)', holiday: 'var(--gray-400)' };
+          return `<span style="width: 6px; height: 6px; background: ${colors[e.type]}; border-radius: 50%;"></span>`;
+        }).join('');
+        
+        html += `
+          <div onclick="selectCalendarDay(${day})" style="min-height: 70px; background: ${isToday ? 'var(--gusto-teal-light)' : 'white'}; border: 1px solid ${isToday ? 'var(--gusto-teal)' : 'var(--gray-200)'}; border-radius: 4px; padding: 6px; cursor: pointer; transition: all 0.2s;">
+            <div style="font-size: 13px; font-weight: ${isToday ? '600' : '400'}; color: ${isToday ? 'var(--gusto-teal)' : 'var(--gray-700)'};">${day}</div>
+            <div style="display: flex; gap: 3px; flex-wrap: wrap; margin-top: 4px;">
+              ${eventDots}
+            </div>
+            ${dayEvents.length > 0 ? `<div style="font-size: 9px; color: var(--gray-500); margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${dayEvents[0].name}</div>` : ''}
+          </div>
+        `;
+      }
+      
+      grid.innerHTML = html;
+    }
+    
+    function changeMonth(delta) {
+      currentCalendarDate.setMonth(currentCalendarDate.getMonth() + delta);
+      renderCalendar();
+    }
+    
+    function selectCalendarDay(day) {
+      showToast(`📅 Selected: ${currentCalendarDate.toLocaleDateString('en-US', { month: 'short' })} ${day}`, 'info');
+      // In production: show day detail modal
+    }
+    
+    function setCalendarView(view) {
+      document.querySelectorAll('.calendar-view-btn').forEach(btn => {
+        btn.style.background = 'var(--gray-100)';
+        btn.style.color = 'var(--gray-700)';
+        btn.style.border = '1px solid var(--gray-200)';
+      });
+      
+      event.target.style.background = 'var(--gusto-teal)';
+      event.target.style.color = 'white';
+      event.target.style.border = 'none';
+      
+      showToast(`📊 Switched to ${view} view`, 'info');
+      // In production: toggle between calendar grid, timeline, and WFM cycle views
+    }
+    
+    function syncGoogleCalendar() {
+      showToast('🔗 Google Calendar sync would connect here in production', 'info');
+      // In production: OAuth flow to connect to user's Google Calendar
+    }
+    
+    function addCalendarEvent(type = 'task') {
+      const types = {
+        task: { emoji: '✏️', name: 'Task' },
+        meeting: { emoji: '👥', name: 'Meeting' },
+        special: { emoji: '⭐', name: 'Special Day' }
+      };
+      
+      const t = types[type] || types.task;
+      const name = prompt(`${t.emoji} New ${t.name} name:`);
+      if (!name) return;
+      
+      const date = prompt('Date (e.g., Dec 15):');
+      
+      showToast(`${t.emoji} ${t.name} "${name}" added!`, 'success');
+      // In production: save to storage and refresh calendar
+    }
+    
+    function editWFMCycle() {
+      showToast('🔄 WFM Cycle editor would open here', 'info');
+      // In production: modal to edit recurring WFM tasks with dynamic date rules
+    }
+    
     // PROJECT HUB FUNCTIONS - Sprint tracking, notes, localStorage
     // ═══════════════════════════════════════════════════════════════════════
     
@@ -10565,6 +11246,128 @@ Tip: Include header row with column names!"></textarea>
     }
     
     // Update sprint progress based on checked items
+    // Roadmap item toggle
+    function toggleRoadmapItem(headerEl) {
+      const details = headerEl.nextElementSibling;
+      const arrow = headerEl.querySelector('span:first-child');
+      
+      if (details.style.display === 'none') {
+        details.style.display = 'block';
+        arrow.textContent = '▼';
+      } else {
+        details.style.display = 'none';
+        arrow.textContent = '▶';
+      }
+    }
+    
+    // Add new roadmap item
+    function addRoadmapItem() {
+      const name = prompt('Feature name:');
+      if (!name) return;
+      
+      const category = prompt('Category (Data, Analytics, UX, Config, Future, Dream):') || 'Future';
+      
+      const container = document.getElementById('roadmapItems');
+      const newItem = document.createElement('div');
+      newItem.className = 'roadmap-item';
+      newItem.style.cssText = 'border: 1px solid var(--gray-200); border-radius: var(--radius-sm); overflow: hidden;';
+      newItem.innerHTML = `
+        <div onclick="toggleRoadmapItem(this)" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: var(--gray-200); cursor: pointer;">
+          <span style="color: var(--gray-600); font-size: 10px;">▶</span>
+          <span style="font-size: 12px; color: var(--gray-700); font-weight: 500;">${name}</span>
+          <span style="font-size: 9px; background: var(--gray-500); color: white; padding: 2px 6px; border-radius: 8px; margin-left: auto;">${category}</span>
+        </div>
+        <div class="roadmap-details" style="display: none; padding: 12px; background: var(--gray-50); font-size: 12px;">
+          <textarea style="width: 100%; min-height: 60px; border: 1px solid var(--gray-200); border-radius: 4px; padding: 8px; font-size: 12px; resize: vertical;" placeholder="Add details..."></textarea>
+        </div>
+      `;
+      container.appendChild(newItem);
+      showToast('✅ Roadmap item added!', 'success');
+    }
+    
+    // Add session log entry
+    function addSessionEntry() {
+      const content = prompt('What did you work on this session?');
+      if (!content) return;
+      
+      const today = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      const sessionLog = document.getElementById('sessionLog');
+      
+      const entry = document.createElement('div');
+      entry.style.cssText = 'padding: 10px; background: var(--gray-50); border-radius: var(--radius-sm); border-left: 3px solid var(--warning);';
+      entry.innerHTML = `
+        <div style="font-size: 11px; font-weight: 600; color: var(--warning);">${today} — New Session</div>
+        <div style="font-size: 12px; color: var(--gray-700); margin-top: 4px;">${content}</div>
+      `;
+      
+      // Insert at top
+      sessionLog.insertBefore(entry, sessionLog.firstChild);
+      showToast('📅 Session entry added!', 'success');
+    }
+    
+    // Add key decision
+    function addKeyDecision() {
+      const title = prompt('Decision title:');
+      if (!title) return;
+      
+      const details = prompt('Decision details:');
+      if (!details) return;
+      
+      const today = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      
+      // Find the container (before the Add Decision button)
+      const decisionsContainer = document.querySelector('#view-projecthub .collapsible-content > div');
+      if (!decisionsContainer) return;
+      
+      const newDecision = document.createElement('div');
+      newDecision.style.cssText = 'padding: 12px; background: var(--gusto-teal-light); border-radius: var(--radius-sm); border-left: 3px solid var(--gusto-teal);';
+      newDecision.innerHTML = `
+        <div style="font-size: 12px; font-weight: 600; color: var(--gusto-teal);">${title}</div>
+        <div style="font-size: 13px; color: var(--gray-700); margin-top: 4px;">${details}</div>
+        <div style="font-size: 10px; color: var(--gray-500); margin-top: 4px;">${today}</div>
+      `;
+      
+      // Insert before the button
+      const button = decisionsContainer.querySelector('button');
+      if (button) {
+        decisionsContainer.insertBefore(newDecision, button);
+      }
+      showToast('🎯 Decision logged!', 'success');
+    }
+    
+    // Add open question/blocker
+    function addQuestion() {
+      const question = prompt('Question or blocker:');
+      if (!question) return;
+      
+      const type = prompt('Type (blocker, question, validate):') || 'question';
+      const details = prompt('Additional details (optional):') || '';
+      
+      const colors = {
+        blocker: { bg: '#FEE2E2', border: '#DC2626', label: 'Blocker', emoji: '🔴' },
+        question: { bg: '#FEF3C7', border: '#F59E0B', label: 'Question', emoji: '🟡' },
+        validate: { bg: '#E0F2FE', border: '#0EA5E9', label: 'Validate', emoji: '🔵' }
+      };
+      
+      const style = colors[type] || colors.question;
+      
+      const container = document.getElementById('openQuestions');
+      const entry = document.createElement('div');
+      entry.style.cssText = `padding: 10px; background: ${style.bg}; border-radius: var(--radius-sm); border-left: 3px solid ${style.border};`;
+      entry.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+          <div>
+            <div style="font-size: 12px; font-weight: 500; color: var(--gray-700);">${style.emoji} ${question}</div>
+            ${details ? `<div style="font-size: 11px; color: var(--gray-500); margin-top: 2px;">${details}</div>` : ''}
+          </div>
+          <span style="font-size: 10px; background: ${style.border}; color: white; padding: 2px 6px; border-radius: 8px;">${style.label}</span>
+        </div>
+      `;
+      
+      container.insertBefore(entry, container.firstChild);
+      showToast('❓ Added to questions!', 'success');
+    }
+    
     function updateSprintProgress() {
       const checklist = document.getElementById('sprintChecklist');
       if (!checklist) return;
@@ -10587,6 +11390,31 @@ Tip: Include header row with column names!"></textarea>
       if (tasksEl) {
         tasksEl.textContent = completed + '/' + total;
       }
+      
+      // Auto-sort: Move completed items to bottom
+      const allTasks = Array.from(checklist.querySelectorAll('.task-item'));
+      const incompleteTasks = allTasks.filter(t => !t.querySelector('input[type="checkbox"]').checked);
+      const completedTasks = allTasks.filter(t => t.querySelector('input[type="checkbox"]').checked);
+      
+      // Re-append in order (incomplete first, then completed)
+      [...incompleteTasks, ...completedTasks].forEach(task => {
+        checklist.appendChild(task);
+      });
+      
+      // Update styles for completed items
+      completedTasks.forEach(task => {
+        task.style.background = 'var(--success-bg)';
+        task.style.borderLeftColor = 'var(--success)';
+        task.querySelector('div > div:first-child').style.textDecoration = 'line-through';
+        task.querySelector('div > div:first-child').style.color = 'var(--gray-500)';
+      });
+      
+      incompleteTasks.forEach(task => {
+        task.style.background = 'var(--gray-50)';
+        task.style.borderLeftColor = 'var(--gray-300)';
+        task.querySelector('div > div:first-child').style.textDecoration = 'none';
+        task.querySelector('div > div:first-child').style.color = 'var(--gray-700)';
+      });
       
       // Save checkbox states to localStorage
       const checkboxStates = Array.from(allCheckboxes).map((cb, idx) => ({
