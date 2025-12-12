@@ -7422,6 +7422,49 @@
             </div>
           </div>
           
+          <!-- Weekly Summary Card -->
+          <div id="weeklySummary" style="background: linear-gradient(135deg, var(--gusto-teal-light) 0%, var(--info-bg) 100%); border-radius: var(--radius-lg); padding: var(--space-lg); margin-bottom: var(--space-lg); border: 1px solid var(--gusto-teal);">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+              <div>
+                <h3 style="font-size: 18px; font-weight: 600; color: var(--gray-800); margin: 0 0 4px 0;">📅 Week of Dec 9-13, 2025</h3>
+                <p style="font-size: 12px; color: var(--gray-600); margin: 0;">Phase 1 Prototype Sprint</p>
+              </div>
+              <span style="background: var(--success); color: white; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600;">On Track 🚀</span>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+              <!-- What We Built -->
+              <div style="background: white; border-radius: var(--radius-md); padding: 12px; border: 1px solid var(--gray-200);">
+                <div style="font-size: 12px; font-weight: 600; color: var(--success); margin-bottom: 8px;">✅ Implemented This Week</div>
+                <ul style="margin: 0; padding-left: 16px; font-size: 11px; color: var(--gray-700); line-height: 1.8;">
+                  <li>Planning Calendar with dynamic WFM cycle dates</li>
+                  <li>Quick Jump search (⌘K) for navigation</li>
+                  <li>Section TOC jump links in Project Hub</li>
+                  <li>Staff Tracker & Settings Hub views</li>
+                  <li>Calculation engine aligned with spreadsheet</li>
+                  <li>Navigation restructure (7 sections)</li>
+                  <li>Auto-sorting checklist & expandable roadmap</li>
+                  <li>Session Log, Quick Links, Open Questions</li>
+                </ul>
+              </div>
+              
+              <!-- Next Focus -->
+              <div style="background: white; border-radius: var(--radius-md); padding: 12px; border: 1px solid var(--gray-200);">
+                <div style="font-size: 12px; font-weight: 600; color: var(--info); margin-bottom: 8px;">🎯 Next Focus Areas</div>
+                <ul style="margin: 0; padding-left: 16px; font-size: 11px; color: var(--gray-700); line-height: 1.8;">
+                  <li><strong>Data Import Testing</strong> — Real baseline data</li>
+                  <li><strong>Calculation Validation</strong> — Match spreadsheet outputs</li>
+                  <li><strong>Connect to Sheets</strong> — Read/write from sandbox</li>
+                  <li><strong>1 Pillar End-to-End</strong> — Full workflow test</li>
+                  <li><strong>Training Documentation</strong> — Quick start guide</li>
+                </ul>
+                <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--gray-200);">
+                  <div style="font-size: 10px; color: var(--gray-500);">🔮 Future: Management Hub for multi-team orchestration</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
           <!-- Two Column Layout -->
           <div style="display: grid; grid-template-columns: 2fr 1fr; gap: var(--space-lg);">
             
@@ -8009,6 +8052,17 @@ Next steps:
                       </div>
                       <div class="roadmap-details" style="display: none; padding: 12px; background: var(--gray-50); font-size: 12px;">
                         <textarea style="width: 100%; min-height: 60px; border: 1px solid var(--gray-200); border-radius: 4px; padding: 8px; font-size: 12px; resize: vertical;" placeholder="Add details...">Chat with your notes and data within the tool. Ask questions about trends, get summaries, explore scenarios conversationally.</textarea>
+                      </div>
+                    </div>
+                    
+                    <div class="roadmap-item" style="border: 1px solid var(--gray-200); border-radius: var(--radius-sm); overflow: hidden;">
+                      <div onclick="toggleRoadmapItem(this)" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: linear-gradient(135deg, #FDF4FF, #FAE8FF); cursor: pointer;">
+                        <span style="color: var(--gray-600); font-size: 10px;">▶</span>
+                        <span style="font-size: 12px; color: var(--gray-700); font-weight: 500;">🏢 Management Hub</span>
+                        <span style="font-size: 9px; background: #A855F7; color: white; padding: 2px 6px; border-radius: 8px; margin-left: auto;">Vision</span>
+                      </div>
+                      <div class="roadmap-details" style="display: none; padding: 12px; background: var(--gray-50); font-size: 12px;">
+                        <textarea style="width: 100%; min-height: 60px; border: 1px solid var(--gray-200); border-radius: 4px; padding: 8px; font-size: 12px; resize: vertical;" placeholder="Add details...">Central hub linking multiple team planning sites. Manager/Team Lead dashboard with cross-team visibility. Each group has their own planning tool instance, all feeding into one orchestration view. Aggregated metrics, cross-team dependencies, unified reporting.</textarea>
                       </div>
                     </div>
                   </div>
