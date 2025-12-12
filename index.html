@@ -7450,17 +7450,24 @@
               
               <!-- Next Focus -->
               <div style="background: white; border-radius: var(--radius-md); padding: 12px; border: 1px solid var(--gray-200);">
-                <div style="font-size: 12px; font-weight: 600; color: var(--info); margin-bottom: 8px;">🎯 Next Focus Areas</div>
+                <div style="font-size: 12px; font-weight: 600; color: var(--info); margin-bottom: 8px;">🎯 Next Focus Areas (P0-P1)</div>
                 <ul style="margin: 0; padding-left: 16px; font-size: 11px; color: var(--gray-700); line-height: 1.8;">
-                  <li><strong>Data Import Testing</strong> — Real baseline data</li>
-                  <li><strong>Calculation Validation</strong> — Match spreadsheet outputs</li>
-                  <li><strong>Connect to Sheets</strong> — Read/write from sandbox</li>
+                  <li><strong style="color: #DC2626;">⚠️ Data Import Testing</strong> — Critical path item</li>
+                  <li><strong>Export as Pillar Template</strong> — For validation</li>
+                  <li><strong>Calculation Validation</strong> — Match spreadsheet</li>
                   <li><strong>1 Pillar End-to-End</strong> — Full workflow test</li>
-                  <li><strong>Training Documentation</strong> — Quick start guide</li>
                 </ul>
                 <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--gray-200);">
-                  <div style="font-size: 10px; color: var(--gray-500);">🔮 Future: Management Hub for multi-team orchestration</div>
+                  <div style="font-size: 10px; color: var(--gray-500);">🔮 Medium-High: Quick Change Mode, Exec Summary, Forecasting Hub</div>
                 </div>
+              </div>
+            </div>
+            
+            <!-- Critical Decision Callout -->
+            <div style="background: #FEF3C7; border: 1px solid #F59E0B; border-radius: var(--radius-md); padding: 12px; margin-top: 12px;">
+              <div style="font-size: 12px; font-weight: 600; color: #92400E; margin-bottom: 6px;">⚡ KEY ARCHITECTURE DECISION NEEDED</div>
+              <div style="font-size: 11px; color: #78350F; line-height: 1.6;">
+                <strong>Import-First vs Live Sheets Connection:</strong> Should the tool import data snapshots (more control, offline capability) or maintain live connection to Sheets (real-time sync, single source of truth)? This affects calculation testing approach.
               </div>
             </div>
           </div>
@@ -7822,6 +7829,10 @@ Next steps:
                 </div>
                 <div class="collapsible-content" style="padding: var(--space-md); max-height: 300px; overflow-y: auto;">
                   <div id="sessionLog" style="display: flex; flex-direction: column; gap: 8px;">
+                    <div style="padding: 10px; background: var(--gusto-teal-light); border-radius: var(--radius-sm); border-left: 3px solid var(--gusto-teal);">
+                      <div style="font-size: 11px; font-weight: 600; color: var(--gusto-teal);">Dec 12, 2025 — Session 6</div>
+                      <div style="font-size: 12px; color: var(--gray-700); margin-top: 4px;">📋 Deep roadmap review from conversation history. Added 10 missing roadmap items with priorities. Added Import vs Live Connection decision callout. Updated Weekly Summary. Planning Calendar with dynamic WFM dates.</div>
+                    </div>
                     <div style="padding: 10px; background: var(--gray-50); border-radius: var(--radius-sm); border-left: 3px solid var(--warning);">
                       <div style="font-size: 11px; font-weight: 600; color: var(--warning);">Dec 11, 2025 — Session 5</div>
                       <div style="font-size: 12px; color: var(--gray-700); margin-top: 4px;">✅ Added Staff Tracker & Settings Hub views. Reorganized navigation structure. Updated Project Hub with expandable roadmap and auto-sorting checklist.</div>
@@ -7860,6 +7871,33 @@ Next steps:
                 </div>
                 <div class="collapsible-content" style="padding: var(--space-md);">
                   <div id="openQuestions" style="display: flex; flex-direction: column; gap: 8px;">
+                    <!-- CRITICAL DECISION -->
+                    <div style="padding: 12px; background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%); border-radius: var(--radius-sm); border: 2px solid #F59E0B;">
+                      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                        <div style="font-size: 13px; font-weight: 600; color: #92400E;">⚡ DECISION: Import-First vs Live Sheets Connection</div>
+                        <span style="font-size: 10px; background: #DC2626; color: white; padding: 2px 8px; border-radius: 8px; font-weight: 600;">DECIDE SOON</span>
+                      </div>
+                      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 8px;">
+                        <div style="background: white; padding: 8px; border-radius: var(--radius-sm); font-size: 11px;">
+                          <div style="font-weight: 600; color: var(--gray-700); margin-bottom: 4px;">📥 Import-First Approach</div>
+                          <div style="color: var(--success);">✓ Works offline</div>
+                          <div style="color: var(--success);">✓ Controlled snapshots</div>
+                          <div style="color: var(--success);">✓ Faster testing</div>
+                          <div style="color: #DC2626;">✗ Manual sync needed</div>
+                          <div style="color: #DC2626;">✗ Data can get stale</div>
+                        </div>
+                        <div style="background: white; padding: 8px; border-radius: var(--radius-sm); font-size: 11px;">
+                          <div style="font-weight: 600; color: var(--gray-700); margin-bottom: 4px;">🔗 Live Sheets Connection</div>
+                          <div style="color: var(--success);">✓ Real-time sync</div>
+                          <div style="color: var(--success);">✓ Single source of truth</div>
+                          <div style="color: var(--success);">✓ No import step</div>
+                          <div style="color: #DC2626;">✗ Requires network</div>
+                          <div style="color: #DC2626;">✗ API quota limits</div>
+                        </div>
+                      </div>
+                      <div style="font-size: 10px; color: #78350F; font-style: italic;">Recommendation: Hybrid — Import for testing/scenarios, Live for published plan sync</div>
+                    </div>
+                    
                     <div style="padding: 10px; background: #FEE2E2; border-radius: var(--radius-sm); border-left: 3px solid #DC2626;">
                       <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                         <div>
@@ -8052,6 +8090,108 @@ Next steps:
                       </div>
                       <div class="roadmap-details" style="display: none; padding: 12px; background: var(--gray-50); font-size: 12px;">
                         <textarea style="width: 100%; min-height: 60px; border: 1px solid var(--gray-200); border-radius: 4px; padding: 8px; font-size: 12px; resize: vertical;" placeholder="Add details...">Chat with your notes and data within the tool. Ask questions about trends, get summaries, explore scenarios conversationally.</textarea>
+                      </div>
+                    </div>
+                    
+                    <!-- MEDIUM-HIGH PRIORITY (from conversation) -->
+                    <div class="roadmap-item" style="border: 2px solid #F59E0B; border-radius: var(--radius-sm); overflow: hidden;">
+                      <div onclick="toggleRoadmapItem(this)" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: linear-gradient(135deg, #FEF3C7, #FDE68A); cursor: pointer;">
+                        <span style="color: var(--gray-600); font-size: 10px;">▶</span>
+                        <span style="font-size: 12px; color: #92400E; font-weight: 600;">⚡ Quick Change & Analysis Mode</span>
+                        <span style="font-size: 9px; background: #F59E0B; color: white; padding: 2px 6px; border-radius: 8px; margin-left: auto;">Med-High</span>
+                      </div>
+                      <div class="roadmap-details" style="display: none; padding: 12px; background: var(--gray-50); font-size: 12px;">
+                        <textarea style="width: 100%; min-height: 60px; border: 1px solid var(--gray-200); border-radius: 4px; padding: 8px; font-size: 12px; resize: vertical;" placeholder="Add details...">Streamlined what-if analysis without navigating multiple views. Quick scenario creation, instant impact preview. Address user feedback about needing faster scenario comparisons without over-relying on AI analysis. Reduce clicks from current workflow.</textarea>
+                      </div>
+                    </div>
+                    
+                    <div class="roadmap-item" style="border: 2px solid #F59E0B; border-radius: var(--radius-sm); overflow: hidden;">
+                      <div onclick="toggleRoadmapItem(this)" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: linear-gradient(135deg, #FEF3C7, #FDE68A); cursor: pointer;">
+                        <span style="color: var(--gray-600); font-size: 10px;">▶</span>
+                        <span style="font-size: 12px; color: #92400E; font-weight: 600;">📄 Executive Summary Generator</span>
+                        <span style="font-size: 9px; background: #F59E0B; color: white; padding: 2px 6px; border-radius: 8px; margin-left: auto;">Med-High</span>
+                      </div>
+                      <div class="roadmap-details" style="display: none; padding: 12px; background: var(--gray-50); font-size: 12px;">
+                        <textarea style="width: 100%; min-height: 60px; border: 1px solid var(--gray-200); border-radius: 4px; padding: 8px; font-size: 12px; resize: vertical;" placeholder="Add details...">Auto-generate stakeholder-ready reports with editable insights. Similar to existing Customer_Care_Executive_Summary.html but dynamic. Key insights per section, user corrections, inline updates. Export as PDF or shareable link. Button exists but needs full logic.</textarea>
+                      </div>
+                    </div>
+                    
+                    <div class="roadmap-item" style="border: 2px solid #F59E0B; border-radius: var(--radius-sm); overflow: hidden;">
+                      <div onclick="toggleRoadmapItem(this)" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: linear-gradient(135deg, #FEF3C7, #FDE68A); cursor: pointer;">
+                        <span style="color: var(--gray-600); font-size: 10px;">▶</span>
+                        <span style="font-size: 12px; color: #92400E; font-weight: 600;">📈 Forecasting Hub</span>
+                        <span style="font-size: 9px; background: #F59E0B; color: white; padding: 2px 6px; border-radius: 8px; margin-left: auto;">Med-High</span>
+                      </div>
+                      <div class="roadmap-details" style="display: none; padding: 12px; background: var(--gray-50); font-size: 12px;">
+                        <textarea style="width: 100%; min-height: 60px; border: 1px solid var(--gray-200); border-radius: 4px; padding: 8px; font-size: 12px; resize: vertical;" placeholder="Add details...">Deep-dive forecast and trend analysis. Still vague requirement — may need its own dedicated view. Could include seasonal pattern detection, trend forecasting, anomaly alerts. Possibly connect to actual volume data for comparison.</textarea>
+                      </div>
+                    </div>
+                    
+                    <!-- HIGH PRIORITY -->
+                    <div class="roadmap-item" style="border: 2px solid #DC2626; border-radius: var(--radius-sm); overflow: hidden;">
+                      <div onclick="toggleRoadmapItem(this)" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: linear-gradient(135deg, #FEE2E2, #FECACA); cursor: pointer;">
+                        <span style="color: var(--gray-600); font-size: 10px;">▶</span>
+                        <span style="font-size: 12px; color: #991B1B; font-weight: 600;">📊 Data Health Score</span>
+                        <span style="font-size: 9px; background: #DC2626; color: white; padding: 2px 6px; border-radius: 8px; margin-left: auto;">HIGH</span>
+                      </div>
+                      <div class="roadmap-details" style="display: none; padding: 12px; background: var(--gray-50); font-size: 12px;">
+                        <textarea style="width: 100%; min-height: 60px; border: 1px solid var(--gray-200); border-radius: 4px; padding: 8px; font-size: 12px; resize: vertical;" placeholder="Add details...">Show % complete, flag missing data per pillar/channel. Critical for import validation. Alert users when baseline data is incomplete. Show which default settings are being used as fallbacks.</textarea>
+                      </div>
+                    </div>
+                    
+                    <div class="roadmap-item" style="border: 2px solid #DC2626; border-radius: var(--radius-sm); overflow: hidden;">
+                      <div onclick="toggleRoadmapItem(this)" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: linear-gradient(135deg, #FEE2E2, #FECACA); cursor: pointer;">
+                        <span style="color: var(--gray-600); font-size: 10px;">▶</span>
+                        <span style="font-size: 12px; color: #991B1B; font-weight: 600;">📖 Metric Dictionary</span>
+                        <span style="font-size: 9px; background: #DC2626; color: white; padding: 2px 6px; border-radius: 8px; margin-left: auto;">HIGH</span>
+                      </div>
+                      <div class="roadmap-details" style="display: none; padding: 12px; background: var(--gray-50); font-size: 12px;">
+                        <textarea style="width: 100%; min-height: 60px; border: 1px solid var(--gray-200); border-radius: 4px; padding: 8px; font-size: 12px; resize: vertical;" placeholder="Add details...">In-tool reference with industry standard definitions + user-input definitions. Document shrink in FTE calc (not productive hours), AHT in seconds, etc. Critical for calculation validation and new user onboarding.</textarea>
+                      </div>
+                    </div>
+                    
+                    <div class="roadmap-item" style="border: 2px solid #DC2626; border-radius: var(--radius-sm); overflow: hidden;">
+                      <div onclick="toggleRoadmapItem(this)" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: linear-gradient(135deg, #FEE2E2, #FECACA); cursor: pointer;">
+                        <span style="color: var(--gray-600); font-size: 10px;">▶</span>
+                        <span style="font-size: 12px; color: #991B1B; font-weight: 600;">⏰ Working Days Type</span>
+                        <span style="font-size: 9px; background: #DC2626; color: white; padding: 2px 6px; border-radius: 8px; margin-left: auto;">HIGH</span>
+                      </div>
+                      <div class="roadmap-details" style="display: none; padding: 12px; background: var(--gray-50); font-size: 12px;">
+                        <textarea style="width: 100%; min-height: 60px; border: 1px solid var(--gray-200); border-radius: 4px; padding: 8px; font-size: 12px; resize: vertical;" placeholder="Add details...">5-day vs 7-day at channel level. Some channels only count weekdays because weekend volume/staffing is low. Should support backdating or future-dating setting changes with audit log.</textarea>
+                      </div>
+                    </div>
+                    
+                    <!-- MEDIUM PRIORITY -->
+                    <div class="roadmap-item" style="border: 1px solid var(--gray-200); border-radius: var(--radius-sm); overflow: hidden;">
+                      <div onclick="toggleRoadmapItem(this)" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: var(--info-bg); cursor: pointer;">
+                        <span style="color: var(--gray-600); font-size: 10px;">▶</span>
+                        <span style="font-size: 12px; color: var(--gray-700); font-weight: 500;">👥 Part-Time / Full-Time HC</span>
+                        <span style="font-size: 9px; background: var(--info); color: white; padding: 2px 6px; border-radius: 8px; margin-left: auto;">Medium</span>
+                      </div>
+                      <div class="roadmap-details" style="display: none; padding: 12px; background: var(--gray-50); font-size: 12px;">
+                        <textarea style="width: 100%; min-height: 60px; border: 1px solid var(--gray-200); border-radius: 4px; padding: 8px; font-size: 12px; resize: vertical;" placeholder="Add details...">Separate HC calculations for different work schedules. Part-time = different daily hours. FTE conversion differs. Impact on capacity planning for mixed workforce.</textarea>
+                      </div>
+                    </div>
+                    
+                    <div class="roadmap-item" style="border: 1px solid var(--gray-200); border-radius: var(--radius-sm); overflow: hidden;">
+                      <div onclick="toggleRoadmapItem(this)" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: var(--info-bg); cursor: pointer;">
+                        <span style="color: var(--gray-600); font-size: 10px;">▶</span>
+                        <span style="font-size: 12px; color: var(--gray-700); font-weight: 500;">📝 Settings Change Audit Log</span>
+                        <span style="font-size: 9px; background: var(--info); color: white; padding: 2px 6px; border-radius: 8px; margin-left: auto;">Medium</span>
+                      </div>
+                      <div class="roadmap-details" style="display: none; padding: 12px; background: var(--gray-50); font-size: 12px;">
+                        <textarea style="width: 100%; min-height: 60px; border: 1px solid var(--gray-200); border-radius: 4px; padding: 8px; font-size: 12px; resize: vertical;" placeholder="Add details...">Track who changed what setting and when. Critical for multi-user environments. Support for backdating settings changes. Pairs with Admin Permissions feature.</textarea>
+                      </div>
+                    </div>
+                    
+                    <div class="roadmap-item" style="border: 1px solid var(--gray-200); border-radius: var(--radius-sm); overflow: hidden;">
+                      <div onclick="toggleRoadmapItem(this)" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: var(--info-bg); cursor: pointer;">
+                        <span style="color: var(--gray-600); font-size: 10px;">▶</span>
+                        <span style="font-size: 12px; color: var(--gray-700); font-weight: 500;">🧪 What-If Simulator</span>
+                        <span style="font-size: 9px; background: var(--info); color: white; padding: 2px 6px; border-radius: 8px; margin-left: auto;">Medium</span>
+                      </div>
+                      <div class="roadmap-details" style="display: none; padding: 12px; background: var(--gray-50); font-size: 12px;">
+                        <textarea style="width: 100%; min-height: 60px; border: 1px solid var(--gray-200); border-radius: 4px; padding: 8px; font-size: 12px; resize: vertical;" placeholder="Add details...">Quick calculator for "what if" scenarios. "What if volume increases 20%?" without creating full scenario. Instant impact preview. Lighter than Quick Change Mode.</textarea>
                       </div>
                     </div>
                     
