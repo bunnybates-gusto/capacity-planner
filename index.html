@@ -2358,6 +2358,11 @@
       }
     }
   </style>
+  
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 </head>
 <body>
   <div class="app-container">
@@ -2366,6 +2371,17 @@
       <div class="nav-header">
         <div class="logo">G</div>
         <span class="logo-text">Capacity Planner</span>
+      </div>
+      
+      <!-- Auth Section -->
+      <div id="authSection" style="padding: 8px 12px; border-bottom: 1px solid var(--gray-200); background: var(--gray-50);">
+        <div id="userInfo" style="display: none; align-items: center; margin-bottom: 6px;"></div>
+        <button id="authButton" onclick="signInWithGoogle()" style="width: 100%; padding: 8px 12px; background: var(--gusto-teal); color: white; border: none; border-radius: var(--radius-sm); cursor: pointer; font-size: 12px; font-weight: 500; display: flex; align-items: center; justify-content: center; gap: 6px;">
+          🔐 Sign In with Google
+        </button>
+        <div id="saveStatus" style="font-size: 10px; color: var(--gray-500); text-align: center; margin-top: 4px; display: none;">
+          ✓ Auto-saving enabled
+        </div>
       </div>
       
       <!-- Quick Jump Search -->
@@ -7382,9 +7398,14 @@
           
           <!-- Page Header -->
           <div style="margin-bottom: var(--space-lg);">
-            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
-              <h1 style="font-size: 24px; font-weight: 600; color: var(--gray-800);">🚀 Project Hub</h1>
-              <span style="background: var(--info-bg); color: var(--info); padding: 4px 12px; border-radius: 12px; font-size: 11px; font-weight: 600;">Phase 1 Prototype</span>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <h1 style="font-size: 24px; font-weight: 600; color: var(--gray-800);">🚀 Project Hub</h1>
+                <span style="background: var(--info-bg); color: var(--info); padding: 4px 12px; border-radius: 12px; font-size: 11px; font-weight: 600;">Phase 1 Prototype</span>
+              </div>
+              <button onclick="saveProjectHub()" id="saveProjectHubBtn" style="background: var(--success); color: white; border: none; padding: 8px 16px; border-radius: var(--radius-sm); cursor: pointer; font-size: 12px; font-weight: 500; display: flex; align-items: center; gap: 6px;">
+                💾 Save to Cloud
+              </button>
             </div>
             <p style="color: var(--gray-500); font-size: 14px;">Track progress, manage tasks, and document decisions</p>
             
@@ -10274,6 +10295,251 @@ Tip: Include header row with column names!"></textarea>
   </div>
   
   <script>
+    // ═══════════════════════════════════════════════════════════════════════
+    // FIREBASE CONFIGURATION & INITIALIZATION
+    // ═══════════════════════════════════════════════════════════════════════
+    
+    const firebaseConfig = {
+      apiKey: "AIzaSyCdHkfN5b99YfTR9EPG6ASyr9Wc-aNgbFU",
+      authDomain: "colab-436211.firebaseapp.com",
+      projectId: "colab-436211",
+      storageBucket: "colab-436211.firebasestorage.app",
+      messagingSenderId: "160371756639",
+      appId: "1:160371756639:web:bdd5a53172f707ef3f15ea"
+    };
+    
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+    
+    // Current user state
+    let currentUser = null;
+    
+    // ═══════════════════════════════════════════════════════════════════════
+    // AUTHENTICATION FUNCTIONS
+    // ═══════════════════════════════════════════════════════════════════════
+    
+    // Sign in with Google
+    function signInWithGoogle() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      auth.signInWithPopup(provider)
+        .then((result) => {
+          console.log('✅ Signed in:', result.user.email);
+          showToast('✅ Signed in as ' + result.user.displayName, 'success');
+        })
+        .catch((error) => {
+          console.error('❌ Sign-in error:', error);
+          showToast('❌ Sign-in failed: ' + error.message, 'error');
+        });
+    }
+    
+    // Sign out
+    function signOut() {
+      auth.signOut()
+        .then(() => {
+          console.log('👋 Signed out');
+          showToast('👋 Signed out successfully', 'info');
+        })
+        .catch((error) => {
+          console.error('❌ Sign-out error:', error);
+        });
+    }
+    
+    // Listen for auth state changes
+    auth.onAuthStateChanged((user) => {
+      currentUser = user;
+      updateAuthUI(user);
+      if (user) {
+        console.log('🔐 User logged in:', user.email);
+        loadUserData(); // Load their data from Firestore
+      } else {
+        console.log('🔓 No user logged in');
+      }
+    });
+    
+    // Update UI based on auth state
+    function updateAuthUI(user) {
+      const authButton = document.getElementById('authButton');
+      const userInfo = document.getElementById('userInfo');
+      const saveStatus = document.getElementById('saveStatus');
+      const saveBtn = document.getElementById('saveProjectHubBtn');
+      
+      if (authButton && userInfo) {
+        if (user) {
+          authButton.innerHTML = '🚪 Sign Out';
+          authButton.onclick = signOut;
+          authButton.style.background = 'var(--gray-500)';
+          userInfo.innerHTML = '<img src="' + (user.photoURL || '') + '" style="width: 24px; height: 24px; border-radius: 50%; margin-right: 8px;" onerror="this.style.display=\'none\'">' + 
+                               '<span style="font-size: 12px; color: var(--gray-700);">' + (user.displayName || user.email) + '</span>';
+          userInfo.style.display = 'flex';
+          if (saveStatus) saveStatus.style.display = 'block';
+          if (saveBtn) saveBtn.style.display = 'flex';
+        } else {
+          authButton.innerHTML = '🔐 Sign In with Google';
+          authButton.onclick = signInWithGoogle;
+          authButton.style.background = 'var(--gusto-teal)';
+          userInfo.style.display = 'none';
+          if (saveStatus) saveStatus.style.display = 'none';
+          if (saveBtn) saveBtn.style.display = 'none';
+        }
+      }
+    }
+    
+    // ═══════════════════════════════════════════════════════════════════════
+    // FIRESTORE DATA FUNCTIONS
+    // ═══════════════════════════════════════════════════════════════════════
+    
+    // Save data to Firestore
+    async function saveToFirestore(collection, docId, data) {
+      if (!currentUser) {
+        console.warn('⚠️ Must be signed in to save');
+        return false;
+      }
+      
+      try {
+        await db.collection(collection).doc(docId).set({
+          ...data,
+          updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+          updatedBy: currentUser.email
+        }, { merge: true });
+        console.log('💾 Saved to', collection + '/' + docId);
+        return true;
+      } catch (error) {
+        console.error('❌ Save error:', error);
+        showToast('❌ Save failed: ' + error.message, 'error');
+        return false;
+      }
+    }
+    
+    // Load data from Firestore
+    async function loadFromFirestore(collection, docId) {
+      try {
+        const doc = await db.collection(collection).doc(docId).get();
+        if (doc.exists) {
+          console.log('📂 Loaded from', collection + '/' + docId);
+          return doc.data();
+        } else {
+          console.log('📭 No data found in', collection + '/' + docId);
+          return null;
+        }
+      } catch (error) {
+        console.error('❌ Load error:', error);
+        return null;
+      }
+    }
+    
+    // Load all user data on sign-in
+    async function loadUserData() {
+      if (!currentUser) return;
+      
+      // Load Project Hub data
+      const projectHubData = await loadFromFirestore('projectHub', 'main');
+      if (projectHubData) {
+        applyProjectHubData(projectHubData);
+      }
+      
+      // Load Calendar events
+      const calendarData = await loadFromFirestore('calendar', 'events');
+      if (calendarData) {
+        applyCalendarData(calendarData);
+      }
+      
+      showToast('📂 Data loaded!', 'success');
+    }
+    
+    // Apply loaded Project Hub data to UI
+    function applyProjectHubData(data) {
+      // Apply tasks
+      if (data.tasks) {
+        // Will implement task loading
+        console.log('📋 Loaded', data.tasks.length, 'tasks');
+      }
+      
+      // Apply notes
+      if (data.notes) {
+        const notesArea = document.querySelector('#projectNotes');
+        if (notesArea) notesArea.value = data.notes;
+      }
+      
+      // Apply roadmap edits
+      if (data.roadmapDetails) {
+        Object.entries(data.roadmapDetails).forEach(([id, text]) => {
+          const textarea = document.querySelector(`[data-roadmap-id="${id}"]`);
+          if (textarea) textarea.value = text;
+        });
+      }
+    }
+    
+    // Apply loaded Calendar data to UI
+    function applyCalendarData(data) {
+      if (data.events) {
+        window.calendarEvents = data.events;
+        if (typeof renderCalendar === 'function') {
+          renderCalendar();
+        }
+      }
+    }
+    
+    // Save Project Hub data
+    async function saveProjectHub() {
+      const data = {
+        tasks: gatherTasks(),
+        notes: document.querySelector('#projectNotes')?.value || '',
+        roadmapDetails: gatherRoadmapDetails(),
+        sessionLog: gatherSessionLog()
+      };
+      
+      const success = await saveToFirestore('projectHub', 'main', data);
+      if (success) {
+        showToast('💾 Project Hub saved!', 'success');
+      }
+    }
+    
+    // Gather tasks from UI
+    function gatherTasks() {
+      const tasks = [];
+      document.querySelectorAll('#sprintChecklist input[type="checkbox"]').forEach((checkbox, index) => {
+        const label = checkbox.parentElement.textContent.trim();
+        tasks.push({
+          id: index,
+          label: label,
+          completed: checkbox.checked
+        });
+      });
+      return tasks;
+    }
+    
+    // Gather roadmap details from textareas
+    function gatherRoadmapDetails() {
+      const details = {};
+      document.querySelectorAll('.roadmap-details textarea').forEach((textarea, index) => {
+        details['roadmap-' + index] = textarea.value;
+      });
+      return details;
+    }
+    
+    // Gather session log entries
+    function gatherSessionLog() {
+      const entries = [];
+      document.querySelectorAll('#sessionLog > div').forEach((entry) => {
+        entries.push(entry.innerHTML);
+      });
+      return entries;
+    }
+    
+    // Save Calendar events
+    async function saveCalendarEvents() {
+      const data = {
+        events: window.calendarEvents || []
+      };
+      
+      const success = await saveToFirestore('calendar', 'events', data);
+      if (success) {
+        showToast('📅 Calendar saved!', 'success');
+      }
+    }
+    
     // ═══════════════════════════════════════════════════════════════════════
     // WEBAPP PROTOTYPE - Interactive Functionality
     // ═══════════════════════════════════════════════════════════════════════
